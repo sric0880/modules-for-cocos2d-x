@@ -1,7 +1,7 @@
-#share my libs for building cocos2d-x game
+>>>share my libs for building cocos2d-x game
 
-##Author qiong
-##Mail lzqiong@gmail.com
+>###Author qiong
+>###Mail lzqiong@gmail.com
 
 >using cocos2dx version 3.0beta2
 
