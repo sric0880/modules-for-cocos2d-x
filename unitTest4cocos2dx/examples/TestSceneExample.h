@@ -1,5 +1,5 @@
-#ifndef _FONT_TEST_H_
-#define _FONT_TEST_H_
+#ifndef _TEST_H_
+#define _TEST_H_
 
 #include "cocos2d.h"
 #include "../testBasic.h"
@@ -19,4 +19,4 @@ public:
 };
 
 
-#endif // _FONT_TEST_H_
+#endif

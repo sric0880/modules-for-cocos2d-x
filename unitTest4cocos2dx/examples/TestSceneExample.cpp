@@ -1,10 +1,5 @@
 #include "TestSceneExample.h"
 
-///---------------------------------------
-// 
-// DirectorTestScene
-// 
-///---------------------------------------
 TestSceneExample TestSceneExample::test;
 void TestSceneExample::runThisTest()
 {
