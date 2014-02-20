@@ -7,6 +7,7 @@
 //
 
 #include "PomeloClient.h"
+#include "JsonConverter.h"
 
 PomeloClient PomeloClient::pc;
 /*
@@ -99,7 +100,7 @@ void PomeloClient::clear()
     _allNotifies.clear();
 }
 
-void PomeloClient::regDisconnectCallback(const cb1Json& callback)
+void PomeloClient::regDisconnectCallback(const cb1Value& callback)
 {
     addEventListener(PC_EVENT_DISCONNECT, callback);
 }
@@ -107,7 +108,7 @@ void PomeloClient::delDisconnectCallback()
 {
     removeEventListener(PC_EVENT_DISCONNECT);
 }
-void PomeloClient::regTimeoutCallback(const cb1Json& callback)
+void PomeloClient::regTimeoutCallback(const cb1Value& callback)
 {
     addEventListener(PC_EVENT_TIMEOUT,callback);
 }
@@ -115,7 +116,7 @@ void PomeloClient::delTimeoutCallback()
 {
     removeEventListener(PC_EVENT_TIMEOUT);
 }
-void PomeloClient::regOnKickCallback(const cb1Json& callback)
+void PomeloClient::regOnKickCallback(const cb1Value& callback)
 {
     addEventListener(PC_EVENT_KICK,callback);
 }
@@ -124,7 +125,7 @@ void PomeloClient::delOnKickCallback()
     removeEventListener(PC_EVENT_KICK);
 }
 
-void PomeloClient::addEventListener(const char* eventName, const cb1Json& callback)
+void PomeloClient::addEventListener(const char* eventName, const cb1Value& callback)
 {
     assert(_client);
     _allEvents[eventName] = callback;
@@ -139,29 +140,29 @@ void PomeloClient::removeEventListener(const char* eventName)
     pc_remove_listener(_client, eventName, _pc_event_cb);//这不是回调
 }
 
-int PomeloClient::request(const char* route, json_t* msg, const cb1I1Json& callback)
+int PomeloClient::request(const char* route, cocos2d::Value& msg, const cb1I1Value& callback)
 {
     assert(_client);
     pc_request_t* req = pc_request_new();
     _allRequests[route] = callback;
-    return pc_request(_client, req, route, msg, _pc_request_cb);
+    return pc_request(_client, req, route, convertFrom(msg), _pc_request_cb);
 }
 
-int PomeloClient::notify(const char* route, json_t* msg, const cb1I& callback)
+int PomeloClient::notify(const char* route, cocos2d::Value& msg, const cb1I& callback)
 {
     assert(_client);
     pc_notify_t *notify = pc_notify_new();
     _allNotifies[route] = callback;
-    return pc_notify(_client, notify, route, msg, _pc_notify_cb);
+    return pc_notify(_client, notify, route, convertFrom(msg), _pc_notify_cb);
 }
 
-const cb1Json& PomeloClient::getCbForEvent(const char* eventName) const {
+const cb1Value& PomeloClient::getCbForEvent(const char* eventName) const {
     auto event = _allEvents.find(eventName);
     CCASSERT(event!=_allEvents.end(), "");
     return event->second;
 }
 
-const cb1I1Json& PomeloClient::getCbForRequest(const char* route) const {
+const cb1I1Value& PomeloClient::getCbForRequest(const char* route) const {
     auto req = _allRequests.find(route);
     CCASSERT(req!=_allRequests.end(), "");
     return req->second;
@@ -185,7 +186,7 @@ void _pc_connect_cb(pc_connect_t* req, int status)
     pc.getScheduler()->performFunctionInCocosThread(bind(std::ref(pc.getCbForConnect()), status));
     
     if (status == -1) {
-        pc.clear();
+        pc.clear();//没有清理_cbForConnect对象
     }
 }
 
@@ -208,8 +209,7 @@ void _pc_event_cb(pc_client_t *client, const char *event, void *data)
     PomeloClient& pc = PomeloClient::getInstance();
     /*
      *>>BUG<< must increase the ref of json_t >> Maybe json will be decrefed
-     * after this function, but json must be maintained utill cocos thread used it.
-     * So cocos thread has responsibility to decrefed json
+     * after this function, but json must be maintained utill convertFrom().
      */
     json_incref(json);
     thread local_thread([&,event,json](){ //@see void stop()
@@ -217,10 +217,14 @@ void _pc_event_cb(pc_client_t *client, const char *event, void *data)
          *>>BUG<< must have std::ref >>I don't know why
          */
         /*add the function object to the safe UI thread*/
-        pc.getScheduler()->performFunctionInCocosThread(bind(std::ref(pc.getCbForEvent(event)), json));
-        if (strcmp(event, PC_EVENT_DISCONNECT) == 0) {
-            pc.clear();
-        }
+        pc.getScheduler()->performFunctionInCocosThread(bind(std::ref(pc.getCbForEvent(event)), convertFrom(json)));
+            /*
+             * if clear the event callback, when invoke the callback later,
+             * it will crash!
+             */
+//        if (strcmp(event, PC_EVENT_DISCONNECT) == 0) {
+//            pc.clear();
+//        }
     });
     //when _pc_event_cb is over, local_thread will continue
     //excuting this lamda function.
@@ -231,15 +235,12 @@ void _pc_request_cb(pc_request_t *req, int status, json_t *resp)
 {
     cocos2d::log("on request: status %d, %s", status, json_dumps(resp, 0));
     PomeloClient& pc = PomeloClient::getInstance();
-    /*
-     *>>BUG<< must increase the ref of json_t >>
-     */
     json_incref(resp);
     /*
      *>>BUG<< must have std::ref >>I don't know why
     */
     /*add the function object to the safe UI thread*/
-    pc.getScheduler()->performFunctionInCocosThread(bind(std::ref(pc.getCbForRequest(req->route)), status, resp));
+    pc.getScheduler()->performFunctionInCocosThread(bind(std::ref(pc.getCbForRequest(req->route)), status, convertFrom(resp)));
     
     // release relative resource with pc_request_t
     json_t *msg = req->msg;

@@ -17,11 +17,11 @@
 using namespace std;
 
 typedef function<void(int)> cb1I;
-typedef function<void(json_t*)> cb1Json;
-typedef function<void(int, json_t*)> cb1I1Json;
+typedef function<void(cocos2d::Value&)> cb1Value;
+typedef function<void(int, cocos2d::Value&)> cb1I1Value;
 
-typedef unordered_map<string, cb1Json> cbEventsMap;
-typedef unordered_map<string, cb1I1Json> cbReqeustsMap;
+typedef unordered_map<string, cb1Value> cbEventsMap;
+typedef unordered_map<string, cb1I1Value> cbReqeustsMap;
 typedef unordered_map<string, cb1I> cbNotifiesMap;
 
 class PomeloClient{
@@ -89,25 +89,25 @@ public:
      * 注册断开连接时的回调，timeout和kick的callback执行完会调用该callback
      * p.s. callback函数参数json_t为null, 不需要调用decref释放
      */
-    void regDisconnectCallback(const cb1Json& callback);
+    void regDisconnectCallback(const cb1Value& callback);
     void delDisconnectCallback();
     /*
      * 客户端定时发心跳包，本地断网或服务器无响应时回调
      * * p.s. callback函数参数json_t为null, 不需要调用decref释放
      */
-    void regTimeoutCallback(const cb1Json& callback);
+    void regTimeoutCallback(const cb1Value& callback);
     void delTimeoutCallback();
     /*
      * 注册当服务器主动踢出玩家时的回调
      * p.s. callback函数参数json_t为null, 不需要调用decref释放
      */
-    void regOnKickCallback(const cb1Json& callback);
+    void regOnKickCallback(const cb1Value& callback);
     void delOnKickCallback();
     /*
      * 添加一个事件监听
      * p.s. callback的参数json_t需要调用decref释放
      */
-    void addEventListener(const char* eventName, const cb1Json& callback);
+    void addEventListener(const char* eventName, const cb1Value& callback);
     /*
      * 删除一个事件监听
      */
@@ -117,18 +117,18 @@ public:
      * p.s. callback的参数json_t需要调用decref释放
      * status -1:失败 0:成功
      */
-    int request(const char* route, json_t* msg, const cb1I1Json& callback);
+    int request(const char* route, cocos2d::Value& msg, const cb1I1Value& callback);
     /*
      发送一个notify请求
      status -1:失败 0:成功
      */
-    int notify(const char* route, json_t* msg, const cb1I& callback);
+    int notify(const char* route, cocos2d::Value& msg, const cb1I& callback);
     
     /*cocos2dx 的UI线程调度函数*/
     cocos2d::Scheduler* getScheduler() const { return cocos2d::Director::getInstance()->getScheduler(); }
     const cb1I& getCbForConnect() const { return _cbForConnect; }
-    const cb1Json& getCbForEvent(const char* eventName) const;
-    const cb1I1Json& getCbForRequest(const char* route) const;
+    const cb1Value& getCbForEvent(const char* eventName) const;
+    const cb1I1Value& getCbForRequest(const char* route) const;
     const cb1I& getCbForNotify(const char* route) const;
 };
 

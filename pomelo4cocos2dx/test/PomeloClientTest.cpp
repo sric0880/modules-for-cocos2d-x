@@ -59,22 +59,19 @@ void PomeloClientTestLayer::onExit(){
     pc.stop();
 }
 
-void PomeloClientTestLayer::onDisconnect(json_t *data)
+void PomeloClientTestLayer::onDisconnect(Value& data)
 {
     log("on disconnect callback called");
-    json_decref(data);
 }
 
-void PomeloClientTestLayer::onKick(json_t *data)
+void PomeloClientTestLayer::onKick(Value& data)
 {
     log("on kick callback called");
-    json_decref(data);
 }
 
-void PomeloClientTestLayer::onTimeout(json_t* data)
+void PomeloClientTestLayer::onTimeout(Value& data)
 {
     log("on timeout callback called");
-    json_decref(data);
 }
 
 void PomeloClientTestLayer::onConnGateServer(int status)
@@ -93,44 +90,32 @@ void PomeloClientTestLayer::onConnGateServer(int status)
     pc.regTimeoutCallback(CC_CALLBACK_1(PomeloClientTestLayer::onTimeout, this));
     //    pc.delTimeoutCallback();
     
-    json_t* msg = json_object();
-    json_t* str = json_string("lzqiong");
-    json_object_set(msg, "uid", str);
-    json_decref(str);
-    int ret = pc.request("gate.gateHandler.queryEntry", msg, CC_CALLBACK_2(PomeloClientTestLayer::onGateServerResp, this));
+    ValueMap map;
+    map["uid"] = "lzqiong";
+    Value v(map);
+    int ret = pc.request("gate.gateHandler.queryEntry", v, CC_CALLBACK_2(PomeloClientTestLayer::onGateServerResp, this));
     CCASSERT(ret==0, "gate server request must success");
 }
 
-void PomeloClientTestLayer::onGateServerResp(int status, json_t* data)
+void PomeloClientTestLayer::onGateServerResp(int status, Value& data)
 {
     //连接connector server
     if (status == -1) {
         log("fail to send req to gate server");
         return;
     }
-    CCASSERT(status == 0, "");
     
     PomeloClient& pc = PomeloClient::getInstance();
     pc.stop();//停止连接Gate Server
     if (status == 0) {
-        const char* host = json_string_value(json_object_get(data, "host"));
-        int port = json_number_value(json_object_get(data, "port"));
-        pc.connectAsync(host, port, CC_CALLBACK_1(PomeloClientTestLayer::onConnServerResp, this));
+        string host = data.asValueMap()["host"].asString();
+        int port = data.asValueMap()["port"].asInt();
+        pc.connectAsync(host.c_str(), port, CC_CALLBACK_1(PomeloClientTestLayer::onConnServerResp, this));
     }
-    json_decref(data);
 }
 
 void PomeloClientTestLayer::onConnServerResp(int status)
 {
-    const char *route = "connector.entryHandler.enter";
-    json_t *msg = json_object();
-    json_t *str = json_string("lzqiong");
-    json_t *channel_str = json_string("room");
-    json_object_set(msg, "username", str);
-    json_object_set(msg, "rid", channel_str);
-    // decref for json object
-    json_decref(str);
-    json_decref(channel_str);
     PomeloClient& pc = PomeloClient::getInstance();
     
     pc.regDisconnectCallback(CC_CALLBACK_1(PomeloClientTestLayer::onDisconnect, this));
@@ -144,41 +129,41 @@ void PomeloClientTestLayer::onConnServerResp(int status)
     pc.addEventListener("onAdd", CC_CALLBACK_1(PomeloClientTestLayer::onAdd, this));
     pc.addEventListener("onLeave", CC_CALLBACK_1(PomeloClientTestLayer::onLeave, this));
     
-    pc.request(route, msg, CC_CALLBACK_2(PomeloClientTestLayer::onLoginSuc, this));
+    const char *route = "connector.entryHandler.enter";
+    ValueMap map;
+    map["username"] = "lzqiong";
+    map["rid"] = "room";
+    Value v(map);
+    pc.request(route, v, CC_CALLBACK_2(PomeloClientTestLayer::onLoginSuc, this));
 }
 
-void PomeloClientTestLayer::onLoginSuc(int status, json_t* data)
+void PomeloClientTestLayer::onLoginSuc(int status, Value& data)
 {
     if(status == -1){
         log("fail to send req to connector server");
         return;
     }
-    CCASSERT(status == 0, "");
     if(status == 0){
-		json_t* users = json_object_get(data,"users");
-        if(json_object_get(data, "error") != NULL) {
+        ValueMap map = data.asValueMap();
+        if(!map["error"].isNull()) {
             log("connect error");
             return;
         }
-        for (unsigned int i=0; i<json_array_size(users); i++) {
-            json_t* val = json_array_get(users,i);
-            UsersData.push_back(json_string_value(val));
-        }
+        ValueVector vv = data.asValueMap()["users"].asValueVector();
+        for_each(vv.begin(), vv.end(), [this](Value v){
+            UsersData.push_back(v.asString());
+        });
         printUsers();
     }
-    json_decref(data);
 }
 
-void PomeloClientTestLayer::onChat(json_t * data)
+void PomeloClientTestLayer::onChat(Value& data)
 {
-    const char* msg = json_dumps(data, 0);
-    msgView->setString(msg);
-    json_decref(data);
+    msgView->setString(data.getDescription());
 }
-void PomeloClientTestLayer::onLeave(json_t * data)
+void PomeloClientTestLayer::onLeave(Value& data)
 {
-    json_t* user = json_object_get(data, "user");
-    const char* msg = json_string_value(user);
+    string msg = data.asValueMap()["user"].asString();
     for (vector<string>::iterator iter = UsersData.begin(); iter!=UsersData.end(); iter++) {
         if ((*iter).compare(msg) == 0) {
                     UsersData.erase(iter);
@@ -186,15 +171,12 @@ void PomeloClientTestLayer::onLeave(json_t * data)
         }
     }
     printUsers();
-    json_decref(data);
 }
-void PomeloClientTestLayer::onAdd(json_t * data)
+void PomeloClientTestLayer::onAdd(Value& data)
 {
-    json_t* user = json_object_get(data, "user");
-    const char* msg = json_string_value(user);
+    string msg = data.asValueMap()["user"].asString();
     UsersData.push_back(msg);
     printUsers();
-    json_decref(data);
 }
 
 void PomeloClientTestLayer::printUsers()
@@ -220,7 +202,8 @@ void PomeloClientTestLayer::onNotify(int status)
 void PomeloClientTestLayer::btnSendNotify(Object* sender)
 {
     PomeloClient& pc = PomeloClient::getInstance();
-    json_t* json = json_object();
-    json_object_set_new(json, "content", json_string("hello kitty!"));
-    pc.notify("chat.chatHandler.notify", json, CC_CALLBACK_1(PomeloClientTestLayer::onNotify, this));
+    ValueMap map;
+    map["content"] = "hello kitty!";
+    Value v(map);
+    pc.notify("chat.chatHandler.notify", v, CC_CALLBACK_1(PomeloClientTestLayer::onNotify, this));
 }

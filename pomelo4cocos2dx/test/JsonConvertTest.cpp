@@ -177,6 +177,13 @@ bool JsonConvertTestLayer::init()
             Value value = convertFrom(json);
             log("from json to value: %s", value.getDescription().c_str());
             
+            if(i == 0){
+                //test ValueMap
+                CCASSERT(!value.asValueMap()["user"].isNull(), "");
+                CCASSERT(value.asValueMap()["a"].isNull(), "");
+                log("from json to value: %s", value.getDescription().c_str());
+            }
+            
             json_t * newJson = convertFrom(value);
             log("from value to json: \n%s", json_dumps(newJson, 0));
             json_decref(newJson);

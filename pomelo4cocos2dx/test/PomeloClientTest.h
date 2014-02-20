@@ -26,16 +26,16 @@ public:
     
     CREATE_FUNC(PomeloClientTestLayer);
     
-    void onDisconnect(json_t* data);
-    void onKick(json_t *data);
-    void onTimeout(json_t* data);
+    void onDisconnect(Value& data);
+    void onKick(Value& data);
+    void onTimeout(Value& data);
     void onConnGateServer(int status);
-    void onGateServerResp(int status, json_t* data);
+    void onGateServerResp(int status, Value& data);
     void onConnServerResp(int status);
-    void onLoginSuc(int status, json_t* data);
-    void onChat(json_t * data);
-    void onLeave(json_t * data);
-    void onAdd(json_t * data);
+    void onLoginSuc(int status, Value& data);
+    void onChat(Value& data);
+    void onLeave(Value& data);
+    void onAdd(Value& data);
     void onNotify(int status);
     
     void btnSendNotify(Object* sender);
