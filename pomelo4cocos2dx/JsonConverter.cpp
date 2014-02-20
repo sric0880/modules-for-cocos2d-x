@@ -1,28 +1,39 @@
 #include "JsonConverter.h"
 
+Value convertFrom_(json_t* json);
 Value convertFrom(json_t* json)
 {
+    Value v = convertFrom_(json);
+    json_decref(json);
+    return v;
+}
+
+Value convertFrom_(json_t* json)
+{
     Value v;
+    if (!json) {
+        return v;
+    }
     switch (json_typeof(json)) {
         case JSON_OBJECT:
         {
-            ValueMap* dict = new ValueMap();
+            ValueMap dict;
             const char* key;
             json_t* value;
             json_object_foreach(json, key, value)
             {
-                (*dict)[key] = convertFrom(value);
+                dict[key] = convertFrom_(value);
             }
             v = dict;
             break;
         }
         case JSON_ARRAY:
         {
-            ValueVector* arr = new ValueVector();
+            ValueVector arr;
             size_t arr_size = json_array_size(json);
             for (int i = 0; i < arr_size; ++i) {
                 json_t *value = json_array_get(json, i);
-                arr->push_back(convertFrom(value));
+                arr.push_back(convertFrom_(value));
             }
             v = arr;
             break;
@@ -62,6 +73,9 @@ Value convertFrom(json_t* json)
 json_t* convertFrom(Value& value)
 {
     Value::Type type = value.getType();
+    if (type == Value::Type::NONE) {
+        return json_null();
+    }
     CCASSERT(type!=Value::Type::INT_KEY_MAP, "not support Type::INT_KEY_MAP");
     CCASSERT(type!=Value::Type::BYTE, "not support Type::BYTE");
     json_t* json;
