@@ -65,12 +65,17 @@ public:
 
     /**
      * 主动断开连接
+        调用pc_client_destroy，实现了所有的清理工作，并调用了free(_client)
+        pc_client_destroy发送close_async消息，但调用pc_client_join(client)等待
+        子线程结束，所以：
+     *
      * >>>该函数是同步的哦~亲~<<<
-     * 该函数会等待onDisconnect的callback执行完成后才返回
-        如果stop正在CocosThread中执行，并且onDisconnect的callback请求Schedular列队，
-        就会死锁
-     * 所以onDisconnect的callback不能放入Schedular列队，只能直接在_pc_event_cb函数中
-        执行，该函数本身是在CocosThread中
+     *
+     * 子线程会执行onDisconnect的callback函数
+            如果stop正在Schedular列队中执行，同时onDisconnect的callback请求加入
+        Schedular列队，就会死锁
+     *      所以只能再开一个线程将onDisconnect的callback放入Schedular列队 @see
+        _pc_event_cb
      */
     void stop();
     /**

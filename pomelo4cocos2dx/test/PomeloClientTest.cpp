@@ -8,7 +8,7 @@ void PomeloClientTest::runThisTest()
     Director::getInstance()->pushScene(this);
 }
 
-const static char* const GATE_HOST = "192.168.1.104";
+const static char* const GATE_HOST = "192.168.1.103";//change it to test connect error
 const static int GATE_PORT = 3014;
 
 clock_t start, finish;
@@ -21,10 +21,18 @@ bool PomeloClientTestLayer::init()
     if (!Layer::init()) {
         return false;
     }
+    /*
+     * View
+     */
     printUsers();
     msgView = LabelTTF::create("", "", 30);
     msgView->setPosition(480,500);
     addChild(msgView);
+    auto btn_notify = MenuItemLabel::create(LabelTTF::create("sendNotify", "", 30), CC_CALLBACK_1(PomeloClientTestLayer::btnSendNotify, this));
+    btn_notify->setPosition(480,300);
+    auto menu = Menu::create(btn_notify,NULL);
+    menu->setPosition(Point::ZERO);
+    addChild(menu);
     /**
      * test goes here
      */
@@ -54,6 +62,7 @@ void PomeloClientTestLayer::onExit(){
 void PomeloClientTestLayer::onDisconnect(json_t *data)
 {
     log("on disconnect callback called");
+    json_decref(data);
 }
 
 void PomeloClientTestLayer::onKick(json_t *data)
@@ -201,4 +210,17 @@ void PomeloClientTestLayer::printUsers()
         addChild(userlabel);
         UsersView.pushBack(userlabel);
     }
+}
+
+void PomeloClientTestLayer::onNotify(int status)
+{
+    log("receive notify callback status: %d", status);
+}
+
+void PomeloClientTestLayer::btnSendNotify(Object* sender)
+{
+    PomeloClient& pc = PomeloClient::getInstance();
+    json_t* json = json_object();
+    json_object_set_new(json, "content", json_string("hello kitty!"));
+    pc.notify("chat.chatHandler.notify", json, CC_CALLBACK_1(PomeloClientTestLayer::onNotify, this));
 }

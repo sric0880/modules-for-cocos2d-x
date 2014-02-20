@@ -43,11 +43,7 @@ PomeloClient::~PomeloClient()
 
 int PomeloClient::connect(const char* addr, int port)
 {
-    if (!_client)
-    {
-        _client = pc_client_new();
-    }
-    
+    _client = pc_client_new();
     struct sockaddr_in address;
     
     memset(&address, 0, sizeof(struct sockaddr_in));
@@ -66,10 +62,7 @@ int PomeloClient::connect(const char* addr, int port)
 
 void PomeloClient::connectAsync(const char* addr, int port, const cb1I& callback)
 {
-    if(!_client)
-    {
-        _client = pc_client_new();
-    }
+    _client = pc_client_new();
     _cbForConnect = callback;
     
     struct sockaddr_in address;
@@ -94,15 +87,13 @@ void PomeloClient::stop()
     }
     /*
      *pc_client_destroy会回调onDisconnect
-     *这里不应该清理_allEvents
+     *这里不应该clear
      *所以应该在回调函数中清理
      */
 }
 
 void PomeloClient::clear()
 {
-    free(_client);
-    _client = nullptr;
     _allRequests.clear();
     _allEvents.clear();
     _allNotifies.clear();
@@ -186,11 +177,11 @@ void _pc_connect_cb(pc_connect_t* req, int status)
 {
     cocos2d::log("on connection: %d", status);
     pc_connect_req_destroy(req);
-    /*add the function object to the safe UI thread*/
     PomeloClient& pc = PomeloClient::getInstance();
     /*
      *>>BUG<< must have std::ref
      */
+    /*add the function object to the safe UI thread*/
     pc.getScheduler()->performFunctionInCocosThread(bind(std::ref(pc.getCbForConnect()), status));
     
     if (status == -1) {
@@ -208,52 +199,37 @@ void _pc_connect_cb(pc_connect_t* req, int status)
  *	@param 	data 	a json_t pointer in fact, I don't know why
 **/
 void _pc_event_cb(pc_client_t *client, const char *event, void *data)
-
 {
     json_t* json = (json_t* )data;
     if(!json){
         json = json_null();//convert NULL to json_null
     }
-    const char* msg = json_dumps(json, 0);
-    if(msg)
-        cocos2d::log("on event: %s, %s", event, msg);
-    /*add the function object to the safe UI thread*/
+    cocos2d::log("on event: %s, %s", event, json_dumps(json, 0));
     PomeloClient& pc = PomeloClient::getInstance();
-    
-    if (strcmp(event, PC_EVENT_DISCONNECT) == 0) {
-        cocos2d::log("on disconnect called");
-        pc.getCbForEvent(event)(json);/*@see void stop()*/
-        pc.clear();
-        return;
-    }
     /*
      *>>BUG<< must increase the ref of json_t >> Maybe json will be decrefed
      * after this function, but json must be maintained utill cocos thread used it.
      * So cocos thread has responsibility to decrefed json
      */
     json_incref(json);
-    /*
-     *>>BUG<< must have std::ref >>I don't know why
-     */
-    pc.getScheduler()->performFunctionInCocosThread(bind(std::ref(pc.getCbForEvent(event)), json));
-    
-    if (strcmp(event, PC_EVENT_TIMEOUT) == 0){
-        cocos2d::log("on timeout called");
-//        pc.clear(); //after timeout, ondisconnect will be called!!!
-    }
-    if (strcmp(event, PC_EVENT_KICK) == 0) {
-        cocos2d::log("on kick called");
-//        pc.clear(); //after kicked, ondisconnect will be called!!!
-    }
+    thread local_thread([&,event,json](){ //@see void stop()
+        /*
+         *>>BUG<< must have std::ref >>I don't know why
+         */
+        /*add the function object to the safe UI thread*/
+        pc.getScheduler()->performFunctionInCocosThread(bind(std::ref(pc.getCbForEvent(event)), json));
+        if (strcmp(event, PC_EVENT_DISCONNECT) == 0) {
+            pc.clear();
+        }
+    });
+    //when _pc_event_cb is over, local_thread will continue
+    //excuting this lamda function.
+    local_thread.detach();
 }
 
 void _pc_request_cb(pc_request_t *req, int status, json_t *resp)
 {
-    const char* resp_str = json_dumps(resp, 0);
-    if(resp_str)
-    {   cocos2d::log("on request: status %d, %s", status, resp_str);
-    }
-    /*add the function object to the safe UI thread*/
+    cocos2d::log("on request: status %d, %s", status, json_dumps(resp, 0));
     PomeloClient& pc = PomeloClient::getInstance();
     /*
      *>>BUG<< must increase the ref of json_t >>
@@ -262,6 +238,7 @@ void _pc_request_cb(pc_request_t *req, int status, json_t *resp)
     /*
      *>>BUG<< must have std::ref >>I don't know why
     */
+    /*add the function object to the safe UI thread*/
     pc.getScheduler()->performFunctionInCocosThread(bind(std::ref(pc.getCbForRequest(req->route)), status, resp));
     
     // release relative resource with pc_request_t
@@ -273,11 +250,11 @@ void _pc_request_cb(pc_request_t *req, int status, json_t *resp)
 void _pc_notify_cb(pc_notify_t *req, int status)
 {
     cocos2d::log("on notify: %d", status);
-    /*add the function object to the safe UI thread*/
     PomeloClient& pc = PomeloClient::getInstance();
     /*
      *>>BUG<< must have std::ref
      */
+    /*add the function object to the safe UI thread*/
     pc.getScheduler()->performFunctionInCocosThread(bind(std::ref(pc.getCbForNotify(req->route)), status));
     // release resources
     json_t *msg = req->msg;

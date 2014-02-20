@@ -36,6 +36,9 @@ public:
     void onChat(json_t * data);
     void onLeave(json_t * data);
     void onAdd(json_t * data);
+    void onNotify(int status);
+    
+    void btnSendNotify(Object* sender);
     
     void printUsers();
 };
