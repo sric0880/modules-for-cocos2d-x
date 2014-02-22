@@ -1,6 +1,5 @@
 //
 //  JsonConvertTest.cpp
-//  fruit-slots
 //
 //  Created by qiong on 14-2-18.
 //
