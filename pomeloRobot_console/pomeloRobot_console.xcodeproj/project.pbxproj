@@ -1,0 +1,392 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CF040D9618BB270E00BAF2DB /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF040D9518BB270E00BAF2DB /* main.cpp */; };
+		CF040D9818BB270E00BAF2DB /* pomeloRobot_console.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = CF040D9718BB270E00BAF2DB /* pomeloRobot_console.1 */; };
+		CF040DAA18BB276A00BAF2DB /* TaskRunner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF040DA818BB276A00BAF2DB /* TaskRunner.cpp */; };
+		CF040E0718BB44BF00BAF2DB /* libpomelo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF040E0618BB44BF00BAF2DB /* libpomelo.a */; };
+		CF040E0918BB44FC00BAF2DB /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF040E0818BB44FC00BAF2DB /* libjansson.a */; };
+		CF040E0B18BB453000BAF2DB /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF040E0A18BB453000BAF2DB /* libuv.a */; };
+		CF040E0D18BB45BE00BAF2DB /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF040E0C18BB45BE00BAF2DB /* CoreServices.framework */; };
+		CF040E1018BB870100BAF2DB /* TaskRunnerContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF040E0E18BB870100BAF2DB /* TaskRunnerContainer.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CF040D9018BB270E00BAF2DB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				CF040D9818BB270E00BAF2DB /* pomeloRobot_console.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		CF040D9218BB270E00BAF2DB /* pomeloRobot_console */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pomeloRobot_console; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF040D9518BB270E00BAF2DB /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		CF040D9718BB270E00BAF2DB /* pomeloRobot_console.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = pomeloRobot_console.1; sourceTree = "<group>"; };
+		CF040DA718BB276A00BAF2DB /* TaskRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskRunner.h; sourceTree = "<group>"; };
+		CF040DA818BB276A00BAF2DB /* TaskRunner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TaskRunner.cpp; sourceTree = "<group>"; };
+		CF040DDD18BB3DB600BAF2DB /* hashtable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hashtable.h; sourceTree = "<group>"; };
+		CF040DDE18BB3DB600BAF2DB /* jansson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson.h; sourceTree = "<group>"; };
+		CF040DDF18BB3DB600BAF2DB /* jansson_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson_config.h; sourceTree = "<group>"; };
+		CF040DE018BB3DB600BAF2DB /* jansson_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson_private.h; sourceTree = "<group>"; };
+		CF040DE118BB3DB600BAF2DB /* strbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strbuffer.h; sourceTree = "<group>"; };
+		CF040DE218BB3DB600BAF2DB /* utf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf.h; sourceTree = "<group>"; };
+		CF040DE418BB3DB600BAF2DB /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		CF040DE518BB3DB600BAF2DB /* internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = internal.h; sourceTree = "<group>"; };
+		CF040DE618BB3DB600BAF2DB /* listener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = listener.h; sourceTree = "<group>"; };
+		CF040DE718BB3DB600BAF2DB /* map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = map.h; sourceTree = "<group>"; };
+		CF040DE818BB3DB600BAF2DB /* ngx-queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ngx-queue.h"; sourceTree = "<group>"; };
+		CF040DE918BB3DB600BAF2DB /* transport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = transport.h; sourceTree = "<group>"; };
+		CF040DEB18BB3DB600BAF2DB /* pb-util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "pb-util.h"; sourceTree = "<group>"; };
+		CF040DEC18BB3DB600BAF2DB /* pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb.h; sourceTree = "<group>"; };
+		CF040DEE18BB3DB600BAF2DB /* message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = message.h; sourceTree = "<group>"; };
+		CF040DEF18BB3DB600BAF2DB /* package.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = package.h; sourceTree = "<group>"; };
+		CF040DF018BB3DB600BAF2DB /* pomelo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pomelo.h; sourceTree = "<group>"; };
+		CF040DF318BB3DB600BAF2DB /* ngx-queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ngx-queue.h"; sourceTree = "<group>"; };
+		CF040DF418BB3DB600BAF2DB /* stdint-msvc2008.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "stdint-msvc2008.h"; sourceTree = "<group>"; };
+		CF040DF518BB3DB600BAF2DB /* tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tree.h; sourceTree = "<group>"; };
+		CF040DF618BB3DB600BAF2DB /* uv-bsd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "uv-bsd.h"; sourceTree = "<group>"; };
+		CF040DF718BB3DB600BAF2DB /* uv-darwin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "uv-darwin.h"; sourceTree = "<group>"; };
+		CF040DF818BB3DB600BAF2DB /* uv-linux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "uv-linux.h"; sourceTree = "<group>"; };
+		CF040DF918BB3DB600BAF2DB /* uv-sunos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "uv-sunos.h"; sourceTree = "<group>"; };
+		CF040DFA18BB3DB600BAF2DB /* uv-unix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "uv-unix.h"; sourceTree = "<group>"; };
+		CF040DFB18BB3DB600BAF2DB /* uv-win.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "uv-win.h"; sourceTree = "<group>"; };
+		CF040DFC18BB3DB600BAF2DB /* uv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uv.h; sourceTree = "<group>"; };
+		CF040E0618BB44BF00BAF2DB /* libpomelo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpomelo.a; sourceTree = "<group>"; };
+		CF040E0818BB44FC00BAF2DB /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjansson.a; sourceTree = "<group>"; };
+		CF040E0A18BB453000BAF2DB /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuv.a; sourceTree = "<group>"; };
+		CF040E0C18BB45BE00BAF2DB /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		CF040E0E18BB870100BAF2DB /* TaskRunnerContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TaskRunnerContainer.cpp; sourceTree = "<group>"; };
+		CF040E0F18BB870100BAF2DB /* TaskRunnerContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskRunnerContainer.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CF040D8F18BB270E00BAF2DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF040E0D18BB45BE00BAF2DB /* CoreServices.framework in Frameworks */,
+				CF040E0B18BB453000BAF2DB /* libuv.a in Frameworks */,
+				CF040E0918BB44FC00BAF2DB /* libjansson.a in Frameworks */,
+				CF040E0718BB44BF00BAF2DB /* libpomelo.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CF040D8918BB270E00BAF2DB = {
+			isa = PBXGroup;
+			children = (
+				CF040E0C18BB45BE00BAF2DB /* CoreServices.framework */,
+				CF040DFD18BB3DC300BAF2DB /* libs */,
+				CF040DDB18BB3DB600BAF2DB /* include */,
+				CF040D9418BB270E00BAF2DB /* pomeloRobot_console */,
+				CF040D9318BB270E00BAF2DB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CF040D9318BB270E00BAF2DB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CF040D9218BB270E00BAF2DB /* pomeloRobot_console */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CF040D9418BB270E00BAF2DB /* pomeloRobot_console */ = {
+			isa = PBXGroup;
+			children = (
+				CF040E0E18BB870100BAF2DB /* TaskRunnerContainer.cpp */,
+				CF040E0F18BB870100BAF2DB /* TaskRunnerContainer.h */,
+				CF040DA718BB276A00BAF2DB /* TaskRunner.h */,
+				CF040DA818BB276A00BAF2DB /* TaskRunner.cpp */,
+				CF040D9518BB270E00BAF2DB /* main.cpp */,
+				CF040D9718BB270E00BAF2DB /* pomeloRobot_console.1 */,
+			);
+			path = pomeloRobot_console;
+			sourceTree = "<group>";
+		};
+		CF040DDB18BB3DB600BAF2DB /* include */ = {
+			isa = PBXGroup;
+			children = (
+				CF040DDC18BB3DB600BAF2DB /* jansson */,
+				CF040DE318BB3DB600BAF2DB /* pomelo-private */,
+				CF040DEA18BB3DB600BAF2DB /* pomelo-protobuf */,
+				CF040DED18BB3DB600BAF2DB /* pomelo-protocol */,
+				CF040DF018BB3DB600BAF2DB /* pomelo.h */,
+				CF040DF118BB3DB600BAF2DB /* uv */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		CF040DDC18BB3DB600BAF2DB /* jansson */ = {
+			isa = PBXGroup;
+			children = (
+				CF040DDD18BB3DB600BAF2DB /* hashtable.h */,
+				CF040DDE18BB3DB600BAF2DB /* jansson.h */,
+				CF040DDF18BB3DB600BAF2DB /* jansson_config.h */,
+				CF040DE018BB3DB600BAF2DB /* jansson_private.h */,
+				CF040DE118BB3DB600BAF2DB /* strbuffer.h */,
+				CF040DE218BB3DB600BAF2DB /* utf.h */,
+			);
+			path = jansson;
+			sourceTree = "<group>";
+		};
+		CF040DE318BB3DB600BAF2DB /* pomelo-private */ = {
+			isa = PBXGroup;
+			children = (
+				CF040DE418BB3DB600BAF2DB /* common.h */,
+				CF040DE518BB3DB600BAF2DB /* internal.h */,
+				CF040DE618BB3DB600BAF2DB /* listener.h */,
+				CF040DE718BB3DB600BAF2DB /* map.h */,
+				CF040DE818BB3DB600BAF2DB /* ngx-queue.h */,
+				CF040DE918BB3DB600BAF2DB /* transport.h */,
+			);
+			path = "pomelo-private";
+			sourceTree = "<group>";
+		};
+		CF040DEA18BB3DB600BAF2DB /* pomelo-protobuf */ = {
+			isa = PBXGroup;
+			children = (
+				CF040DEB18BB3DB600BAF2DB /* pb-util.h */,
+				CF040DEC18BB3DB600BAF2DB /* pb.h */,
+			);
+			path = "pomelo-protobuf";
+			sourceTree = "<group>";
+		};
+		CF040DED18BB3DB600BAF2DB /* pomelo-protocol */ = {
+			isa = PBXGroup;
+			children = (
+				CF040DEE18BB3DB600BAF2DB /* message.h */,
+				CF040DEF18BB3DB600BAF2DB /* package.h */,
+			);
+			path = "pomelo-protocol";
+			sourceTree = "<group>";
+		};
+		CF040DF118BB3DB600BAF2DB /* uv */ = {
+			isa = PBXGroup;
+			children = (
+				CF040DF218BB3DB600BAF2DB /* uv-private */,
+				CF040DFC18BB3DB600BAF2DB /* uv.h */,
+			);
+			path = uv;
+			sourceTree = "<group>";
+		};
+		CF040DF218BB3DB600BAF2DB /* uv-private */ = {
+			isa = PBXGroup;
+			children = (
+				CF040DF318BB3DB600BAF2DB /* ngx-queue.h */,
+				CF040DF418BB3DB600BAF2DB /* stdint-msvc2008.h */,
+				CF040DF518BB3DB600BAF2DB /* tree.h */,
+				CF040DF618BB3DB600BAF2DB /* uv-bsd.h */,
+				CF040DF718BB3DB600BAF2DB /* uv-darwin.h */,
+				CF040DF818BB3DB600BAF2DB /* uv-linux.h */,
+				CF040DF918BB3DB600BAF2DB /* uv-sunos.h */,
+				CF040DFA18BB3DB600BAF2DB /* uv-unix.h */,
+				CF040DFB18BB3DB600BAF2DB /* uv-win.h */,
+			);
+			path = "uv-private";
+			sourceTree = "<group>";
+		};
+		CF040DFD18BB3DC300BAF2DB /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				CF040E0A18BB453000BAF2DB /* libuv.a */,
+				CF040E0818BB44FC00BAF2DB /* libjansson.a */,
+				CF040E0618BB44BF00BAF2DB /* libpomelo.a */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CF040D9118BB270E00BAF2DB /* pomeloRobot_console */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CF040D9B18BB270E00BAF2DB /* Build configuration list for PBXNativeTarget "pomeloRobot_console" */;
+			buildPhases = (
+				CF040D8E18BB270E00BAF2DB /* Sources */,
+				CF040D8F18BB270E00BAF2DB /* Frameworks */,
+				CF040D9018BB270E00BAF2DB /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = pomeloRobot_console;
+			productName = pomeloRobot_console;
+			productReference = CF040D9218BB270E00BAF2DB /* pomeloRobot_console */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CF040D8A18BB270E00BAF2DB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = qiong;
+			};
+			buildConfigurationList = CF040D8D18BB270E00BAF2DB /* Build configuration list for PBXProject "pomeloRobot_console" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CF040D8918BB270E00BAF2DB;
+			productRefGroup = CF040D9318BB270E00BAF2DB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CF040D9118BB270E00BAF2DB /* pomeloRobot_console */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CF040D8E18BB270E00BAF2DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF040E1018BB870100BAF2DB /* TaskRunnerContainer.cpp in Sources */,
+				CF040DAA18BB276A00BAF2DB /* TaskRunner.cpp in Sources */,
+				CF040D9618BB270E00BAF2DB /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		CF040D9918BB270E00BAF2DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		CF040D9A18BB270E00BAF2DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CF040D9C18BB270E00BAF2DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				LIBRARY_SEARCH_PATHS = "/Users/qiong/Documents/cocos2dx-3.0beta-workspace/fruits-slots/libs/pomeloRobot_console/libs";
+				MACH_O_TYPE = mh_execute;
+				OTHER_LDFLAGS = "-lpomelo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "./include ./include/uv ./jansson";
+			};
+			name = Debug;
+		};
+		CF040D9D18BB270E00BAF2DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				LIBRARY_SEARCH_PATHS = "/Users/qiong/Documents/cocos2dx-3.0beta-workspace/fruits-slots/libs/pomeloRobot_console/libs";
+				MACH_O_TYPE = mh_execute;
+				OTHER_LDFLAGS = "-lpomelo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "./include ./include/uv ./jansson";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CF040D8D18BB270E00BAF2DB /* Build configuration list for PBXProject "pomeloRobot_console" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF040D9918BB270E00BAF2DB /* Debug */,
+				CF040D9A18BB270E00BAF2DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CF040D9B18BB270E00BAF2DB /* Build configuration list for PBXNativeTarget "pomeloRobot_console" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF040D9C18BB270E00BAF2DB /* Debug */,
+				CF040D9D18BB270E00BAF2DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CF040D8A18BB270E00BAF2DB /* Project object */;
+}
