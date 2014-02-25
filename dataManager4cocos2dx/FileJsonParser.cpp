@@ -14,6 +14,11 @@ FileJsonParser::FileJsonParser(const std::string &filename)
     _filename = filename;
 }
 
+FileJsonParser::~FileJsonParser()
+{
+    
+}
+
 TempVar* FileJsonParser::parse()
 {
     std::string contentStr = cocos2d::FileUtils::getInstance()->getStringFromFile(_filename);

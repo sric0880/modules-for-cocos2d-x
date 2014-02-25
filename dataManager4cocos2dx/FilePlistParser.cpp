@@ -13,6 +13,10 @@ FilePlistParser::FilePlistParser(const std::string &filename)
     _filename = filename;
 }
 
+FilePlistParser::~FilePlistParser()
+{
+}
+
 TempVar* FilePlistParser::parse()
 {
     cocos2d::ValueMap vm = cocos2d::FileUtils::getInstance()->getValueMapFromFile(_filename);

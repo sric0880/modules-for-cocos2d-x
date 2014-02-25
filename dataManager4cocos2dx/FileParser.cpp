@@ -11,6 +11,11 @@
 #include "FilePlistParser.h"
 #include "FileSqliteParser.h"
 
+FileParser::~FileParser()
+{
+    
+}
+
 FileParser* FileParser::create(const std::string &filename)
 {
     if(filename.find_last_of(".plist")!=std::string::npos

@@ -12,6 +12,11 @@ FileSqliteParser::FileSqliteParser(const std::string &filename)
     _filename = filename;
 }
 
+FileSqliteParser::~FileSqliteParser()
+{
+    
+}
+
 TempVar* FileSqliteParser::parse()
 {
     
