@@ -15,6 +15,8 @@ TaskRunnerContainer::TaskRunnerContainer(const char* addr, int port, int clients
 :_addr(addr),_port(port),_client_nums(clients_nums),_current_client_id(0)
 {
     _fout.open("statistic.txt");
+    TaskRunner::printHeader(std::cout);
+    TaskRunner::printHeader(_fout);
 }
 TaskRunnerContainer::~TaskRunnerContainer()
 {
@@ -28,7 +30,7 @@ void TaskRunnerContainer::release()
             delete tr;
         }
     }
-    _toRelease.clear();
+//    _toRelease.clear();
 }
 
 std::mutex id_increase_mutex;
@@ -52,6 +54,7 @@ void TaskRunnerContainer::runTask()
             tr->run(_addr.c_str(), _port);
             {
                 std::unique_lock<std::mutex> lm2(queue_mutex);
+                tr->printStatistics(std::cout);
                 tr->printStatistics(_fout);
             }
         }

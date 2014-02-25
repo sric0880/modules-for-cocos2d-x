@@ -33,7 +33,6 @@ int main(int argc, const char * argv[])
     if (thread_nums == 0) {
         thread_nums = 1;
     }
-    TaskRunner::printHeader(std::cout);
     
     vector<thread> threads(thread_nums);
     TaskRunnerContainer trc(HOST,PORT,clients_nums);
@@ -49,12 +48,12 @@ int main(int argc, const char * argv[])
         tr->addRequestTask("connector.entryHandler.enter",msg);
         
         /*send msg request*/
-        json_t *msg1 = json_object();
-        json_object_set_new(msg1, "content", json_string("I wanna fuck u"));
-        json_object_set_new(msg1, "rid", json_string("room"));
-        json_object_set_new(msg1, "from", json_string(username));
-        json_object_set_new(msg1, "target", json_string("*"));
-        tr->addRequestTask("chat.chatHandler.send",msg1);
+//        json_t *msg1 = json_object();
+//        json_object_set_new(msg1, "content", json_string("I wanna fuck u"));
+//        json_object_set_new(msg1, "rid", json_string("room"));
+//        json_object_set_new(msg1, "from", json_string(username));
+//        json_object_set_new(msg1, "target", json_string("*"));
+//        tr->addRequestTask("chat.chatHandler.send",msg1);
         
         tr->setLogout(false);//不退出登录
         return tr;
