@@ -14,11 +14,11 @@
 TaskRunnerContainer::TaskRunnerContainer(const char* addr, int port, int clients_nums)
 :_addr(addr),_port(port),_client_nums(clients_nums),_current_client_id(0)
 {
-    
+    _fout.open("statistic.txt");
 }
 TaskRunnerContainer::~TaskRunnerContainer()
 {
-    
+    _fout.close();
 }
 
 void TaskRunnerContainer::release()
@@ -44,6 +44,7 @@ void TaskRunnerContainer::runTask()
                 break;
             }
             tr = _taskGenerator(_current_client_id);
+            _toRelease.push_back(tr);
             ++_current_client_id;
         }
         
@@ -51,12 +52,7 @@ void TaskRunnerContainer::runTask()
             tr->run(_addr.c_str(), _port);
             {
                 std::unique_lock<std::mutex> lm2(queue_mutex);
-                tr->printStatistics(std::cout);
-                if (!tr->isLogout()) {
-                    _toRelease.push_back(tr);
-                }else{
-                    delete tr;
-                }
+                tr->printStatistics(_fout);
             }
         }
     } while (1);

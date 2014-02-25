@@ -12,6 +12,7 @@
 #include <functional>
 #include <string>
 #include <vector>
+#include <fstream>
 
 class TaskRunner;
 
@@ -29,6 +30,8 @@ private:
     int _client_nums;
     int _current_client_id;
     std::vector<TaskRunner*> _toRelease;
+    std::ofstream _fout;
+    
 };
 
 #endif /* defined(__pomeloRobot_console__TaskRunnerContainer__) */

@@ -15,7 +15,7 @@
 #include "TaskRunnerContainer.h"
 using namespace std;
 
-const char* HOST = "192.168.1.110";
+const char* HOST = "192.168.1.103";
 const int PORT = 3050;
 
 int main(int argc, const char * argv[])

@@ -1,12 +1,14 @@
 #include "TaskRunner.h"
 #include <iostream>
+#include <iomanip>
 #include <algorithm>
 #include <chrono>
 #include <numeric>
 #include <mutex>
 #include <condition_variable>
 
-TaskRunner::TaskRunner(int runnerId):_id(runnerId)
+TaskRunner::TaskRunner(int runnerId)
+:_id(runnerId),_stop_conn_time(0),_logout(true)
 {
     char filename[20];
     sprintf(filename, "log_%d.txt", runnerId);
@@ -69,8 +71,8 @@ void TaskRunner::run(const char* addr, int port)
     _min_req_time = *minmax.first;
     _max_req_time = *minmax.second;
     _duration = accumulate(result.begin(),result.end(),0);
-    _avg_req_time = _duration/(_total_count+1);
-    _query_per_sec = (_total_count+1)*1000/_duration;
+    _avg_req_time = _duration/(_total_count);
+    _query_per_sec = (_total_count)*1000/_duration;
 }
 
 void TaskRunner::request(string& router,json_t* content)
@@ -156,14 +158,15 @@ int TaskRunner::get_id()
 
 void TaskRunner::printHeader(ostream& output)
 {
-    output<<"#"<<"id"<<"\t"<<"conn"<<"\t\t"<<"stop"<<
-    "\t"<<"max_req"<<"\t"<<"min_req"<<"\t"<<"avg_req"<<"\t"<<
+    output.setf(ios::left);
+    output<<"#"<<"id\t"<<setw(8)<<"conn"<<setw(8)<<"stop"<<
+    setw(8)<<"max_req"<<setw(8)<<"min_req"<<setw(8)<<"avg_req"<<setw(8)<<
     "duration"<<"\t"<<"total_count"<<"\t"<<"query_per_sec"<<"\t"<<endl;
 }
 
 void TaskRunner::printStatistics(ostream& output)
 {
-    output<<"#"<<_id<<"\t"<<_connection_time<<"\t\t"<<_stop_conn_time<<
-    "\t"<<_max_req_time<<"\t\t"<<_min_req_time<<"\t\t"<<_avg_req_time<<"\t"<<
-    _duration<<"\t"<<_total_count<<"\t"<<_query_per_sec<<"\t"<<endl;
+    output.setf(ios::fixed|ios::left);
+    output<<"#"<<_id<<"\t"<<std::setprecision(3)<<setw(8)<<_connection_time<<setw(8)<<_stop_conn_time<<setw(8)<<_max_req_time<<setw(8)<<_min_req_time<<setw(8)<<_avg_req_time<<setw(8)<<
+    _duration<<setw(5)<<_total_count<<setw(5)<<_query_per_sec<<endl;
 }
