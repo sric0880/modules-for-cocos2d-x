@@ -20,12 +20,13 @@ const int PORT = 3050;
 
 int main(int argc, const char * argv[])
 {
-    if (argc!=3) {
-        cout<<"Usage: ./pomelo_robot [clients_nums] [thread_nums]"<<endl;
+    if (argc!=4) {
+        cout<<"Usage: ./pomelo_robot [clients_nums] [thread_nums] [usrname_prefix]"<<endl;
         return 0;
     }
     int clients_nums = atoi(argv[1]);
     int thread_nums = atoi(argv[2]);
+    const char* userNamePre = argv[3];
     
     if (clients_nums == 0) {
         clients_nums = 1;
@@ -36,10 +37,10 @@ int main(int argc, const char * argv[])
     
     vector<thread> threads(thread_nums);
     TaskRunnerContainer trc(HOST,PORT,clients_nums);
-    auto taskGenerator = [](int id)->TaskRunner*{
+    auto taskGenerator = [userNamePre](int id)->TaskRunner*{
         TaskRunner* tr = new TaskRunner(id);
         char username[10];
-        sprintf(username, "usr%d", id);
+        sprintf(username, "%s%d",userNamePre, id);
         
         /*login request*/
         json_t *msg = json_object();
@@ -62,7 +63,13 @@ int main(int argc, const char * argv[])
     for (int i = 0; i < thread_nums; ++i) {
         threads[i] = thread(&TaskRunnerContainer::runTask, &trc);
     }
-    for (auto& th : threads) { th.join();}
+    for (int i = 0; i < thread_nums; ++i) {
+        threads[i].join();
+    }
+    
+    std::cout<<"press any key to quit..."<<endl;
+    char a;
+    std::cin>>a;
     trc.release();
     return 0;
 }

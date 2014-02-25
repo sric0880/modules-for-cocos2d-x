@@ -159,7 +159,7 @@ int TaskRunner::get_id()
 void TaskRunner::printHeader(ostream& output)
 {
     output.setf(ios::left);
-    output<<"#"<<"id\t"<<setw(8)<<"conn"<<setw(8)<<"stop"<<
+    output<<"#"<<"id\t\t"<<setw(8)<<"conn"<<setw(8)<<"stop"<<
     setw(8)<<"max_req"<<setw(8)<<"min_req"<<setw(8)<<"avg_req"<<setw(8)<<
     "duration"<<"\t"<<"total_count"<<"\t"<<"query_per_sec"<<"\t"<<endl;
 }
@@ -167,6 +167,6 @@ void TaskRunner::printHeader(ostream& output)
 void TaskRunner::printStatistics(ostream& output)
 {
     output.setf(ios::fixed|ios::left);
-    output<<"#"<<_id<<"\t"<<std::setprecision(3)<<setw(8)<<_connection_time<<setw(8)<<_stop_conn_time<<setw(8)<<_max_req_time<<setw(8)<<_min_req_time<<setw(8)<<_avg_req_time<<setw(8)<<
+    output<<"#"<<_id<<"\t\t"<<std::setprecision(3)<<setw(8)<<_connection_time<<setw(8)<<_stop_conn_time<<setw(8)<<_max_req_time<<setw(8)<<_min_req_time<<setw(8)<<_avg_req_time<<setw(8)<<
     _duration<<setw(5)<<_total_count<<setw(5)<<_query_per_sec<<endl;
 }
