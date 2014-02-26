@@ -18,6 +18,7 @@ coco2d-x : version 3.0beta2
 5. ***pomeloRobot_console***
 	* auto pressure test tool for pomelo running in xcode console.
 6. ***tools***
-	1. Python tool for converting excel to plist, json and sqlite. Depend on [openpyxl](http://pythonhosted.org/openpyxl/)，[biplist](https://bitbucket.org/wooster/biplist). It's two kinds of excel: array and dictionary
-	2. Tool for reading dir info into a excel file. Depend on [xlslib](xlslib.sourceforge.net).
+	1. **trans_excel**. Python tool for converting excel to plist, json and sqlite. Depend on [openpyxl](http://pythonhosted.org/openpyxl/)，[biplist](https://bitbucket.org/wooster/biplist). It's two kinds of excel: array and dictionary
+	2. **read_dir_to_excel**. Tool for reading dir info into a excel file. Depend on [xlslib](xlslib.sourceforge.net).
+	3. **aes**. Encrypt and decrypt tool using aes algorithm.
 	
