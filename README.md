@@ -13,7 +13,11 @@ coco2d-x : version 3.0beta2
 	* unit test scene and layer for cocos2d-x.
 3. ***dataManager4cocos2dx***
 	* manage temp and const variables between memory and file system.
-4. ***utils4cocos2dx***
-	* some global functions like:
-		1. convert json to cocos2d::Value and vice versa
+4. ***utils4cocos2dx*** some utility class like:
+	1. convert json to cocos2d::Value and vice versa.
+5. ***pomeloRobot_console***
+	* auto pressure test tool for pomelo running in xcode console.
+6. ***tools***
+	1. Python tool for converting excel to plist, json and sqlite. Depend on [openpyxl](http://pythonhosted.org/openpyxl/)，[biplist](https://bitbucket.org/wooster/biplist). It's two kinds of excel: array and dictionary
+	2. Tool for reading dir info into a excel file. Depend on [xlslib](xlslib.sourceforge.net).
 	
