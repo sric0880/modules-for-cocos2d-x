@@ -11,17 +11,41 @@
 
 1. 临时数值变量：
    * 借鉴edit-support/cocostudio/CCComAttribute.cpp，定义了一个TempVar类，使用```cocos2d::ValueMap```数据结构来存储(key,value)。
+   
+   		Variables.h中`VARIABLES`提供全局变量管理，使用方法：
+   
+   	``` c
+   	VARIABLES.getMemStorage()->setBool("test_bool", true);
+   	```
    * 对象可以看做一种ValueMap
   	
   	<br>
 
 2. 持久化变量：
-	1. 可读可写：
-		* ```cocos2d::UserDefault```，由于没有加密，只能保存一些游戏的基本设置，比如音乐开关、音效开关等
-		* ```storage/local-storage/localStorage.h```提供了SQLite方案，用于存储<key,value>数据（string类型），不提供加密
-		* Variables.h中`VARIABLES::MUTABLE`支持json、plist格式，支持加密、解密，变量能重新写入文件
-	2. 只读：
-		* Variables.h中`VARIABLES::CONST`同样支持json、plist格式，支持读入已加密文件，变量不能写入文件
-	3. 加密、解密的支持：
-		* json，plist文件用tools/aes/工具进行加密
-		* sqlite文件用
+	* ```cocos2d::UserDefault```，没有加密，只能保存一些游戏的基本设置，比如音乐开关、音效开关等
+	* ```storage/local-storage/localStorage.h```提供了SQLite方案，<key,value>数据结构（string类型），不提供加密
+	* `VARIABLES`可以加载本地json文件，<key,value>数据结构，支持读入时解密，写入时加密，使用方法：
+	
+	``` c
+	VARIABLES.loadLocal("test_dict1.json", "jdict1");
+	```
+	* `utils4cocos2dx/JsonFileUtil.h`提供如下方法，支持加密
+	
+	``` c
+	ValueMap getValueMapFromFile(const std::string& filename);
+ValueVector getValueVectorFromFile(const std::string& filename);
+bool writeToFile(ValueMap& dict, const std::string& fullPath);
+bool writeToFile(ValueVector& array, const std::string& fullPath);
+```
+	
+	* plist文件直接调用，不支持加密
+	
+	``` c
+	ValueMap getValueMapFromFile(const std::string& filename);
+	ValueVector getValueVectorFromFile(const std::string& filename);
+	```
+	* TODO DBHelper，SQLite数据库管理类，支持加密
+	* 工具集支持：
+		* 文件用tools/aes/工具进行加密
+		* sqlite数据库用tools/safe_sqlite3工具进行加密
+		* tools/trans_excel可以将excel文件导出为json或plist或SQLite文件
