@@ -53,7 +53,7 @@ def merge_work(raw_array, col_index, header): #merge the blank cell
 		if(len(arr) == 1):
 			good_array.append(raw_array[i - 1])
 		else:
-			good_array.append({str(not_blank_cell_var):merge_work(arr,col_index+1,header)})
+			good_array.append(merge_work(arr,col_index+1,header))
 	return good_array
 
 
