@@ -21,4 +21,5 @@ coco2d-x : version 3.0beta2
 	1. **trans_excel**. Python tool for converting excel to plist, json and sqlite. Depend on [openpyxl](http://pythonhosted.org/openpyxl/)，[biplist](https://bitbucket.org/wooster/biplist). It's two kinds of excel: array and dictionary
 	2. **read_dir_to_excel**. Tool for reading dir info into a excel file. Depend on [xlslib](xlslib.sourceforge.net).
 	3. **aes**. Encrypt and decrypt tool using aes algorithm.
+	4. **safe_sqlite3** Encrypt and decrypt tool for sqlite database
 	

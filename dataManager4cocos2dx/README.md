@@ -18,8 +18,10 @@
 2. 持久化变量：
 	1. 可读可写：
 		* ```cocos2d::UserDefault```，由于没有加密，只能保存一些游戏的基本设置，比如音乐开关、音效开关等
+		* ```storage/local-storage/localStorage.h```提供了SQLite方案，用于存储<key,value>数据（string类型），不提供加密
 		* Variables.h中`VARIABLES::MUTABLE`支持json、plist格式，支持加密、解密，变量能重新写入文件
 	2. 只读：
 		* Variables.h中`VARIABLES::CONST`同样支持json、plist格式，支持读入已加密文件，变量不能写入文件
 	3. 加密、解密的支持：
-		* TODO
+		* json，plist文件用tools/aes/工具进行加密
+		* sqlite文件用
