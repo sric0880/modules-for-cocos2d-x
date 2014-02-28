@@ -8,7 +8,7 @@
 #include "JsonFileUtil.h"
 #include <cocos/2d/platform/CCFileUtils.h>
 #include <fstream>
-#include "../tools/aes/aes.h"
+#include <aes.h>
 
 #define __AES__ 1
 
