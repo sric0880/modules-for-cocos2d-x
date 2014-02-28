@@ -1,11 +1,10 @@
 #include "TestSceneExample.h"
 
-TestSceneExample TestSceneExample::test;
 void TestSceneExample::runThisTest()
 {
+    log("tests go here!");
     auto layer = TestLayerExample::create();
     addChild(layer);
-    Director::getInstance()->pushScene(this);
 }
 
 bool TestLayerExample::init()
@@ -13,6 +12,6 @@ bool TestLayerExample::init()
     if (!Layer::init()) {
         return false;
     }
-    log("tests go here!");
+    log("or tests go here!");
     return true;
 }

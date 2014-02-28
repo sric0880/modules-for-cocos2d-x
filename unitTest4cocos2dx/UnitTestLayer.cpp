@@ -12,35 +12,31 @@
 #include <string>
 
 // test inclues
-#include "testMainLayer.h"
+#include "UnitTestLayer.h"
 #include "VisibleRect.h"
-#include "testBasic.h"
-
-vector<TestGen> TestMainLayer::tests;
 
 #define LINE_SPACE          60
-
 static Point s_tCurPos = Point::ZERO;
 
-TestMainLayer::TestMainLayer()
+UnitTestLayer::UnitTestLayer()
 : _beginPos(Point::ZERO)
 {
     // add menu items for tests
     _itemMenu = Menu::create();
-    for (int i = 0; i < tests.size(); ++i)
+    for (int i = 0; i < size; ++i)
     {
         // #if (CC_TARGET_PLATFORM == CC_PLATFORM_MARMALADE)
         //         auto label = LabelBMFont::create(g_aTestNames[i].c_str(),  "fonts/arial16.fnt");
         // #else
-        auto label = LabelTTF::create( tests[i].test_name, "Arial", 40);
+        auto label = LabelTTF::create( tests[i].name, "Arial", 40);
         // #endif
-        auto menuItem = MenuItemLabel::create(label, CC_CALLBACK_1(TestMainLayer::menuCallback, this));
+        auto menuItem = MenuItemLabel::create(label, CC_CALLBACK_1(UnitTestLayer::menuCallback, this));
         
         _itemMenu->addChild(menuItem, i + 10000);
         menuItem->setPosition( Point( VisibleRect::center().x, (VisibleRect::top().y - (i + 1) * LINE_SPACE) ));
     }
     
-    _itemMenu->setContentSize(Size(VisibleRect::getVisibleRect().size.width, (tests.size() + 1) * (LINE_SPACE)));
+    _itemMenu->setContentSize(Size(VisibleRect::getVisibleRect().size.width, (size + 1) * (LINE_SPACE)));
     _itemMenu->setPosition(s_tCurPos);
     addChild(_itemMenu);
     
@@ -48,33 +44,30 @@ TestMainLayer::TestMainLayer()
     auto listener = EventListenerTouchOneByOne::create();
     listener->setSwallowTouches(true);
     
-    listener->onTouchBegan = CC_CALLBACK_2(TestMainLayer::onTouchBegan, this);
-    listener->onTouchMoved = CC_CALLBACK_2(TestMainLayer::onTouchMoved, this);
+    listener->onTouchBegan = CC_CALLBACK_2(UnitTestLayer::onTouchBegan, this);
+    listener->onTouchMoved = CC_CALLBACK_2(UnitTestLayer::onTouchMoved, this);
     
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     
     auto mouseListener = EventListenerMouse::create();
-    mouseListener->onMouseScroll = CC_CALLBACK_1(TestMainLayer::onMouseScroll, this);
+    mouseListener->onMouseScroll = CC_CALLBACK_1(UnitTestLayer::onMouseScroll, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
 }
 
-TestMainLayer::~TestMainLayer()
+UnitTestLayer::~UnitTestLayer()
 {
-    for (int i = 0; i < tests.size(); i++) {
-        tests[i].scene->release();
-    }
 }
 
-Scene* TestMainLayer::createScene()
+Scene* UnitTestLayer::createScene()
 {
     auto pScene = Scene::create();
-    TestMainLayer * testLayer = new TestMainLayer();
+    UnitTestLayer * testLayer = new UnitTestLayer();
     testLayer->autorelease();
     pScene->addChild(testLayer);
     return pScene;
 }
 
-void TestMainLayer::menuCallback(Object * sender)
+void UnitTestLayer::menuCallback(Object * sender)
 {
 	Director::getInstance()->purgeCachedData();
     
@@ -83,21 +76,22 @@ void TestMainLayer::menuCallback(Object * sender)
     int idx = menuItem->getLocalZOrder() - 10000;
     
     // create the test scene and run it
-    auto scene = tests[idx].scene;
+    auto scene = tests[idx].generator();
     
     if (scene)
     {
         scene->runThisTest();
+        Director::getInstance()->pushScene(scene);
     }
 }
 
-bool TestMainLayer::onTouchBegan(Touch* touch, Event  *event)
+bool UnitTestLayer::onTouchBegan(Touch* touch, Event  *event)
 {
     _beginPos = touch->getLocation();
     return true;
 }
 
-void TestMainLayer::onTouchMoved(Touch* touch, Event  *event)
+void UnitTestLayer::onTouchMoved(Touch* touch, Event  *event)
 {
     auto touchLocation = touch->getLocation();
     float nMoveY = touchLocation.y - _beginPos.y;
@@ -111,9 +105,9 @@ void TestMainLayer::onTouchMoved(Touch* touch, Event  *event)
         return;
     }
     
-    if (nextPos.y > ((tests.size() + 1)* LINE_SPACE - VisibleRect::getVisibleRect().size.height))
+    if (nextPos.y > ((size + 1)* LINE_SPACE - VisibleRect::getVisibleRect().size.height))
     {
-        _itemMenu->setPosition(Point(0, ((tests.size() + 1)* LINE_SPACE - VisibleRect::getVisibleRect().size.height)));
+        _itemMenu->setPosition(Point(0, ((size + 1)* LINE_SPACE - VisibleRect::getVisibleRect().size.height)));
         return;
     }
     
@@ -122,7 +116,7 @@ void TestMainLayer::onTouchMoved(Touch* touch, Event  *event)
     s_tCurPos   = nextPos;
 }
 
-void TestMainLayer::onMouseScroll(Event *event)
+void UnitTestLayer::onMouseScroll(Event *event)
 {
     auto mouseEvent = static_cast<EventMouse*>(event);
     float nMoveY = mouseEvent->getScrollY() * 6;
@@ -136,9 +130,9 @@ void TestMainLayer::onMouseScroll(Event *event)
         return;
     }
     
-    if (nextPos.y > ((tests.size() + 1)* LINE_SPACE - VisibleRect::getVisibleRect().size.height))
+    if (nextPos.y > ((size + 1)* LINE_SPACE - VisibleRect::getVisibleRect().size.height))
     {
-        _itemMenu->setPosition(Point(0, ((tests.size() + 1)* LINE_SPACE - VisibleRect::getVisibleRect().size.height)));
+        _itemMenu->setPosition(Point(0, ((size + 1)* LINE_SPACE - VisibleRect::getVisibleRect().size.height)));
         return;
     }
     

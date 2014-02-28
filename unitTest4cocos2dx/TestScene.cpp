@@ -1,4 +1,4 @@
-#include "testBasic.h"
+#include "TestScene.h"
 #include "VisibleRect.h"
 #include "extensions/cocos-ext.h"
 #include "cocostudio/CocoStudio.h"
@@ -27,13 +27,7 @@ void testScene_callback( Object *sender )
 void TestScene::onEnter()
 {
     Scene::onEnter();
-
-    //add the menu item for back to main menu
-//#if (CC_TARGET_PLATFORM == CC_PLATFORM_MARMALADE)
-//    auto label = LabelBMFont::create("MainMenu",  "fonts/arial16.fnt");
-//#else
     auto label = LabelTTF::create("MainMenu", "Arial", 40);
-//#endif
     auto menuItem = MenuItemLabel::create(label, testScene_callback );
     auto menu = Menu::create(menuItem, NULL);
 

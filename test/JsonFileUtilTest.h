@@ -9,20 +9,12 @@
 #define __JsonFileUtilTest__
 
 #include "cocos2d.h"
-#include "testBasic.h"
+#include "TestScene.h"
 
 class JsonFileUtilTest : public TestScene
 {
-    ADDTEST(JsonFileUtilTest)
 public:
     virtual void runThisTest();
-};
-
-class JsonFileUtilTestLayer : public Layer
-{
-public:
-    virtual bool init();
-    CREATE_FUNC(JsonFileUtilTestLayer);
 };
 
 #endif

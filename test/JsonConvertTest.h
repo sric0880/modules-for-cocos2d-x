@@ -9,20 +9,12 @@
 #define __JsonConvertTest__
 
 #include "cocos2d.h"
-#include "testBasic.h"
+#include "TestScene.h"
 
 class JsonConvertTest : public TestScene
 {
-    ADDTEST(JsonConvertTest)
 public:
     virtual void runThisTest();
-};
-
-class JsonConvertTestLayer : public Layer
-{
-public:
-    virtual bool init();
-    CREATE_FUNC(JsonConvertTestLayer);
 };
 
 #endif

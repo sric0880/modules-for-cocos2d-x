@@ -8,27 +8,17 @@
 #ifndef __MainLayer__
 #define __MainLayer__
 
-#include "cocos2d.h"
-#include <vector>
+#include <cocos2d.h>
+#include "GlobalTestcases.h"
 USING_NS_CC;
-using namespace std;
 
 class TestScene;
 
-class TestGen{
-public:
-	string test_name;
-	TestScene* scene;
-    TestGen(const char* name, TestScene* cb):
-    test_name(name),scene(cb){};
-};
-
-class TestMainLayer : public Layer
+class UnitTestLayer : public Layer
 {
 public:
-    static vector<TestGen> tests;
-    TestMainLayer();
-    ~TestMainLayer();
+    UnitTestLayer();
+    virtual ~UnitTestLayer();
     
     /**
  *	@brief call this method in AppDelegate applicationDidFinishLaunching

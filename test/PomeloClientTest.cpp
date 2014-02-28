@@ -1,11 +1,9 @@
 #include "PomeloClientTest.h"
 
-PomeloClientTest PomeloClientTest::test;
 void PomeloClientTest::runThisTest()
 {
     auto layer = PomeloClientTestLayer::create();
     addChild(layer);
-    Director::getInstance()->pushScene(this);
 }
 
 const static char* const GATE_HOST = "192.168.1.103";//change it to test connect error

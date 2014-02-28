@@ -2,11 +2,10 @@
 #define _TEST_H_
 
 #include "cocos2d.h"
-#include "../testBasic.h"
+#include "../TestScene.h"
 
 class TestSceneExample : public TestScene
 {
-    ADDTEST(TestSceneExample)
 public:
     virtual void runThisTest();
 };

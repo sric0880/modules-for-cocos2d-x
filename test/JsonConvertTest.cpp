@@ -8,14 +8,6 @@
 #include "JsonConvertTest.h"
 #include "JsonConverter.h"
 
-JsonConvertTest JsonConvertTest::test;
-void JsonConvertTest::runThisTest()
-{
-    auto layer = JsonConvertTestLayer::create();
-    addChild(layer);
-    Director::getInstance()->pushScene(this);
-}
-
 const int size = 4;
 
 const char* testcase[size] = {
@@ -160,12 +152,8 @@ const char* testcase[size] = {
     \"taglib-location\": \"/WEB-INF/tlds/cofax.tld\"}}}"
 };
 
-bool JsonConvertTestLayer::init()
+void JsonConvertTest::runThisTest()
 {
-    if (!Layer::init()) {
-        return false;
-    }
-    
     json_t *json;
     json_error_t error;
     
@@ -203,5 +191,4 @@ bool JsonConvertTestLayer::init()
     CCASSERT(value2.isNull(), "");
     
     json_decref(json_nullptr);
-    return true;
 }

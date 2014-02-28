@@ -2,14 +2,13 @@
 #define _POMELO_TEST_H_
 
 #include "cocos2d.h"
-#include "testBasic.h"
+#include "TestScene.h"
 #include "PomeloClient.h"
 #include <vector>
 #include <string>
 
 class PomeloClientTest : public TestScene
 {
-    ADDTEST(PomeloClientTest)
 public:
     virtual void runThisTest();
 };
