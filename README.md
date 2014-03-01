@@ -15,7 +15,8 @@ coco2d-x : version 3.0beta2
 	* manage temp and const variables between memory and file system.
 4. ***utils4cocos2dx*** some utility class like:
 	1. convert json to cocos2d::Value and vice versa.
-	2. read and write json file to cocos2d::ValueMap or cocos2d::ValueVector with data encrypted.
+	2. read and write json file to cocos2d::ValueMap or cocos2d::ValueVector with data encrypted and plist not.
+	3. a simple proxy method of cocos2d::FileUtil
 5. ***pomeloRobot_console***
 	* auto pressure test tool for pomelo running in xcode console. Removed from this git, see [github](https://github.com/sric0880/pomeloRobot_console)
 6. ***tools***

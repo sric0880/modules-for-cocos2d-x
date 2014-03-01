@@ -6,8 +6,7 @@
 //
 
 #include "FileJsonParser.h"
-#include <platform/CCFileUtils.h>
-#include "JsonFileUtil.h"
+#include "FileUtil.h"
 
 FileJsonParser::FileJsonParser(const std::string &filename)
 {
@@ -21,11 +20,11 @@ FileJsonParser::~FileJsonParser()
 
 TempVar* FileJsonParser::parse()
 {
-    ValueMap vm = getValueMapFromFile(_filename);
+    ValueMap vm = getValueMapFromJson(_filename);
     return new TempVar(vm);
 }
 
 bool FileJsonParser::persist(TempVar* tv)
 {
-    return writeToFile(tv->getContent(), cocos2d::FileUtils::getInstance()->getWritablePath().append(_filename));
+    return writeToJson(tv->getContent(), _filename);
 }

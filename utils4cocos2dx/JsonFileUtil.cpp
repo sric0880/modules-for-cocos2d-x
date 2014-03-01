@@ -1,20 +1,24 @@
 //
-//  JsonReader.cpp
+//  JsonFileUtil.cpp
 //
 //  Created by qiong on 14-2-27.
 //
 //
 
-#include "JsonFileUtil.h"
-#include <cocos/2d/platform/CCFileUtils.h>
+#include "FileUtil.h"
 #include <fstream>
 #include <aes.h>
 
-#define __AES__ 1
+const char* LookUpDictFile = "filename_lookup_dic.plist";
+
+#define __AES__ 0
 
 Value getValueFromFile(const std::string& filename)
 {
     std::string contentStr = cocos2d::FileUtils::getInstance()->getStringFromFile(filename);
+    if (contentStr == "") {//if the file not found, also return a value
+        return Value();
+    }
     const char* content = contentStr.c_str();
 #if __AES__
     size_t size_16 = strlen(content);
@@ -38,16 +42,22 @@ Value getValueFromFile(const std::string& filename)
     return convertFrom(json);
 }
 
-ValueMap getValueMapFromFile(const std::string& filename)
+ValueMap getValueMapFromJson(const std::string& filename)
 {
     Value value = getValueFromFile(filename);
+    if (value.getType()==Value::Type::NONE) {
+        return ValueMap();
+    }
     assert(value.getType()==Value::Type::MAP);
     return value.asValueMap();
 }
 
-ValueVector getValueVectorFromFile(const std::string& filename)
+ValueVector getValueVectorFromJson(const std::string& filename)
 {
     Value value = getValueFromFile(filename);
+    if (value.getType() == Value::Type::NONE) {
+        return ValueVector();
+    }
     assert(value.getType()==Value::Type::VECTOR);
     return value.asValueVector();
 }
@@ -67,20 +77,24 @@ bool writeToFile(Value& value, const std::string& fullPath)
     unsigned char * buffer = (unsigned char *)content;
     aes_crypt_cbc(&aes, AES_ENCRYPT, size_16, tmp, buffer, buffer);
 #endif
+    /*add lookup path to the plist file*/
+    
     std::ofstream fout(fullPath);
     fout.write(content, strlen(content));
     fout.close();
     return true;
 }
 
-bool writeToFile(ValueMap& dict, const std::string& fullPath)
+bool writeToJson(ValueMap& dict, const std::string& filename)
 {
+    addFilenameLookupDictionary(filename);
     cocos2d::Value v(dict);
-    return writeToFile(v, fullPath);
+    return writeToFile(v, getWritableFilename(filename));
 }
 
-bool writeToFile(ValueVector& array, const std::string& fullPath)
+bool writeToJson(ValueVector& array, const std::string& filename)
 {
+    addFilenameLookupDictionary(filename);
     cocos2d::Value v(array);
-    return writeToFile(v, fullPath);
+    return writeToFile(v, getWritableFilename(filename));
 }

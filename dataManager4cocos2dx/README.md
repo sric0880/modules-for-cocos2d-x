@@ -27,18 +27,23 @@
 	* `VARIABLES`可以加载本地json文件，<key,value>数据结构，支持读入时解密，写入时加密，使用方法：
 	
 	``` c
-	VARIABLES.loadLocal("test_dict1.json", "jdict1");
+	VARIABLES.getLocal("test_dict1.json");
+	VARIABLES.persistLocal("test_dict1.json");
 	```
+	
+		1. getLocal如果没有找到文件，同样也会返回空Map或空Vector。
+		2. persistLocal将文件存入Documents中。
+		3. 如果程序启动时，调用FileUitl.h中的方法loadFilenameLookupDictionary，并且程序结束时有调用saveFilenameLookupDictionary，那么getLocal方法优先去Documents中查找文件，而不是.app包。
 	* `utils4cocos2dx/JsonFileUtil.h`提供如下方法，支持加密
 	
 	``` c
-	ValueMap getValueMapFromFile(const std::string& filename);
-ValueVector getValueVectorFromFile(const std::string& filename);
-bool writeToFile(ValueMap& dict, const std::string& fullPath);
-bool writeToFile(ValueVector& array, const std::string& fullPath);
+	ValueMap getValueMapFromJson(const std::string& filename);
+ValueVector getValueVectorFromJson(const std::string& filename);
+bool writeToJson(ValueMap& dict, const std::string& fullPath);
+bool writeToJson(ValueVector& array, const std::string& fullPath);
 ```
 	
-	* plist文件直接调用，不支持加密
+	* `VARIABLES`同样支持plist文件，但不支持加密，cocos2dx提供如下方法：
 	
 	``` c
 	ValueMap getValueMapFromFile(const std::string& filename);

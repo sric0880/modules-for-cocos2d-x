@@ -31,24 +31,15 @@ public:
     TempVar* getMemStorage();
 
     /**
-     *	@brief	load variables from local file system
-     *
-     *	@Modified by qiong at 2014-02-27 15:28:18
-     *
-     *	@param 	filename 	file name
-     *	@param 	key 	user defined key in a map
-    **/
-    void loadLocal(const char* filename, const char* key);
-    /**
      *	@brief	get the local variables
      *
      *	@Modified by qiong at 2014-02-27 15:28:21
      *
-     *	@param 	key 	user defined in loadLocal method
+     *	@param 	filename if not found, empty tempvar will be retured.
      *
-     *	@return	TempVar pointer
+     *	@return	TempVar never be null
     **/
-    TempVar* getLocal(const char* key);
+    TempVar* getLocal(const std::string& filename);
 
     /**
      *	@brief	write the variables back to file system
@@ -57,7 +48,7 @@ public:
      *
      *	@param 	the mapping variables need to persist
     **/
-    void persistLocal(const char* key);
+    void persistLocal(const std::string& filename);
     
 private:
     Variables():_memStorage(new TempVar()){

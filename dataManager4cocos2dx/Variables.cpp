@@ -20,28 +20,21 @@ TempVar* Variables::getMemStorage()
     return _memStorage;
 }
 
-void Variables::loadLocal(const char* filename, const char* key)
+TempVar* Variables::getLocal(const std::string& filename)
 {
-    if (_lcMap.find(key)!=_lcMap.end()) {
-        return;
-    }
-    LocalVar* lv = new LocalVar();
-    lv->load(filename);
-    _lcMap[key] = lv;
-}
-
-TempVar* Variables::getLocal(const char* key)
-{
-    auto value = _lcMap.find(key);
+    auto value = _lcMap.find(filename);
     if (value == _lcMap.end()) {
-        return NULL;
+        LocalVar* lv = new LocalVar(); //copy from loadLocal
+        lv->load(filename);
+        _lcMap[filename] = lv;
+        return lv->get();
     }
     return value->second->get();
 }
 
-void Variables::persistLocal(const char* key)
+void Variables::persistLocal(const std::string& filename)
 {
-    auto value = _lcMap.find(key);
+    auto value = _lcMap.find(filename);
     if (value!=_lcMap.end()) {
         value->second->persist();
     }

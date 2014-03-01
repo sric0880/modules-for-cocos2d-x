@@ -62,84 +62,84 @@ void VariableTest::runThisTest()
     
     /*测试读取本地文件*/
     ///plist
-    VARIABLES.loadLocal("test_dict1.json", "jdict1");
-    VARIABLES.loadLocal("test_dict2.json", "jdict2");
-    VARIABLES.loadLocal("test_dict3.json", "jdict3");
+    VARIABLES.getLocal("test_dict1.json");
+    VARIABLES.getLocal("test_dict2.json");
+    VARIABLES.getLocal("test_dict3.json");
     
-    printLocal("jdict1");
-    printLocal("jdict2");
-    printLocal("jdict3");
+    printLocal("test_dict1.json");
+    printLocal("test_dict2.json");
+    printLocal("test_dict3.json");
     
-    //    CCASSERT(VARIABLES.getLocal("jdict1")->getInt("map_type")==1,"");
-    //    CCASSERT(VARIABLES.getLocal("jdict1")->getString("map_type")=="1","");
-    //    CCASSERT(VARIABLES.getLocal("jdict1")->getString("color_btn")=="2","");
-    //    CCASSERT(VARIABLES.getLocal("jdict1")->getInt("color_btn")==2,"");
-    //    CCASSERT(VARIABLES.getLocal("jdict1")->getFloat("color_line")==1.2f,"");//don't forget the "f"
-    //    CCASSERT(!VARIABLES.getLocal("jdict1")->getBool("booltest"),"");
-    //    CCASSERT(VARIABLES.getLocal("jdict1")->getBool("booltest2"),"");
-    //
-    //    ValueMap plist_dict = VARIABLES.getLocal("config")->getValueMap("dict");
-    //    for(auto& item : plist_dict){
-    //        log("%s-%s",item.first.c_str(),item.second.getDescription().c_str());
-    //    }
-    //    CCASSERT(plist_dict["key1"].asString()=="value1","");
-    //    CCASSERT(plist_dict["key2"].asInt()==10000,"");
-    //    CCASSERT(plist_dict["key3"].asBool(),"");
-    //    CCASSERT(plist_dict["key4"].asString()=="fish","");
-    //
-    //    ValueVector plist_array = VARIABLES.getLocal("config")->getValueVector("line");
-    //    for(auto& item : plist_array){
-    //        log("plist_array: %s",item.asString().c_str());
-    //    }
-    //
-    //    printLocal("jdict1");
-    //    printLocal("jdict2");
-    //    printLocal("jdict3");
-    
-    //    VARIABLES.persistLocal("jdict1");
-    //    VARIABLES.persistLocal("jdict2");
-    //    VARIABLES.persistLocal("jdict3");
+//    CCASSERT(VARIABLES.getLocal("jdict1")->getInt("map_type")==1,"");
+//    CCASSERT(VARIABLES.getLocal("jdict1")->getString("map_type")=="1","");
+//    CCASSERT(VARIABLES.getLocal("jdict1")->getString("color_btn")=="2","");
+//    CCASSERT(VARIABLES.getLocal("jdict1")->getInt("color_btn")==2,"");
+//    CCASSERT(VARIABLES.getLocal("jdict1")->getFloat("color_line")==1.2f,"");//don't forget the "f"
+//    CCASSERT(!VARIABLES.getLocal("jdict1")->getBool("booltest"),"");
+//    CCASSERT(VARIABLES.getLocal("jdict1")->getBool("booltest2"),"");
+//
+//    ValueMap plist_dict = VARIABLES.getLocal("config")->getValueMap("dict");
+//    for(auto& item : plist_dict){
+//        log("%s-%s",item.first.c_str(),item.second.getDescription().c_str());
+//    }
+//    CCASSERT(plist_dict["key1"].asString()=="value1","");
+//    CCASSERT(plist_dict["key2"].asInt()==10000,"");
+//    CCASSERT(plist_dict["key3"].asBool(),"");
+//    CCASSERT(plist_dict["key4"].asString()=="fish","");
+//
+//    ValueVector plist_array = VARIABLES.getLocal("config")->getValueVector("line");
+//    for(auto& item : plist_array){
+//        log("plist_array: %s",item.asString().c_str());
+//    }
+//
+//    printLocal("jdict1");
+//    printLocal("jdict2");
+//    printLocal("jdict3");
+
+//    VARIABLES.persistLocal("jdict1");
+//    VARIABLES.persistLocal("jdict2");
+//    VARIABLES.persistLocal("jdict3");
     
     /**测试读取本地加密文件*/
-    VARIABLES.loadLocal("test_dict1.json.data", "jdict1");
-    VARIABLES.loadLocal("test_dict2.json.data", "jdict2");
-    VARIABLES.loadLocal("test_dict3.json.data", "jdict3");
+    VARIABLES.getLocal("test_dict1.json.data");
+    VARIABLES.getLocal("test_dict2.json.data");
+    VARIABLES.getLocal("test_dict3.json.data");
     
-    printLocal("jdict1");
-    printLocal("jdict2");
-    printLocal("jdict3");
+    printLocal("test_dict1.json.data");
+    printLocal("test_dict2.json.data");
+    printLocal("test_dict3.json.data");
     
-    //    CCASSERT(VARIABLES.getLocal("jdict1")->getInt("map_type")==1,"");
-    //    CCASSERT(VARIABLES.getLocal("jdict1")->getString("map_type")=="1","");
-    //    CCASSERT(VARIABLES.getLocal("jdict1")->getString("color_btn")=="2","");
-    //    CCASSERT(VARIABLES.getLocal("jdict1")->getInt("color_btn")==2,"");
-    //    CCASSERT(VARIABLES.getLocal("jdict1")->getFloat("color_line")==1.2f,"");//don't forget the "f"
-    //    CCASSERT(!VARIABLES.getLocal("jdict1")->getBool("booltest"),"");
-    //    CCASSERT(VARIABLES.getLocal("jdict1")->getBool("booltest2"),"");
-    //
-    //    ValueMap plist_dict = VARIABLES.getLocal("config")->getValueMap("dict");
-    //    for(auto& item : plist_dict){
-    //        log("%s-%s",item.first.c_str(),item.second.getDescription().c_str());
-    //    }
-    //    CCASSERT(plist_dict["key1"].asString()=="value1","");
-    //    CCASSERT(plist_dict["key2"].asInt()==10000,"");
-    //    CCASSERT(plist_dict["key3"].asBool(),"");
-    //    CCASSERT(plist_dict["key4"].asString()=="fish","");
-    //
-    //    ValueVector plist_array = VARIABLES.getLocal("config")->getValueVector("line");
-    //    for(auto& item : plist_array){
-    //        log("plist_array: %s",item.asString().c_str());
-    //    }
-    //
-    //    printLocal("jdict1");
-    //    printLocal("jdict2");
-    //    printLocal("jdict3");
+//    CCASSERT(VARIABLES.getLocal("jdict1")->getInt("map_type")==1,"");
+//    CCASSERT(VARIABLES.getLocal("jdict1")->getString("map_type")=="1","");
+//    CCASSERT(VARIABLES.getLocal("jdict1")->getString("color_btn")=="2","");
+//    CCASSERT(VARIABLES.getLocal("jdict1")->getInt("color_btn")==2,"");
+//    CCASSERT(VARIABLES.getLocal("jdict1")->getFloat("color_line")==1.2f,"");//don't forget the "f"
+//    CCASSERT(!VARIABLES.getLocal("jdict1")->getBool("booltest"),"");
+//    CCASSERT(VARIABLES.getLocal("jdict1")->getBool("booltest2"),"");
+//
+//    ValueMap plist_dict = VARIABLES.getLocal("config")->getValueMap("dict");
+//    for(auto& item : plist_dict){
+//        log("%s-%s",item.first.c_str(),item.second.getDescription().c_str());
+//    }
+//    CCASSERT(plist_dict["key1"].asString()=="value1","");
+//    CCASSERT(plist_dict["key2"].asInt()==10000,"");
+//    CCASSERT(plist_dict["key3"].asBool(),"");
+//    CCASSERT(plist_dict["key4"].asString()=="fish","");
+//
+//    ValueVector plist_array = VARIABLES.getLocal("config")->getValueVector("line");
+//    for(auto& item : plist_array){
+//        log("plist_array: %s",item.asString().c_str());
+//    }
+//
+//    printLocal("jdict1");
+//    printLocal("jdict2");
+//    printLocal("jdict3");
+
+//    VARIABLES.persistLocal("jdict1");
+//    VARIABLES.persistLocal("jdict2");
+//    VARIABLES.persistLocal("jdict3");
     
-    //    VARIABLES.persistLocal("jdict1");
-    //    VARIABLES.persistLocal("jdict2");
-    //    VARIABLES.persistLocal("jdict3");
-    
-    VARIABLES.loadLocal("const_var1.plist", "none_exist");//print error msg here!
+    VARIABLES.getLocal("const_var1.plist");//print error msg here!
     /*测试本地可写文件*/
     
     /*测试加密解密文件*/
