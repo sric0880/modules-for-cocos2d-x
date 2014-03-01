@@ -15,10 +15,12 @@ aes:aes.c main.c
 	$(GXX) -c $^
 	$(GXX) -o $@ *.o
 	rm *.o
-libaes.a:aes.o
-	$(AR) -crs libaes.a $<
+libaes.a:aes_my.o aes.o
+	$(AR) -crs libaes.a $^
 	rm *.o
 aes.o:aes.c
+	$(CC) $(IOS_BUILD_FLAG) -c $(CFLAG) $<
+aes_my.o:aes_my.c
 	$(CC) $(IOS_BUILD_FLAG) -c $(CFLAG) $<
 clean:
 	rm *.o aes libaes.a

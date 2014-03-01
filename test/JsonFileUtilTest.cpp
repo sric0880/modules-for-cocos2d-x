@@ -25,13 +25,20 @@ void JsonFileUtilTest::runThisTest()
         log("search path: %s",path.c_str());
     }
     
-    ValueMap vm1 = getValueMapFromJson("test_dict1.json");
-    ValueMap vm2 = getValueMapFromJson("test_dict2.json");
-    ValueMap vm3 = getValueMapFromJson("test_dict3.json");
-    ValueVector vv1 = getValueVectorFromJson("map1.json");
-    ValueVector vv2 = getValueVectorFromJson("map2.json");
-    ValueVector vv3 = getValueVectorFromJson("map3.json");
-    ValueVector vv5 = getValueVectorFromJson("map5.json");
+//    ValueMap vm1 = getValueMapFromJson("test_dict1.json");
+//    ValueMap vm2 = getValueMapFromJson("test_dict2.json");
+//    ValueMap vm3 = getValueMapFromJson("test_dict3.json");
+//    ValueVector vv1 = getValueVectorFromJson("map1.json");
+//    ValueVector vv2 = getValueVectorFromJson("map2.json");
+//    ValueVector vv3 = getValueVectorFromJson("map3.json");
+//    ValueVector vv5 = getValueVectorFromJson("map5.json");
+    ValueMap vm1 = getValueMapFromJson("test_dict1.json.data");//测试加密
+    ValueMap vm2 = getValueMapFromJson("test_dict2.json.data");
+    ValueMap vm3 = getValueMapFromJson("test_dict3.json.data");
+    ValueVector vv1 = getValueVectorFromJson("map1.json.data");
+    ValueVector vv2 = getValueVectorFromJson("map2.json.data");
+    ValueVector vv3 = getValueVectorFromJson("map3.json.data");
+    ValueVector vv5 = getValueVectorFromJson("map5.json.data");
     
     cached = FileUtils::getInstance()->getFullPathCache();
     for(auto& fullpath: cached){
@@ -67,13 +74,21 @@ void JsonFileUtilTest::runThisTest()
     Value v(vm_t);
     vv1.push_back(v);
     
-    writeToJson(vm1, "test_dict1.json");
-    writeToJson(vm2, "test_dict2.json");
-    writeToJson(vm3, "test_dict3.json");
-    writeToJson(vv1, "map1.json");
-    writeToJson(vv2, "map2.json");
-    writeToJson(vv3, "map3.json");
-    writeToJson(vv5, "map5.json");
+//    writeToJson(vm1, "test_dict1.json");
+//    writeToJson(vm2, "test_dict2.json");
+//    writeToJson(vm3, "test_dict3.json");
+//    writeToJson(vv1, "map1.json");
+//    writeToJson(vv2, "map2.json");
+//    writeToJson(vv3, "map3.json");
+//    writeToJson(vv5, "map5.json");
+    
+    writeToJson(vm1, "test_dict1.json.data");
+    writeToJson(vm2, "test_dict2.json.data");
+    writeToJson(vm3, "test_dict3.json.data");
+    writeToJson(vv1, "map1.json.data");
+    writeToJson(vv2, "map2.json.data");
+    writeToJson(vv3, "map3.json.data");
+    writeToJson(vv5, "map5.json.data");
     
     saveFilenameLookupDictionary();//退出时，保存文件查找表
 }

@@ -25,6 +25,11 @@
 	* ```cocos2d::UserDefault```，没有加密，只能保存一些游戏的基本设置，比如音乐开关、音效开关等
 	* ```storage/local-storage/localStorage.h```提供了SQLite方案，<key,value>数据结构（string类型），不提供加密
 	* `VARIABLES`可以加载本地json文件，<key,value>数据结构，支持读入时解密，写入时加密，使用方法：
+	`JsonFileUtil.cpp`中宏控制加密: 1--开启 0--关闭
+	
+	``` c
+	#define __AES__ 1
+	```
 	
 	``` c
 	VARIABLES.getLocal("test_dict1.json");

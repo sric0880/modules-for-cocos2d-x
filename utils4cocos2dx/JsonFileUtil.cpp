@@ -7,37 +7,29 @@
 
 #include "FileUtil.h"
 #include <fstream>
-#include <aes.h>
+#include <aes_my.h>
 
 const char* LookUpDictFile = "filename_lookup_dic.plist";
 
-#define __AES__ 0
+#define __AES__ 1
 
 Value getValueFromFile(const std::string& filename)
 {
+    const char* content;
+#if __AES__
+    cocos2d::Data data = cocos2d::FileUtils::getInstance()->getDataFromFile(filename);
+    unsigned char* bytes = data.getBytes();
+    decrypt(data.getSize(), bytes, bytes);
+    content = (char*)bytes;
+#else
     std::string contentStr = cocos2d::FileUtils::getInstance()->getStringFromFile(filename);
     if (contentStr == "") {//if the file not found, also return a value
         return Value();
     }
-    const char* content = contentStr.c_str();
-#if __AES__
-    size_t size_16 = strlen(content);
-    assert(size_16/16==0);
-    aes_context aes;
-    unsigned char tmp[16];
-    memset(tmp, 0, sizeof(tmp));
-    strcpy((char *)tmp, "123456789012345");//密钥
-    aes_setkey_dec(&aes, tmp, 128);
-    unsigned char * buffer = new unsigned char[size_16];
-    memcpy(buffer, content, size_16);
-    aes_crypt_cbc(&aes, AES_DECRYPT, size_16, tmp, buffer, buffer);
-    content = (char*)buffer;
+    content = contentStr.c_str();
 #endif
     json_error_t error;
     json_t* json = json_loads(content, 0, &error);
-#if __AES__
-    delete [] buffer;
-#endif
     assert(json);
     return convertFrom(json);
 }
@@ -67,21 +59,16 @@ bool writeToFile(Value& value, const std::string& fullPath)
     json_t* json = convertFrom(value);
     char* content = json_dumps(json, 0);
 #if __AES__
-    size_t size_16 = strlen(content);
-    assert(size_16/16==0);
-    aes_context aes;
-    unsigned char tmp[16];
-    memset(tmp, 0, sizeof(tmp));
-    strcpy((char *)tmp, "123456789012345");//密钥
-    aes_setkey_enc(&aes, tmp, 128);
-    unsigned char * buffer = (unsigned char *)content;
-    aes_crypt_cbc(&aes, AES_ENCRYPT, size_16, tmp, buffer, buffer);
+    //output maybe longer than input.
+    encrypt(strlen(content), (unsigned char *)content, (unsigned char *)content);
 #endif
     /*add lookup path to the plist file*/
-    
     std::ofstream fout(fullPath);
     fout.write(content, strlen(content));
     fout.close();
+#if __AES__
+    free(content);
+#endif
     return true;
 }
 

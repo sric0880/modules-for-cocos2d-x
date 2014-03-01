@@ -50,6 +50,7 @@ int main(int argv, char * args[])
         pbuf->pubseekpos(0,ifs.in);
 
         unsigned char * buffer = new unsigned char[size_16];
+        memset(buffer, 0, size_16);//填充0
 
         pbuf->sgetn((char *)buffer,size);
         ifs.close();
