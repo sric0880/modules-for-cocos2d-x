@@ -38,7 +38,8 @@
 	
 		1. getLocal如果没有找到文件，同样也会返回空Map或空Vector。
 		2. persistLocal将文件存入Documents中。
-		3. 如果程序启动时，调用FileUitl.h中的方法loadFilenameLookupDictionary，并且程序结束时有调用saveFilenameLookupDictionary，那么getLocal方法优先去Documents中查找文件，而不是.app包。
+		3. 如果程序启动时，调用FileUitl.h中的方法loadFilenameLookupDictionary，并且程序结束时有调用saveFilenameLookupDictionary，
+		那么getLocal方法优先去Documents中查找文件，而不是.app包。
 	* `utils4cocos2dx/JsonFileUtil.h`提供如下方法，支持加密
 	
 	``` c

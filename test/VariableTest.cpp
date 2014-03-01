@@ -8,8 +8,8 @@
 #include "VariableTest.h"
 #include "Variables.h"
 
-#define printLocal(__key__)\
-log("print content of #__key__:\n%s",Value(VARIABLES.getLocal(__key__)->getContent()).getDescription().c_str());
+#define printLocal(V)\
+log("print content of %s:%s",#V,Value(V->getContent()).getDescription().c_str());
 
 
 void VariableTest::runThisTest()
@@ -62,13 +62,32 @@ void VariableTest::runThisTest()
     
     /*测试读取本地文件*/
     ///plist
-    VARIABLES.getLocal("test_dict1.json");
-    VARIABLES.getLocal("test_dict2.json");
-    VARIABLES.getLocal("test_dict3.json");
+    FileUtils::getInstance()->addSearchPath("test");
+    TempVar* dic1 = VARIABLES.getLocal("test_dict1.json");
+    TempVar* dic2 = VARIABLES.getLocal("test_dict2.json");
+    TempVar* dic3 = VARIABLES.getLocal("test_dict3.json");
     
-    printLocal("test_dict1.json");
-    printLocal("test_dict2.json");
-    printLocal("test_dict3.json");
+    dic1->setString("key6_new_add", "添加一个字符串");
+    dic1->setBool("key5_bool", false);
+    dic1->setInt("key2_int", 10);
+    dic1->setDouble("key4_double", 10.01);
+    dic1->setFloat("key3_float", 19.1f);
+    dic1->setString("key1_str", "hello world");
+    dic1->setInt("key_new_int", 10000);
+    dic2->setString("string3","改变了哦");
+    dic2->setString("string5","又变了哦");
+    dic2->setString("string7","不再改了");
+    dic3->setBool("bool5",false);
+    dic3->setBool("bool10",true);
+    dic3->setBool("bool20",false);//添加一个新bool
+    
+    printLocal(dic1);
+    printLocal(dic2);
+    printLocal(dic3);
+    
+    VARIABLES.persistLocal("test_dict1.json");
+    VARIABLES.persistLocal("test_dict2.json");
+    VARIABLES.persistLocal("test_dict3.json");
     
 //    CCASSERT(VARIABLES.getLocal("jdict1")->getInt("map_type")==1,"");
 //    CCASSERT(VARIABLES.getLocal("jdict1")->getString("map_type")=="1","");
@@ -101,13 +120,14 @@ void VariableTest::runThisTest()
 //    VARIABLES.persistLocal("jdict3");
     
     /**测试读取本地加密文件*/
-    VARIABLES.getLocal("test_dict1.json.data");
-    VARIABLES.getLocal("test_dict2.json.data");
-    VARIABLES.getLocal("test_dict3.json.data");
-    
-    printLocal("test_dict1.json.data");
-    printLocal("test_dict2.json.data");
-    printLocal("test_dict3.json.data");
+    log("测试读取加密文件");
+//    VARIABLES.getLocal("test_dict1.json.data");
+//    VARIABLES.getLocal("test_dict2.json.data");
+//    VARIABLES.getLocal("test_dict3.json.data");
+//    
+//    printLocal("test_dict1.json.data");
+//    printLocal("test_dict2.json.data");
+//    printLocal("test_dict3.json.data");
     
 //    CCASSERT(VARIABLES.getLocal("jdict1")->getInt("map_type")==1,"");
 //    CCASSERT(VARIABLES.getLocal("jdict1")->getString("map_type")=="1","");
