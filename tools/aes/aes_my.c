@@ -1,14 +1,14 @@
-#include "aes_my.h"
-
 #include <string.h>
 #include <assert.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "aes.h"
+#include "aes_my.h"
 
 static const char* key = "123456789012345";
 
-void encrypt(unsigned long length, const unsigned char *input, unsigned char *output)
+int encrypt_save(size_t length, const unsigned char *input, const char* fullpath)
 {
 	size_t size_16 = (length/16+1)*16;
 	unsigned char * buffer = (unsigned char *)malloc(size_16);
@@ -20,11 +20,19 @@ void encrypt(unsigned long length, const unsigned char *input, unsigned char *ou
     strcpy((char *)tmp, key);//密钥
     aes_setkey_enc(&aes, tmp, 128);
     aes_crypt_cbc(&aes, AES_ENCRYPT, size_16, tmp, buffer, buffer);
-    output = buffer;
-    // free(buffer); // user has to free the output
+    FILE * pf;
+    pf=fopen(fullpath,"wb");
+    if(pf == NULL){
+    	printf("%s encrypt and save error!\n", fullpath);
+    	return 0;
+    }
+    fwrite(buffer,sizeof(unsigned char),size_16,pf);
+    fclose(pf);
+    free(buffer);
+    return 1;
 }
 
-void decrypt(unsigned long length, const unsigned char *input, unsigned char *output)
+void decrypt(size_t length, const unsigned char *input, unsigned char *output)
 {
     assert(length%16==0);
     aes_context aes;

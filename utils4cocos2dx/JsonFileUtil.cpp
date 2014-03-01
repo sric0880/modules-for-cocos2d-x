@@ -11,7 +11,7 @@
 
 const char* LookUpDictFile = "filename_lookup_dic.plist";
 
-#define __AES__ 1
+#define __AES__ 0
 
 Value getValueFromFile(const std::string& filename)
 {
@@ -59,17 +59,13 @@ bool writeToFile(Value& value, const std::string& fullPath)
     json_t* json = convertFrom(value);
     char* content = json_dumps(json, 0);
 #if __AES__
-    //output maybe longer than input.
-    encrypt(strlen(content), (unsigned char *)content, (unsigned char *)content);
-#endif
-    /*add lookup path to the plist file*/
+    return encrypt_save(strlen(content), (unsigned char *)content, fullPath.c_str());
+#else
     std::ofstream fout(fullPath);
     fout.write(content, strlen(content));
     fout.close();
-#if __AES__
-    free(content);
-#endif
     return true;
+#endif
 }
 
 bool writeToJson(ValueMap& dict, const std::string& filename)

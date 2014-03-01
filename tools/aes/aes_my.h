@@ -9,11 +9,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-    
-// user has to free the output
-void encrypt(unsigned long length, const unsigned char *input, unsigned char *output);
-// user has to do nothing
-void decrypt(unsigned long length, const unsigned char *input, unsigned char *output);
+
+int encrypt_save(size_t length, const unsigned char *input, const char* fullpath);
+
+void decrypt(size_t length, const unsigned char *input, unsigned char *output);
     
 #ifdef __cplusplus
 }
