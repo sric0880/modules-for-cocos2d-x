@@ -11,7 +11,7 @@
 
 const char* LookUpDictFile = "filename_lookup_dic.plist";
 
-#define __AES__ 0
+#define __AES__ 1
 
 Value getValueFromFile(const std::string& filename)
 {

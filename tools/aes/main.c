@@ -64,14 +64,14 @@ int main(int argv, char * args[])
             aes_setkey_enc(&aes, tmp, keysize);
             aes_crypt_cbc(&aes, AES_ENCRYPT, size_16, tmp, buffer, buffer);
 //            aes_crypt_ecb(&aes, AES_ENCRYPT, buffer, buffer);
-            strcat(filename,".data");
+            // strcat(filename,".data");
         }else{
             aes_setkey_dec(&aes, tmp, keysize);
             aes_crypt_cbc(&aes, AES_DECRYPT, size_16, tmp, buffer, buffer);
 //            aes_crypt_ecb(&aes, AES_DECRYPT, buffer, buffer);
-            char * pch = strstr(filename,".data");
-            if(pch !=NULL)
-                *pch = '\0';
+            // char * pch = strstr(filename,".data");
+            // if(pch !=NULL)
+            //     *pch = '\0';
         }
 
         //output
