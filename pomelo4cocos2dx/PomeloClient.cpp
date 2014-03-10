@@ -83,7 +83,7 @@ void PomeloClient::connectAsync(const char* addr, int port, const cb1I& callback
 
 void PomeloClient::stop()
 {
-    if(_client){
+    if(_client->state == PC_ST_CONNECTED||_client->state == PC_ST_WORKING){
         pc_client_destroy(_client);
     }
     /*

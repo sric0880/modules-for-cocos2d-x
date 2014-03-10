@@ -16,7 +16,7 @@ void FruitSlotDemo::runThisTest()
     addChild(layer);
 }
 
-const static char* const GATE_HOST = "115.28.128.79";//change it to test connect error
+const static char* const GATE_HOST = "192.168.1.102";
 const static int GATE_PORT = 3014;
 
 const int all_fruits_size = 24;     //转盘上水果图的个数
