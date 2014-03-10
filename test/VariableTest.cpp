@@ -62,7 +62,7 @@ void VariableTest::runThisTest()
     CCASSERT(VARIABLES.getMemStorage()->getValueVector("vv1").size()==3,"");
     
     /*测试读取本地文件*/
-    ///plist
+    ///json
     FileUtils::getInstance()->addSearchPath("test");
     loadFilenameLookupDictionary();//启动时，优先从Document文件夹中加载文件
     
@@ -97,9 +97,8 @@ void VariableTest::runThisTest()
     VARIABLES.persistLocal("test_dict3.json");
     
     VARIABLES.getLocal("const_var1.plist");//print error msg here!
-    /*测试本地可写文件*/
     
-    /*测试加密解密文件*/
+    /*将json文件加密后，则可以测试加密解密文件*/
     saveFilenameLookupDictionary();
     log("test ok!");
 }

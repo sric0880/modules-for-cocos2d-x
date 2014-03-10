@@ -10,6 +10,7 @@
 #include "JsonConvertTest.h"
 #include "JsonFileUtilTest.h"
 #include "PomeloClientTest.h"
+#include "FruitSlotDemo.h"
 #include "VariableTest.h"
 
 // C++ 11
@@ -17,12 +18,13 @@
 #define CLN(__className__) [](){ auto obj = new __className__(); obj->autorelease(); return obj; }
 
 //add yourself
-TestCase tests[5]={
+TestCase tests[6]={
     {"Example Test", CLN(TestSceneExample)},
     {"PomeloClient Test", CLN(PomeloClientTest)},
     {"Json Convert Test",CLN(JsonConvertTest)},
     {"Json File Read and Write Test", CLN(JsonFileUtilTest)},
-    {"Variables Test", CLN(VariableTest)}
+    {"Variables Test", CLN(VariableTest)},
+    {"Game Demo", CLN(FruitSlotDemo)}
 };
 
 size_t size = sizeof tests/ sizeof tests[0];

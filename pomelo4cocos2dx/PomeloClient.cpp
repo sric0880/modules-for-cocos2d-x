@@ -145,7 +145,11 @@ int PomeloClient::request(const char* route, cocos2d::Value& msg, const cb1I1Val
     assert(_client);
     pc_request_t* req = pc_request_new();
     _allRequests[route] = callback;
-    return pc_request(_client, req, route, convertFrom(msg), _pc_request_cb);
+    json_t* json_msg = convertFrom(msg);
+    if (json_is_null(json_msg)) {
+        json_msg = json_object();
+    }
+    return pc_request(_client, req, route, json_msg, _pc_request_cb);
 }
 
 int PomeloClient::notify(const char* route, cocos2d::Value& msg, const cb1I& callback)
@@ -153,7 +157,11 @@ int PomeloClient::notify(const char* route, cocos2d::Value& msg, const cb1I& cal
     assert(_client);
     pc_notify_t *notify = pc_notify_new();
     _allNotifies[route] = callback;
-    return pc_notify(_client, notify, route, convertFrom(msg), _pc_notify_cb);
+    json_t* json_msg = convertFrom(msg);
+    if (json_is_null(json_msg)) {
+        json_msg = json_object();
+    }
+    return pc_notify(_client, notify, route, json_msg, _pc_notify_cb);
 }
 
 const cb1Value& PomeloClient::getCbForEvent(const char* eventName) const {
