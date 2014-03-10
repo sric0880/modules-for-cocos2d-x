@@ -10,7 +10,7 @@ static const char* key = "123456789012345";
 
 int encrypt_save(size_t length, const unsigned char *input, const char* fullpath)
 {
-	size_t size_16 = (length/16+1)*16;
+	size_t size_16 = ceil((float)length/16)*16;
 	unsigned char * buffer = (unsigned char *)malloc(size_16);
     memset(buffer, 0, size_16);//填充0
     memcpy(buffer, input, length);

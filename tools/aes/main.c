@@ -1,13 +1,11 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <fstream>
 #include <dirent.h>
 #include <unistd.h>
+#include <math.h>
 
 #include "aes.h"
-
-using namespace std;
 
 int main(int argv, char * args[])
 {
@@ -15,11 +13,11 @@ int main(int argv, char * args[])
         printf("Usage: aes [-e|-d] [dir] [key(maxlen:16 bytes)]\n");
         return 0;
     }
-    bool isEncrypt;
+    int isEncrypt;
     if(strcmp(args[1],"-e")==0){
-        isEncrypt = true;
+        isEncrypt = 1;
     }else if(strcmp(args[1],"-d")==0){
-        isEncrypt = false;
+        isEncrypt = 0;
     }else{
         printf("Usage: aes [-e|-d] [dir] [key(maxlen:16 bytes)]\n");
         return 0;
@@ -39,21 +37,27 @@ int main(int argv, char * args[])
 
         char filename[50];
         strcpy(filename,dir_ent->d_name);
-        ifstream ifs(filename);
-        if(!ifs.is_open()){
+        FILE * pIn;
+        pIn = fopen(filename, "r");
+        if (!pIn) {
             printf("file open error!\n");
             return 0;
         }
-        filebuf* pbuf = ifs.rdbuf();
-        size_t size = pbuf->pubseekoff(0,ifs.end,ifs.in);
-        size_t size_16 = (size/16+1)*16;//加密的内容长度必须为16的倍数
-        pbuf->pubseekpos(0,ifs.in);
+        fseek (pIn , 0 , SEEK_END);
+        long size = ftell (pIn);
+        rewind (pIn);
+        size_t size_16 = ceil((float)size/16)*16;//加密的内容长度必须为16的倍数
+        printf("size:%d, size_16: %d\n", size, size_16);
 
-        unsigned char * buffer = new unsigned char[size_16];
+        unsigned char * buffer = (unsigned char*) malloc(size_16);
         memset(buffer, 0, size_16);//填充0
 
-        pbuf->sgetn((char *)buffer,size);
-        ifs.close();
+        size_t result = fread (buffer,1,size,pIn);
+        if (result!=size) {
+            printf("memory error\n");
+            return 0;
+        }
+        fclose(pIn);
 
         aes_context aes;
         unsigned char tmp[16];
@@ -75,11 +79,14 @@ int main(int argv, char * args[])
         }
 
         //output
-
-        ofstream ofs(filename);
-        ofs.write((char *)buffer,size_16);
-        delete [] buffer;
-        ofs.close();
+        
+        FILE * pFile;
+        pFile = fopen (filename , "w");
+        if (pFile) {
+            fwrite((char *)buffer,sizeof(char),size_16,pFile);
+        }
+        free(buffer);
+        fclose(pFile);
     }
 
     
