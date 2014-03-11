@@ -16,7 +16,7 @@ void FruitSlotDemo::runThisTest()
     addChild(layer);
 }
 
-const static char* const GATE_HOST = "192.168.1.102";
+const static char* const GATE_HOST = "115.28.33.15";
 const static int GATE_PORT = 3014;
 
 const int all_fruits_size = 24;     //转盘上水果图的个数
@@ -177,7 +177,7 @@ void FruitSlotDemoLayer::onConnGateServer(int status)
 
 void FruitSlotDemoLayer::onDisconnect(Value& data)
 {
-    _msg->setString("on disconnect callback called");
+//    _msg->setString("on disconnect callback called");
 }
 
 void FruitSlotDemoLayer::onKick(Value& data)

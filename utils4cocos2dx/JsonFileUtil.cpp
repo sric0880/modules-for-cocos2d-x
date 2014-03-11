@@ -29,7 +29,7 @@ Value getValueFromFile(const std::string& filename)
     content = contentStr.c_str();
 #endif
     json_error_t error;
-    json_t* json = json_loads(content, 0, &error);
+    json_t* json = json_loadb(content, strlen(content), 0, &error);
     assert(json);
     return convertFrom(json);
 }
