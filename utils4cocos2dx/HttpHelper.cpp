@@ -50,6 +50,7 @@ void HttpCallback::callbackReg(HttpClient *sender, HttpResponse *response)
 {
     if (!response)
     {
+        this->release();
         return;
     }
     
@@ -61,6 +62,7 @@ void HttpCallback::callbackReg(HttpClient *sender, HttpResponse *response)
         log("response failed");
         log("error buffer: %s", response->getErrorBuffer());
         if(on_fail) on_fail(VARIABLES.getLocal("strings.json")->getString("server_conn_fail").c_str());
+        this->release();
         return;
     }
     
@@ -77,6 +79,7 @@ void HttpCallback::callbackReg(HttpClient *sender, HttpResponse *response)
         log("\nline:%d\ncol:%d\npos:%d\nsource:%s\ntext:%s", error.line,error.column,error.position,error.source,error.text);
         if(on_fail) on_fail(VARIABLES.getLocal("strings.json")->getString("server_conn_fail").c_str());
     }
+    this->release();
 }
 #include <unordered_map>
 std::unordered_map<std::string, HttpCallback*> _httpMap;
@@ -113,7 +116,27 @@ void sendHttpReq(HttpRequest* request, Params params, size_t size)
         return;
     }
     std::string data = formatParams(params, size);
-    request->setRequestData(data.c_str(), data.length());
+    switch (request->getRequestType()) {
+        case HttpRequest::Type::PUT:
+        case HttpRequest::Type::POST:
+        {
+            request->setRequestData(data.c_str(), data.length());
+            break;
+        }
+        case HttpRequest::Type::DELETE:
+        case HttpRequest::Type::GET:
+        {
+            const char* url = request->getUrl();
+            std::string strUrl(url);
+            strUrl.append("?");
+            strUrl.append(data);
+            request->setUrl(strUrl.c_str());
+            break;
+        }
+        default:
+            log("unknown request type.");
+            break;
+    }
     HttpClient::getInstance()->send(request);
     request->release();
 }
