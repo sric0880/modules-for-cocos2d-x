@@ -37,7 +37,12 @@ bool UserManagerTestLayer::init()
     const char* email ="lzqiong@gmail.com";
     Param params[3] = {
         {"email",email,true,reg_email},
-        {"pwd","123",true,reg_username,[](std::string& value)->bool{return true;}},
+        {"pwd","123",true,reg_username,[](std::string& value)->bool{
+            if (strlen(value.c_str())>25) {
+                return false;
+            }
+            return true;
+        }},
         {"nick", "hao123",true,reg_password}
     };
     sendHttpReq(http_req_reg, params, 3);
