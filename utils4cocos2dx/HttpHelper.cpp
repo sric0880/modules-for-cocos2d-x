@@ -103,39 +103,41 @@ HttpRequest* getHttpReq(const char* url, const char* tag, HttpRequest::Type type
 
 void sendHttpReq(HttpRequest* request, Params params, size_t size)
 {
-    int index = validateParams(params, size);
-    if (index >= 0) {
-        request->release();
-        auto _http_iter = _httpMap.find(request->getTag());
-        if (_http_iter!=_httpMap.end()) {
-            auto cb = _http_iter->second->on_inval;
-            if(cb) cb(index);
-            _http_iter->second->release();
-            _httpMap.erase(_http_iter);
+    if(params!=NULL&&size != 0){
+        int index = validateParams(params, size);
+        if (index >= 0) {
+            request->release();
+            auto _http_iter = _httpMap.find(request->getTag());
+            if (_http_iter!=_httpMap.end()) {
+                auto cb = _http_iter->second->on_inval;
+                if(cb) cb(index);
+                _http_iter->second->release();
+                _httpMap.erase(_http_iter);
+            }
+            return;
         }
-        return;
-    }
-    std::string data = formatParams(params, size);
-    switch (request->getRequestType()) {
-        case HttpRequest::Type::PUT:
-        case HttpRequest::Type::POST:
-        {
-            request->setRequestData(data.c_str(), data.length());
-            break;
+        std::string data = formatParams(params, size);
+        switch (request->getRequestType()) {
+            case HttpRequest::Type::PUT:
+            case HttpRequest::Type::POST:
+            {
+                request->setRequestData(data.c_str(), data.length());
+                break;
+            }
+            case HttpRequest::Type::DELETE:
+            case HttpRequest::Type::GET:
+            {
+                const char* url = request->getUrl();
+                std::string strUrl(url);
+                strUrl.append("?");
+                strUrl.append(data);
+                request->setUrl(strUrl.c_str());
+                break;
+            }
+            default:
+                log("unknown request type.");
+                break;
         }
-        case HttpRequest::Type::DELETE:
-        case HttpRequest::Type::GET:
-        {
-            const char* url = request->getUrl();
-            std::string strUrl(url);
-            strUrl.append("?");
-            strUrl.append(data);
-            request->setUrl(strUrl.c_str());
-            break;
-        }
-        default:
-            log("unknown request type.");
-            break;
     }
     HttpClient::getInstance()->send(request);
     request->release();
