@@ -6,7 +6,7 @@
 //
 
 #import "NotificationHelper.h"
-
+using namespace cocos2d;
 //////////////////////////////////////////////////////////
 ///////////copy from cocos2d::FileUtils///////////////////
 //////////////////////////////////////////////////////////
@@ -117,6 +117,9 @@ ValueMap getValueMapFromNSDictionary(NSDictionary* dict)
     return ret;
 }
 
+///
+std::unordered_map<int, cocos2d::ValueMap> _NotiValueMap;
+
 void handleRemote(NSDictionary * remoteInfo, int status)
 {
     if (remoteInfo) {
@@ -162,4 +165,12 @@ void handleRemoteInForeground(NSDictionary * remoteInfo)
 void handleLocalInForeground(UILocalNotification *notif)
 {
     handleLocal(notif, 1);
+}
+
+void _dealWithNotification(int identifier, std::function<void(ValueMap& data)> callback)
+{
+    auto data = _NotiValueMap.find(identifier);
+    if (data!=_NotiValueMap.end()) {
+        callback(data->second);
+    }
 }

@@ -25,8 +25,5 @@ void handleRemoteInForeground(NSDictionary * remoteInfo);
 //Used in application:didReceiveLocalNotification
 void handleLocalInForeground(UILocalNotification *notif);
 
-///
-#include <unordered_map>
 #include <base/CCValue.h>
-using namespace cocos2d;
-extern std::unordered_map<int, ValueMap> _NotiValueMap;
+void _dealWithNotification(int identifier, std::function<void(cocos2d::ValueMap& data)> callback);

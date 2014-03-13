@@ -173,10 +173,7 @@ void localNotification(int identifier, const char* body, const char* action, lon
 #include "ios/NotificationHelper.h"
 void dealWithNotification(int identifier, std::function<void(ValueMap& data)> callback)
 {
-    auto data = _NotiValueMap.find(identifier);
-    if (data!=_NotiValueMap.end()) {
-        callback(data->second);
-    }
+    _dealWithNotification(identifier, callback);
 }
 
 #pragma mark -
