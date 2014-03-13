@@ -55,6 +55,13 @@ void openURL(const char *url)
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithUTF8String:url]]];
 }
 
+void openAppStore(const char* appleId)
+{
+    // open app store link
+    NSString * url = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@", UTF8(appleId)];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+}
+
 #import <MessageUI/MessageUI.h>
 void sendEmail(const char* title, const char* text, const char* recipient)
 {
@@ -94,6 +101,81 @@ bool networkReachable()
         return false;
     }else{
         return true;
+    }
+}
+
+#pragma mark -
+#pragma mark Local Notification
+#include <time.h>
+///private function
+UILocalNotification *findLocalNotificaiton(int identifier)
+{
+    NSArray * array = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    for (UILocalNotification * loc in array) {
+        if ([[loc.userInfo objectForKey:@"id"] isEqualToString:[NSString stringWithFormat:@"%d",identifier]]) {
+            return loc;
+        }
+    }
+    return nil;
+}
+
+void cancelLocalNotification(int identifier)
+{
+    UILocalNotification * loc = findLocalNotificaiton(identifier);
+    if (loc) {
+        [[UIApplication sharedApplication] cancelLocalNotification:loc];
+    }
+}
+
+void cancelAllLocalNotifications()
+{
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+}
+
+void localNotification(int identifier, const char* body, const char* action, struct tm& date)
+{
+    cancelLocalNotification(identifier);
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+        if (localNotif == nil)
+            return;
+        time_t t = mktime(&date);
+        localNotif.fireDate = [NSDate dateWithTimeIntervalSince1970:t];
+        localNotif.timeZone = [NSTimeZone defaultTimeZone];
+        if(body) localNotif.alertBody = UTF8(body);
+        if(action) localNotif.alertAction = UTF8(action);
+        localNotif.soundName = UILocalNotificationDefaultSoundName;
+        localNotif.applicationIconBadgeNumber = 1; ///???
+        localNotif.userInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", identifier] forKey:@"id"];
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+    });
+}
+
+///very same as above///
+void localNotification(int identifier, const char* body, const char* action, long secondsAfter)
+{
+    cancelLocalNotification(identifier);
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+        if (localNotif == nil)
+            return;
+        localNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow:secondsAfter];
+        localNotif.timeZone = [NSTimeZone defaultTimeZone];
+        if(body) localNotif.alertBody = UTF8(body);
+        if(action) localNotif.alertAction = UTF8(action);
+        localNotif.soundName = UILocalNotificationDefaultSoundName;
+        localNotif.applicationIconBadgeNumber = 1; ///???
+        localNotif.userInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", identifier] forKey:@"id"];
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+    });
+}
+
+#include "ios/NotificationHelper.h"
+void dealWithNotification(int identifier, std::function<void(ValueMap& data)> callback)
+{
+    auto data = _NotiValueMap.find(identifier);
+    if (data!=_NotiValueMap.end()) {
+        callback(data->second);
     }
 }
 
@@ -198,5 +280,33 @@ void reportAchievement(const char* achid, float percent)
 //                 NSLog(@"    identifier:%@",achievement.identifier);
              }
          }];
+    }
+}
+
+#import <sys/xattr.h>
+void forbidiCloud()
+{
+    NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSURL *libraryURL = [[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] lastObject];
+    if (&NSURLIsExcludedFromBackupKey == nil)//ios <= 5.0.1
+    {
+        const char* documentsPath = [[documentsURL path] fileSystemRepresentation];
+        const char* libraryPath = [[libraryURL path] fileSystemRepresentation];
+        const char* attrName = "com.apple.MobileBackup";
+        u_int8_t attrValue = 1;
+        setxattr(documentsPath, attrName, &attrValue, sizeof(attrValue), 0, 0);
+        int res = setxattr(libraryPath, attrName, &attrValue, sizeof(attrValue), 0, 0);
+        if (res == 0) {
+            NSLog(@"Forbid icloud ok.");
+        }
+    }else{
+        NSError *error = nil;
+        BOOL success =[documentsURL setResourceValue: [NSNumber numberWithBool: YES] forKey: NSURLIsExcludedFromBackupKey error: &error];
+        [libraryURL setResourceValue: [NSNumber numberWithBool: YES] forKey: NSURLIsExcludedFromBackupKey error: &error];
+        if(!success){
+            NSLog(@"Error excluding %@ from backup %@", [documentsURL lastPathComponent], error);
+        }else{
+            NSLog(@"Forbid icloud ok");
+        }
     }
 }

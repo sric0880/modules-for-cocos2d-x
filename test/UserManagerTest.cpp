@@ -92,7 +92,7 @@ bool UserManagerTestLayer::init()
             }
             return true;
         }},
-        {"nick", "我爱你",true,reg_password}
+        {"nick", "123456",true,reg_password}
     };
     sendHttpReq(req3, params3, 3);
     
