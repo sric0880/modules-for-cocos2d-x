@@ -32,6 +32,8 @@ coco2d-x : version 3.0beta2
 	2. **read_dir_to_excel**. Tool for reading dir info into a excel file. Depend on [xlslib](xlslib.sourceforge.net).
 	3. **aes**. Encrypt and decrypt tool using aes algorithm. You can make a static lib: libaes.a
 	4. **safe_sqlite3** Encrypt and decrypt tool for sqlite database You can make a static lib: libsqlite3.a
+7. ***times4cocos2dx***
+	* awards related to time like everyday online award and every hour award and so on.
 
 ###test
 All unit tests are in the file folder 'test'.

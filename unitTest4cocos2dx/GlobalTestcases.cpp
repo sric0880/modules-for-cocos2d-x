@@ -13,6 +13,7 @@
 #include "FruitSlotDemo.h"
 #include "UserManagerTest.h"
 #include "DeviceUtilTest.h"
+#include "SystemClockTest.h"
 #include "VariableTest.h"
 
 // C++ 11
@@ -20,7 +21,7 @@
 #define CLN(__className__) [](){ auto obj = new __className__(); obj->autorelease(); return obj; }
 
 //add yourself
-TestCase tests[8]={
+TestCase tests[9]={
     {"Example Test", CLN(TestSceneExample)},
     {"PomeloClient Test", CLN(PomeloClientTest)},
     {"Json Convert Test",CLN(JsonConvertTest)},
@@ -28,7 +29,8 @@ TestCase tests[8]={
     {"Variables Test", CLN(VariableTest)},
     {"Game Demo", CLN(FruitSlotDemo)},
     {"Http Helper Test", CLN(UserManagerTest)},
-    {"Device Util Test", CLN(DeviceUtilTest)}
+    {"Device Util Test", CLN(DeviceUtilTest)},
+    {"System Clock Test", CLN(SystemClockTest)}
 };
 
 size_t size = sizeof tests/ sizeof tests[0];

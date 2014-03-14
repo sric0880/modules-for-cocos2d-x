@@ -20,6 +20,11 @@ bool SystemClockTestLayer::init()
     if (!Layer::init()) {
         return false;
     }
+    time_t t = time(NULL);
+    struct tm *lt = localtime(&t);
+    char strtime[100];
+    strftime(strtime, sizeof(strtime), "%H:%M:%S", lt);
+    log("%s", strtime);
     return true;
 }
 void SystemClockTestLayer::onEnter()
