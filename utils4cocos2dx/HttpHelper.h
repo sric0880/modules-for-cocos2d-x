@@ -40,6 +40,7 @@ Dialog* getLoadingDlg(const char* msg)
 {
     Dialog* dlg = new Dialog(msg);
     if (dlg) dlg->autorelease();
+    return dlg;
 }
 
 #include "Variables.h"

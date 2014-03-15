@@ -21,11 +21,16 @@ UserManagerTestLayer::UserManagerTestLayer(){}
 UserManagerTestLayer::~UserManagerTestLayer(){}
 bool UserManagerTestLayer::init()
 {
-    if (!Layer::init()) {
+    if (!LayerColor::initWithColor(Color4B::GRAY)) {
         return false;
     }
     FileUtils::getInstance()->addSearchPath("config");
     auto dlg = getLoadingDlg<LoadingDlg>("test");
+    auto btn = MenuItemFont::create("Click Me", CC_CALLBACK_1(UserManagerTestLayer::btnGo, this));
+    btn->setPosition(480, 100);
+    auto menu = Menu::create(btn,NULL);
+    menu->setPosition(Point::ZERO);
+    addChild(menu);
     //register
     auto req1 = getHttpReq(appendBaseUrl("url_reg").c_str(), "Register1",HttpRequest::Type::GET);
     onReqFail(req1, [this](const char* reason){
@@ -252,4 +257,9 @@ void UserManagerTestLayer::onExit()
 void UserManagerTestLayer::onExitTransitionDidStart()
 {
     Layer::onExitTransitionDidStart();
+}
+
+void UserManagerTestLayer::btnGo(Object* sender)
+{
+    log("click click click me");
 }

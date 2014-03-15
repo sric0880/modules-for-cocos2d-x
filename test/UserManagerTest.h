@@ -18,7 +18,7 @@ public:
     virtual void runThisTest();
 };
 
-class  UserManagerTestLayer: public Layer{
+class  UserManagerTestLayer: public LayerColor{
 public:
     UserManagerTestLayer();
     virtual~UserManagerTestLayer();
@@ -60,7 +60,7 @@ public:
      */
     virtual void onExitTransitionDidStart();
     
-//    void btnGo(Object* sender);
+    void btnGo(Object* sender);
 };
 
 #endif
