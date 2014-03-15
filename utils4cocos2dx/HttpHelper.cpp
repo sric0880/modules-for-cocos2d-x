@@ -43,11 +43,15 @@ public:
     std::function<void(const char*)> on_fail;
     std::function<void(Value)> on_ok;
     std::function<void(int)> on_inval;
+    Object* dlg;
     void callbackReg(HttpClient *sender, HttpResponse *response);
+    HttpCallback():on_ok(nullptr),on_fail(nullptr),on_inval(nullptr),dlg(nullptr){}
 };
 
 void HttpCallback::callbackReg(HttpClient *sender, HttpResponse *response)
 {
+    /*dismiss dialog*/
+    if(dlg) dlg->release();
     if (!response)
     {
         this->release();
@@ -103,6 +107,9 @@ HttpRequest* getHttpReq(const char* url, const char* tag, HttpRequest::Type type
 
 void sendHttpReq(HttpRequest* request, Params params, size_t size)
 {
+    if (!request) {
+        return;
+    }
     if(params!=NULL&&size != 0){
         int index = validateParams(params, size);
         if (index >= 0) {
@@ -141,17 +148,37 @@ void sendHttpReq(HttpRequest* request, Params params, size_t size)
     }
     HttpClient::getInstance()->send(request);
     request->release();
+    /*show dialog*/
+    if(_httpMap[request->getTag()]->dlg)
+        _httpMap[request->getTag()]->dlg->retain();
+}
+
+void bindDlgWithHttp(HttpRequest* request, Object* dlg)
+{
+    if (!request) {
+        return;
+    }
+    _httpMap[request->getTag()]->dlg = dlg;
 }
 
 void onReqFail(HttpRequest* request, std::function<void(const char*)> callback)
 {
+    if (!request) {
+        return;
+    }
     _httpMap[request->getTag()]->on_fail = callback;
 }
 void onReqOk(HttpRequest* request, std::function<void(Value)> callback)
 {
+    if (!request) {
+        return;
+    }
     _httpMap[request->getTag()]->on_ok = callback;
 }
 void onParamInval(HttpRequest* request, std::function<void(int)> callback)
 {
+    if (!request) {
+        return;
+    }
     _httpMap[request->getTag()]->on_inval = callback;
 }

@@ -10,6 +10,7 @@
 
 #include <cocos2d.h>
 #include <network/HttpClient.h>
+#include "LoadingDlg.h"
 USING_NS_CC;
 using namespace network;
 
@@ -30,8 +31,16 @@ HttpRequest* getHttpReq(const char* url, const char* tag, HttpRequest::Type type
 void onReqFail(HttpRequest* request, std::function<void(const char*)> callback);
 void onReqOk(HttpRequest* request, std::function<void(Value)> callback);
 void onParamInval(HttpRequest* request, std::function<void(int)> callback);
+void bindDlgWithHttp(HttpRequest* request, Object* dlg);            //called before sendHttpReq
 
 void sendHttpReq(HttpRequest* request, Params params, size_t size);
+
+template <class Dialog>
+Dialog* getLoadingDlg(const char* msg)
+{
+    Dialog* dlg = new Dialog(msg);
+    if (dlg) dlg->autorelease();
+}
 
 #include "Variables.h"
 inline std::string getBaseUrl()

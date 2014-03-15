@@ -9,6 +9,7 @@
 #include "HttpHelper.h"
 #include "Variables.h"
 #include "DeviceUtil.h"
+#include "LoadingDlg.h"
 
 void UserManagerTest::runThisTest()
 {
@@ -24,8 +25,9 @@ bool UserManagerTestLayer::init()
         return false;
     }
     FileUtils::getInstance()->addSearchPath("config");
+    auto dlg = getLoadingDlg<LoadingDlg>("test");
     //register
-    auto req1 = getHttpReq(appendBaseUrl("url_reg").c_str(), "Register1");
+    auto req1 = getHttpReq(appendBaseUrl("url_reg").c_str(), "Register1",HttpRequest::Type::GET);
     onReqFail(req1, [this](const char* reason){
         log("%s", reason);
         assert(0);
@@ -48,8 +50,10 @@ bool UserManagerTestLayer::init()
         }},
         {"nick", "hao123",true,reg_password}
     };
+    bindDlgWithHttp(req1, dlg);
     sendHttpReq(req1, params, 3);
-    auto req2 = getHttpReq(appendBaseUrl("url_reg").c_str(), "Register2");
+    
+    auto req2 = getHttpReq(appendBaseUrl("url_reg").c_str(), "Register2",HttpRequest::Type::GET);
     onReqFail(req2, [this](const char* reason){
         log("%s", reason);
         assert(0);
@@ -71,7 +75,9 @@ bool UserManagerTestLayer::init()
         }},
         {"nick", "hao123",true,reg_password}
     };
+    bindDlgWithHttp(req2, dlg);
     sendHttpReq(req2, params2, 3);
+    
     auto req3 = getHttpReq(appendBaseUrl("url_reg").c_str(), "Register3", HttpRequest::Type::GET);
     onReqFail(req3, [this](const char* reason){
         log("%s", reason);
@@ -94,6 +100,7 @@ bool UserManagerTestLayer::init()
         }},
         {"nick", "123456",true,reg_password}
     };
+    bindDlgWithHttp(req3, dlg);
     sendHttpReq(req3, params3, 3);
     
     //login
@@ -107,6 +114,7 @@ bool UserManagerTestLayer::init()
     onParamInval(http_req_login, [this](int index){
         log("%d", index);
     });
+    bindDlgWithHttp(http_req_login, dlg);
     Param params_[2] = {
         {"email","lzqiong@gmail.com"},
         {"pwd","123"}
@@ -124,6 +132,7 @@ bool UserManagerTestLayer::init()
     onParamInval(req_v1, [this](int index){
         log("%d", index);
     });
+    bindDlgWithHttp(req_v1, dlg);
     sendHttpReq(req_v1, NULL, 0);
     //visitor login
     auto req_v2 = getHttpReq(appendBaseUrl("url_login_v").c_str(), "LoginVisitor", HttpRequest::Type::GET);
@@ -139,6 +148,7 @@ bool UserManagerTestLayer::init()
     Param params_1[1] = {
         {"email","lzqiong@gmail.com"},
     };
+    bindDlgWithHttp(req_v2, dlg);
     sendHttpReq(req_v2, params_1, 1);
     //gameinfo
     auto req_v3 = getHttpReq(appendBaseUrl("url_gameinfo").c_str(), "GameInfo", HttpRequest::Type::GET);
@@ -151,6 +161,7 @@ bool UserManagerTestLayer::init()
     onParamInval(req_v3, [this](int index){
         log("%d", index);
     });
+    bindDlgWithHttp(req_v3, dlg);
     sendHttpReq(req_v3, NULL, 0);
     //versionInfo
     auto req_v4 = getHttpReq(appendBaseUrl("url_version").c_str(), "PullVersion", HttpRequest::Type::GET);
@@ -167,6 +178,7 @@ bool UserManagerTestLayer::init()
         {"ver_no", getAppVersion()},
         {"pkg_name", getPackageName()}
     };
+    bindDlgWithHttp(req_v4, dlg);
     sendHttpReq(req_v4, params_2, 2);
     //shop info
     auto req_v5 = getHttpReq(appendBaseUrl("url_shopinfo").c_str(), "ShopInfo", HttpRequest::Type::GET);
@@ -179,6 +191,7 @@ bool UserManagerTestLayer::init()
     onParamInval(req_v5, [this](int index){
         log("%d", index);
     });
+    bindDlgWithHttp(req_v5, dlg);
     sendHttpReq(req_v5, NULL, 0);
     //awards
     auto req_v6 = getHttpReq(appendBaseUrl("url_award").c_str(), "Awards", HttpRequest::Type::GET);
@@ -191,6 +204,7 @@ bool UserManagerTestLayer::init()
     onParamInval(req_v6, [this](int index){
         log("%d", index);
     });
+    bindDlgWithHttp(req_v6, dlg);
     sendHttpReq(req_v6, NULL, 0);
     
     //global rank
@@ -204,6 +218,7 @@ bool UserManagerTestLayer::init()
     onParamInval(req_v7, [this](int index){
         log("%d", index);
     });
+    bindDlgWithHttp(req_v7, dlg);
     sendHttpReq(req_v7, NULL, 0);
     
     //awards
@@ -217,6 +232,7 @@ bool UserManagerTestLayer::init()
     onParamInval(req_v8, [this](int index){
         log("%d", index);
     });
+    bindDlgWithHttp(req_v8, dlg);
     sendHttpReq(req_v8, NULL, 0);
     return true;
 }
