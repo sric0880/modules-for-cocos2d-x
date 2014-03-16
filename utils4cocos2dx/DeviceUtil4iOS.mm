@@ -132,42 +132,38 @@ void cancelAllLocalNotifications()
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
-void localNotification(int identifier, const char* body, const char* action, struct tm& date)
+void localNotification(int identifier, const char* body, /*const char* action,*/ struct tm& date)
 {
     cancelLocalNotification(identifier);
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        UILocalNotification *localNotif = [[UILocalNotification alloc] init];
-        if (localNotif == nil)
-            return;
-        time_t t = mktime(&date);
-        localNotif.fireDate = [NSDate dateWithTimeIntervalSince1970:t];
-        localNotif.timeZone = [NSTimeZone defaultTimeZone];
-        if(body) localNotif.alertBody = UTF8(body);
-        if(action) localNotif.alertAction = UTF8(action);
-        localNotif.soundName = UILocalNotificationDefaultSoundName;
-        localNotif.applicationIconBadgeNumber = 1; ///???
-        localNotif.userInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", identifier] forKey:@"id"];
-        [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
-    });
+    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+    if (localNotif == nil)
+        return;
+    time_t t = mktime(&date);
+    localNotif.fireDate = [NSDate dateWithTimeIntervalSince1970:t];
+    localNotif.timeZone = [NSTimeZone defaultTimeZone];
+    if(body) localNotif.alertBody = UTF8(body);
+//    if(action) localNotif.alertAction = UTF8(action);
+    localNotif.soundName = UILocalNotificationDefaultSoundName;
+    localNotif.applicationIconBadgeNumber = 1; ///???
+    localNotif.userInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", identifier] forKey:@"id"];
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
 }
 
 ///very same as above///
-void localNotification(int identifier, const char* body, const char* action, long secondsAfter)
+void localNotification(int identifier, const char* body, /*const char* action,*/ long secondsAfter)
 {
     cancelLocalNotification(identifier);
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        UILocalNotification *localNotif = [[UILocalNotification alloc] init];
-        if (localNotif == nil)
-            return;
-        localNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow:secondsAfter];
-        localNotif.timeZone = [NSTimeZone defaultTimeZone];
-        if(body) localNotif.alertBody = UTF8(body);
-        if(action) localNotif.alertAction = UTF8(action);
-        localNotif.soundName = UILocalNotificationDefaultSoundName;
-        localNotif.applicationIconBadgeNumber = 1; ///???
-        localNotif.userInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", identifier] forKey:@"id"];
-        [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
-    });
+    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+    if (localNotif == nil)
+        return;
+    localNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow:secondsAfter];
+    localNotif.timeZone = [NSTimeZone defaultTimeZone];
+    if(body) localNotif.alertBody = UTF8(body);
+//    if(action) localNotif.alertAction = UTF8(action); //锁屏时显示“滑动来Action”
+    localNotif.soundName = UILocalNotificationDefaultSoundName;
+    localNotif.applicationIconBadgeNumber = 1; ///???
+    localNotif.userInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", identifier] forKey:@"id"];
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
 }
 
 #include "ios/NotificationHelper.h"

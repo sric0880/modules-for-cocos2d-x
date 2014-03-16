@@ -125,6 +125,7 @@ void handleRemote(NSDictionary * remoteInfo, int status)
     if (remoteInfo) {
         ValueMap data = getValueMapFromNSDictionary(remoteInfo);
         data["status"] = status; //app is running
+        log("Receive Remote Notification. status: %d", status);
         if (data.find("id")!=data.end()) {
             _NotiValueMap[data["id"].asInt()] = data;
         }
@@ -141,6 +142,7 @@ void handleLocal(UILocalNotification *localNotif, int status)
         if (dict) {
             ValueMap data = getValueMapFromNSDictionary(dict);
             data["status"] = status; //app did finishing launching.
+            NSLog(@"Receive Local Notification. status: %d", status);
             _NotiValueMap[data["id"].asInt()] = data;
         }
         [UIApplication sharedApplication].applicationIconBadgeNumber = localNotif.applicationIconBadgeNumber-1;
@@ -172,5 +174,6 @@ void _dealWithNotification(int identifier, std::function<void(ValueMap& data)> c
     auto data = _NotiValueMap.find(identifier);
     if (data!=_NotiValueMap.end()) {
         callback(data->second);
+        _NotiValueMap.erase(data);
     }
 }

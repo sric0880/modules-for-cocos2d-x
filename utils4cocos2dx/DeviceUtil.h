@@ -21,8 +21,8 @@ void sendEmail(const char* title, const char* text, const char* recipient);
 void toPasteboard(const char *text);            //拷贝文字到粘贴板
 void saveImageToAlbum(const char *filePath);    //保存图片到相册 TODO Test
 bool networkReachable();            //是否入网
-void localNotification(int identifier, const char* body, const char* action, struct tm& date);
-void localNotification(int identifier, const char* body, const char* action, long secondsAfter);
+void localNotification(int identifier, const char* body, /*const char* action,*/ struct tm& date);
+void localNotification(int identifier, const char* body, /*const char* action,*/ long secondsAfter);
 void cancelLocalNotification(int identifier);
 void cancelAllLocalNotifications();
 
