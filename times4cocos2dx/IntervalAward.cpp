@@ -10,7 +10,7 @@
 #include <sstream>
 IntervalAward::IntervalAward()
 {
-    TempVar* localData = VARIABLES.getLocal("times_awards.json");
+    TempVar* localData = VARIABLES_LOCAL("times_awards.json");
     std::stringstream ss;
     ss<<"intervalAwd_"<<_id;
     _key = ss.str();
@@ -45,7 +45,7 @@ void IntervalAward::acceptAward(std::function<bool(bool,int, int)> callback)
 void IntervalAward::restartCount()
 {
     _starttime_solid = system_clock::now();
-    TempVar* localData = VARIABLES.getLocal("times_awards.json");
+    TempVar* localData = VARIABLES_LOCAL("times_awards.json");
     /*key*/
     std::stringstream ss;
     ss<<system_clock::to_time_t(_starttime_solid);

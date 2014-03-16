@@ -38,7 +38,7 @@ void MyTimer::init(std::function<void(bool)> callback)
         _current_time = system_clock::from_time_t(tt);
         
         /*Load json config*/
-        TempVar* var = VARIABLES.getLocal("times.json");
+        TempVar* var = VARIABLES_LOCAL("times.json");
         ValueVector vv = var->getValueVector("Interval");
         for(auto& i : vv){
             IntervalAward* interval = new IntervalAward();

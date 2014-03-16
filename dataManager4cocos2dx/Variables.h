@@ -62,5 +62,5 @@ private:
 
 #define VARIABLES Variables::getInstance()
 #define USERDEFAULT UserDefault::getInstance()
-
+#define VARIABLES_LOCAL(__filename__) Variables::getInstance().getLocal(__filename__)
 #endif

@@ -65,7 +65,7 @@ void HttpCallback::callbackReg(HttpClient *sender, HttpResponse *response)
     {
         log("response failed");
         log("error buffer: %s", response->getErrorBuffer());
-        if(on_fail) on_fail(VARIABLES.getLocal("strings.json")->getString("server_conn_fail").c_str());
+        if(on_fail) on_fail(VARIABLES_LOCAL("strings.json")->getString("server_conn_fail").c_str());
         this->release();
         return;
     }
@@ -81,7 +81,7 @@ void HttpCallback::callbackReg(HttpClient *sender, HttpResponse *response)
         if(on_ok) on_ok(v);
     }else{
         log("\nline:%d\ncol:%d\npos:%d\nsource:%s\ntext:%s", error.line,error.column,error.position,error.source,error.text);
-        if(on_fail) on_fail(VARIABLES.getLocal("strings.json")->getString("server_conn_fail").c_str());
+        if(on_fail) on_fail(VARIABLES_LOCAL("strings.json")->getString("server_conn_fail").c_str());
     }
     this->release();
 }
@@ -113,7 +113,9 @@ void sendHttpReq(HttpRequest* request, Params params, size_t size, bool checkNet
         return;
     }
     if (checkNetwork && !networkReachable()) {
-        
+        TempVar* strings = VARIABLES_LOCAL("strings.json");
+        showAlert(strings->getString("dialog_title_tip").c_str(), strings->getString("network_unreachable").c_str(), NULL, strings->getString("dialog_btn_ok").c_str(), nullptr);
+        return;
     }
     if(params!=NULL&&size != 0){
         int index = validateParams(params, size);

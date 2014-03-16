@@ -9,7 +9,7 @@
 #include "Variables.h"
 #include <sstream>
 OnlineTimeAward::OnlineTimeAward():_flag(false){
-    TempVar* localData = VARIABLES.getLocal("times_awards.json");
+    TempVar* localData = VARIABLES_LOCAL("times_awards.json");
     seconds::rep count;
     std::stringstream ss(localData->getString("onlineTime_total"));
     ss>>count;
@@ -37,7 +37,7 @@ OnlineTimeAward::~OnlineTimeAward(){
         _lastOnlineTime = _currentOnlineTime;
     }
     
-    TempVar* localData = VARIABLES.getLocal("times_awards.json");
+    TempVar* localData = VARIABLES_LOCAL("times_awards.json");
     std::stringstream ss;
     ss<<_totalOnlineTime.count();
     localData->setString("onlineTime_total",ss.str());

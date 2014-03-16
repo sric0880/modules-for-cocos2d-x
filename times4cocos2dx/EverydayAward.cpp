@@ -9,7 +9,7 @@
 #include "Variables.h"
 #include <sstream>
 EverydayAward::EverydayAward(){
-    TempVar* localData = VARIABLES.getLocal("times_awards.json");
+    TempVar* localData = VARIABLES_LOCAL("times_awards.json");
     _nthOnline = localData->getInt("dayAfterDay_nthOnline");
     _hasAcceptAward = localData->getBool("dayAfterDay_hasAcceptAwd");
     std::stringstream ss(localData->getString("dayAfterDay_lastOnline"));
@@ -34,7 +34,7 @@ void EverydayAward::onTick(system_clock::time_point& current_time)
         _nthOnline = 0;
     }
     _lastOnlineTime = current_time;
-    TempVar* localData = VARIABLES.getLocal("times_awards.json");
+    TempVar* localData = VARIABLES_LOCAL("times_awards.json");
     localData->setInt("dayAfterDay_nthOnline", _nthOnline);
     std::stringstream ss;
     ss<<system_clock::to_time_t(_lastOnlineTime);
@@ -48,7 +48,7 @@ void EverydayAward::acceptAward(std::function<bool(bool,int, int)> callback)
 {
     if (!_hasAcceptAward && callback(true, _awardsArr[_nthOnline], _itemType)) {
         _hasAcceptAward = true;
-        TempVar* localData = VARIABLES.getLocal("times_awards.json");
+        TempVar* localData = VARIABLES_LOCAL("times_awards.json");
         localData->setBool("dayAfterDay_hasAcceptAwd", _hasAcceptAward);
         VARIABLES.persistLocal("times_awards.json");
     }

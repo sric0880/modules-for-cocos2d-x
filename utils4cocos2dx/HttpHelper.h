@@ -33,7 +33,7 @@ void onReqOk(HttpRequest* request, std::function<void(Value)> callback);
 void onParamInval(HttpRequest* request, std::function<void(int)> callback);
 void bindDlgWithHttp(HttpRequest* request, Object* dlg);            //called before sendHttpReq
 
-void sendHttpReq(HttpRequest* request, Params params, size_t size, bool checkNetwork = false);
+void sendHttpReq(HttpRequest* request, Params params, size_t size, bool checkNetwork = true);
 
 template <class Dialog>
 inline Dialog* getLoadingDlg(const char* msg)
@@ -47,15 +47,15 @@ inline Dialog* getLoadingDlg(const char* msg)
 inline std::string getBaseUrl()
 {
 #ifdef USE_DIS_SERVER
-    return VARIABLES.getLocal("urls.json")->getString("base_url_dis");
+    return VARIABLES_LOCAL("urls.json")->getString("base_url_dis");
 #else
-    return VARIABLES.getLocal("urls.json")->getString("base_url_dev");
+    return VARIABLES_LOCAL("urls.json")->getString("base_url_dev");
 #endif
 }
 
 inline std::string appendBaseUrl(const char* url_tag)
 {
-    return getBaseUrl()+VARIABLES.getLocal("urls.json")->getString(url_tag);
+    return getBaseUrl()+VARIABLES_LOCAL("urls.json")->getString(url_tag);
 }
 
 extern std::regex reg_email;

@@ -45,7 +45,7 @@ inline std::string getWritableFilename(const std::string& filename)
 
 inline void addFilenameLookupDictionary(const std::string& filename)
 {
-    TempVar* tv = VARIABLES.getLocal(LookUpDictFile);
+    TempVar* tv = VARIABLES_LOCAL(LookUpDictFile);
     tv->setString(filename, getWritableFilename(filename));
     cocos2d::FileUtils::getInstance()->setFilenameLookupDictionary(tv->getContent());
 }
@@ -56,7 +56,7 @@ inline void loadFilenameLookupDictionary()
     ValueMap vm;
     vm[LookUpDictFile] = Value(getWritableFilename(LookUpDictFile));
     fu->setFilenameLookupDictionary(vm);
-    TempVar* tv = VARIABLES.getLocal(LookUpDictFile);
+    TempVar* tv = VARIABLES_LOCAL(LookUpDictFile);
     fu->setFilenameLookupDictionary(tv->getContent());
 }
 
