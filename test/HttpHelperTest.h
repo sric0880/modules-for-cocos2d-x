@@ -13,7 +13,7 @@
 using namespace std;
 using namespace cocos2d;
 
-class UserManagerTest : public TestScene{
+class HttpHelperTest : public TestScene{
 public:
     virtual void runThisTest();
 };

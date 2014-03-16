@@ -11,7 +11,7 @@
 #include "JsonFileUtilTest.h"
 #include "PomeloClientTest.h"
 #include "FruitSlotDemo.h"
-#include "UserManagerTest.h"
+#include "HttpHelperTest.h"
 #include "DeviceUtilTest.h"
 #include "SystemClockTest.h"
 #include "NotificationTest.h"
@@ -29,7 +29,7 @@ TestCase tests[10]={
     {"Json File Read and Write Test", CLN(JsonFileUtilTest)},
     {"Variables Test", CLN(VariableTest)},
     {"Game Demo", CLN(FruitSlotDemo)},
-    {"Http Helper Test", CLN(UserManagerTest)},
+    {"Http Helper Test", CLN(HttpHelperTest)},
     {"Device Util Test", CLN(DeviceUtilTest)},
     {"System Clock Test", CLN(SystemClockTest)},
     {"Notification Test", CLN(NotificationTest)},

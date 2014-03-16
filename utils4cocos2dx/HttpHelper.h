@@ -18,6 +18,7 @@ using namespace network;
 #include <string>
 #include <regex>
 #include <functional>
+#include <vector>
 typedef struct _param {
     std::string key;        //参数key
     std::string value;      //参数value
@@ -31,8 +32,9 @@ HttpRequest* getHttpReq(const char* url, const char* tag, HttpRequest::Type type
 void onReqFail(HttpRequest* request, std::function<void(const char*)> callback);
 void onReqOk(HttpRequest* request, std::function<void(Value)> callback);
 void onParamInval(HttpRequest* request, std::function<void(int)> callback);
-void bindDlgWithHttp(HttpRequest* request, Object* dlg);            //called before sendHttpReq
-
+void bindDlgWithHttp(HttpRequest* request, Object* dlg);            //must be called before sendHttpReq
+void onAllReqsOver(std::vector<HttpRequest*>, std::function<void(std::vector<int>&)>); //must be called before sendHttpReq
+//After this method, request is released.
 void sendHttpReq(HttpRequest* request, Params params, size_t size, bool checkNetwork = true);
 
 template <class Dialog>
