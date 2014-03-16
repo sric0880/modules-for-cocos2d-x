@@ -7,14 +7,12 @@
 
 #import "IsolatedAlert.h"
 
-AlertHelper* alertHelper;
-
 @implementation IsolatedAlert
 
-- (void) showAlert: (AlertHelper*)helper AlertTitle:(NSString*)title AlertMsg:(NSString*)msg
+- (void) showAlert: (AlertCallback)callback AlertTitle:(NSString*)title AlertMsg:(NSString*)msg
          CancalBtn:(NSString*)cb OkBtn:(NSString*)kb
 {
-    alertHelper = helper;
+    _callback = callback;
     UIAlertView *alertView;
     if (kb) {
         alertView = [[UIAlertView alloc]initWithTitle:title message:msg delegate:self cancelButtonTitle:cb otherButtonTitles:kb, nil];
@@ -28,7 +26,7 @@ AlertHelper* alertHelper;
 #pragma mark AlertDialog Delegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(alertHelper->_func) alertHelper->_func(buttonIndex);
+    if(_callback) _callback(buttonIndex);
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex  // after animation

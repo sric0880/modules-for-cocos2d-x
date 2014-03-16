@@ -7,6 +7,7 @@
 
 #include "DeviceUtilTest.h"
 #include "DeviceUtil.h"
+#include "AlertHelper.h"
 #include <iostream>
 using namespace std;
 

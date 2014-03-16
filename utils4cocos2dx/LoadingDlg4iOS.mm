@@ -45,7 +45,7 @@ void LoadingDlg::show(const char* msg)
     UIActivityIndicatorView* activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 128.0f, 96.0f)];
     NSLog(@"size: %f, %f", rect.size.height/2,rect.size.width/2);
     [activityIndicator setCenter:CGPointMake(rect.size.height/2, rect.size.width/2)];
-    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite/*Large*/];
     [activityIndicator setBackgroundColor:[UIColor blackColor]];
     [activityIndicator setAlpha:0.6];
     [activityIndicator.layer setCornerRadius:6];

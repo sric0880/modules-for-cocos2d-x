@@ -105,10 +105,15 @@ HttpRequest* getHttpReq(const char* url, const char* tag, HttpRequest::Type type
     return request;
 }
 
-void sendHttpReq(HttpRequest* request, Params params, size_t size)
+#include "DeviceUtil.h"
+#include "AlertHelper.h"
+void sendHttpReq(HttpRequest* request, Params params, size_t size, bool checkNetwork /*= false*/)
 {
     if (!request) {
         return;
+    }
+    if (checkNetwork && !networkReachable()) {
+        
     }
     if(params!=NULL&&size != 0){
         int index = validateParams(params, size);

@@ -33,10 +33,10 @@ void onReqOk(HttpRequest* request, std::function<void(Value)> callback);
 void onParamInval(HttpRequest* request, std::function<void(int)> callback);
 void bindDlgWithHttp(HttpRequest* request, Object* dlg);            //called before sendHttpReq
 
-void sendHttpReq(HttpRequest* request, Params params, size_t size);
+void sendHttpReq(HttpRequest* request, Params params, size_t size, bool checkNetwork = false);
 
 template <class Dialog>
-Dialog* getLoadingDlg(const char* msg)
+inline Dialog* getLoadingDlg(const char* msg)
 {
     Dialog* dlg = new Dialog(msg);
     if (dlg) dlg->autorelease();

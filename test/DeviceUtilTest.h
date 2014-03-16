@@ -10,7 +10,6 @@
 
 #include "cocos2d.h"
 #include "TestScene.h"
-#include "AlertHelper.h"
 using namespace std;
 using namespace cocos2d;
 
@@ -19,7 +18,7 @@ public:
     virtual void runThisTest();
 };
 
-class  DeviceUtilTestLayer: public Layer, public AlertHelper{
+class  DeviceUtilTestLayer: public Layer{
 public:
     DeviceUtilTestLayer();
     virtual~DeviceUtilTestLayer();
