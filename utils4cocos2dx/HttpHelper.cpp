@@ -177,6 +177,10 @@ void sendHttpReq(HttpRequest* request, Params params, size_t size, bool checkNet
     if (!request) {
         return;
     }
+    HttpCallback* httpCallback = _httpMap[request->getTag()];
+    if (!httpCallback) {
+        return;         //because the req has been sent before and httpCallback was released
+    }
     if (checkNetwork && !networkReachable()) {
         TempVar* strings = VARIABLES_LOCAL("strings.json");
         showAlert(strings->getString("dialog_title_tip").c_str(), strings->getString("network_unreachable").c_str(), NULL, strings->getString("dialog_btn_ok").c_str(), nullptr);
@@ -220,7 +224,6 @@ void sendHttpReq(HttpRequest* request, Params params, size_t size, bool checkNet
     }
     HttpClient::getInstance()->send(request);
     request->release();
-    HttpCallback* httpCallback = _httpMap[request->getTag()];
     httpCallback->state = Sending;
     /*show dialog*/
     if(httpCallback->dlg)
