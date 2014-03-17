@@ -18,13 +18,16 @@ Value getValueFromFile(const std::string& filename)
     const char* content;
 #if __AES__
     cocos2d::Data data = cocos2d::FileUtils::getInstance()->getDataFromFile(filename);
+    if (data.isNull()) {
+        return Value::Null;
+    }
     unsigned char* bytes = data.getBytes();
     decrypt(data.getSize(), bytes, bytes);
     content = (char*)bytes;
 #else
     std::string contentStr = cocos2d::FileUtils::getInstance()->getStringFromFile(filename);
     if (contentStr == "") {//if the file not found, also return a value
-        return Value();
+        return Value::Null;
     }
     content = contentStr.c_str();
 #endif
