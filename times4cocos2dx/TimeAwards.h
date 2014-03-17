@@ -14,8 +14,10 @@ using namespace std::chrono;
 
 class TimeAwards {
 public:
+    virtual void onTick(system_clock::time_point&& current_time) = 0;     //Timer更新当前时间回调
     virtual void onTick(system_clock::time_point& current_time) = 0;     //Timer更新当前时间回调
     virtual void restartCount() = 0;            //手动重置计时
+    virtual void loadAward(ValueMap&& map) = 0;  //从json中加载奖励数据
     virtual void loadAward(ValueMap& map) = 0;  //从json中加载奖励数据
     /**
      *	@brief	领取奖励
@@ -28,9 +30,9 @@ public:
      *  @return ture--用户已经领取奖励，将调用restartCount
      *          false--用户没用领取奖励，不调用restartCount
     **/
-    virtual void acceptAward(std::function<bool(bool /*hasTimeUp*/,int/* awardsNum*/, int/* itemType*/)>) = 0;
-
-    
+    virtual void acceptAward(std::function<bool(bool /*hasTimeUp*/,int/* awardsNum*/, int/* itemType*/)>&&) = 0;
+    virtual void acceptAward(std::function<bool(bool /*hasTimeUp*/,int/* awardsNum*/, int/* itemType*/)>&) = 0;
+    virtual void debug() = 0;
 };
 
 

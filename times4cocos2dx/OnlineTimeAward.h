@@ -15,10 +15,15 @@ public:
     OnlineTimeAward();
     virtual~OnlineTimeAward();
     
+    virtual void onTick(system_clock::time_point&& current_time) override;
     virtual void onTick(system_clock::time_point& current_time) override;
     virtual void restartCount() override;
+    virtual void loadAward(ValueMap&& map) override;
     virtual void loadAward(ValueMap& map) override;
-    virtual void acceptAward(std::function<bool(bool /*hasTimeUp*/,int/* awardsNum*/, int/* itemType*/)>) override;
+    virtual void acceptAward(std::function<bool(bool /*hasTimeUp*/,int/* awardsNum*/, int/* itemType*/)>&&)override;
+    virtual void acceptAward(std::function<bool(bool /*hasTimeUp*/,int/* awardsNum*/, int/* itemType*/)>&)override;
+    virtual void debug() override;
+    
     seconds getLeftTime();
     seconds getTotalOnlineTime();   //没有包括当前登录时间
     seconds getLastOnlineTime();

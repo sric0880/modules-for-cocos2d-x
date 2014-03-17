@@ -17,10 +17,14 @@ public:
     EverydayAward();
     virtual~EverydayAward();
     
+    virtual void onTick(system_clock::time_point&& current_time) override;
     virtual void onTick(system_clock::time_point& current_time) override;
     virtual void restartCount() override;       //Do Nothing
+    virtual void loadAward(ValueMap&& map) override;
     virtual void loadAward(ValueMap& map) override;
-    virtual void acceptAward(std::function<bool(bool,int, int)>) override;
+    virtual void acceptAward(std::function<bool(bool,int, int)>&&) override;
+    virtual void acceptAward(std::function<bool(bool,int, int)>&) override;
+    virtual void debug() override;
     
     int getNthOnline();     //获得连续登录的天数（包括当天）
 private:

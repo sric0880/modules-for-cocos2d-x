@@ -8,20 +8,18 @@
 #include "EverydayAward.h"
 #include "Variables.h"
 #include <sstream>
-EverydayAward::EverydayAward(){
-    TempVar* localData = VARIABLES_LOCAL("times_awards.json");
-    _nthOnline = localData->getInt("dayAfterDay_nthOnline");
-    _hasAcceptAward = localData->getBool("dayAfterDay_hasAcceptAwd");
-    std::stringstream ss(localData->getString("dayAfterDay_lastOnline"));
-    time_t tt;
-    ss>>tt;
-    if(tt == 0) _lastOnlineTime = system_clock::now();
-    _lastOnlineTime = system_clock::from_time_t(tt);
+#include "Timer.h"
+EverydayAward::EverydayAward()
+{
 }
 EverydayAward::~EverydayAward(){
     delete []_awardsArr;
 }
 
+void EverydayAward::onTick(system_clock::time_point&& current_time)
+{
+    onTick(current_time);
+}
 void EverydayAward::onTick(system_clock::time_point& current_time)
 {
     if (isOnlineYesterday(current_time)) {//昨天上线了
@@ -32,6 +30,7 @@ void EverydayAward::onTick(system_clock::time_point& current_time)
         }
     }else if(!isOnlineToday(current_time)){//昨天没上线, 今儿也没上线
         _nthOnline = 0;
+        _hasAcceptAward = false;
     }
     _lastOnlineTime = current_time;
     TempVar* localData = VARIABLES_LOCAL("times_awards.json");
@@ -44,7 +43,11 @@ void EverydayAward::onTick(system_clock::time_point& current_time)
     VARIABLES.persistLocal("times_awards.json");
 }
 
-void EverydayAward::acceptAward(std::function<bool(bool,int, int)> callback)
+void EverydayAward::acceptAward(std::function<bool(bool,int, int)>&& callback)
+{
+    acceptAward(callback);
+}
+void EverydayAward::acceptAward(std::function<bool(bool,int, int)>& callback)
 {
     if (!_hasAcceptAward && callback(true, _awardsArr[_nthOnline], _itemType)) {
         _hasAcceptAward = true;
@@ -59,6 +62,10 @@ void EverydayAward::restartCount()
     //
 }
 
+void EverydayAward::loadAward(ValueMap&& map)
+{
+    loadAward(map);
+}
 void EverydayAward::loadAward(ValueMap& map)
 {
     _itemType = map["itemType"].asInt();
@@ -66,6 +73,15 @@ void EverydayAward::loadAward(ValueMap& map)
     _daysNum = vv.size();
     _awardsArr = new int[_daysNum];
     std::transform(vv.begin(), vv.end(), _awardsArr, [](Value& v)->int{return v.asInt();});
+    
+    TempVar* localData = VARIABLES_LOCAL("times_awards.json");
+    _nthOnline = localData->getInt("dayAfterDay_nthOnline");
+    _hasAcceptAward = localData->getBool("dayAfterDay_hasAcceptAwd");
+    std::stringstream ss(localData->getString("dayAfterDay_lastOnline"));
+    time_t tt = 0;
+    ss>>tt;
+    if(tt == 0) _lastOnlineTime = MyTimer::getInstance().getCurrentTime();
+    else _lastOnlineTime = system_clock::from_time_t(tt);
 }
 
 int EverydayAward::getNthOnline()
@@ -94,4 +110,17 @@ bool EverydayAward::isOnlineToday(system_clock::time_point& current_time)
         return true;
     }else
         return false;
+}
+
+#include <iostream>
+void EverydayAward::debug()
+{
+    std::cout<<"******EverydayAward*********"<<std::endl;
+    std::cout<<"_daysNum:"<<_daysNum<<std::endl;
+    std::copy(_awardsArr, _awardsArr+_daysNum, std::ostream_iterator<int>(std::cout,", "));
+    std::cout<<"_itemType:"<<_itemType<<std::endl;
+    std::cout<<"_nthOnline:"<<_nthOnline<<std::endl;
+    std::cout<<"_lastOnlineTime:"<<system_clock::to_time_t(_lastOnlineTime)<<std::endl;
+    std::cout<<"_hasAcceptAward:"<<std::boolalpha<<_hasAcceptAward<<std::endl;
+    std::cout<<"****************************"<<std::endl;
 }

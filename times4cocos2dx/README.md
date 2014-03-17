@@ -7,32 +7,32 @@
 
 ```
 {
-	'Interval':
-	[
-		{
-			'id':'name1',
-			'interval':1000,
-			'awardsNum':200,
-			'itemType':0
-		},
-		{
-			'id':'name2',
-			'interval':1000,
-			'awardsNum':200,
-			'itemType':0
-		}
-	],
-	'DayAfterDay':
-	{
-		'itemType':1,
-		'awardsNums':[100,200,300,400,500,600,700]
-	},
-	'OnlineTime':
-	{
-		'duration':100000,
-		'itemType':1,
-		'awardsNum':100
-	}
+  "Interval":
+  [
+    {
+      "id":0,
+      "interval":1000,
+      "awardsNum":200,
+      "itemType":0
+    },
+    {
+      "id":1,
+      "interval":1000,
+      "awardsNum":200,
+      "itemType":0
+    }
+  ],
+  "DayAfterDay":
+  {
+    "itemType":1,
+    "awardsNums":[100,200,300,400,500,600,700]
+  },
+  "OnlineTime":
+  {
+    "duration":100000,
+    "itemType":1,
+    "awardsNum":100
+  }
 }
 ```
 
@@ -44,17 +44,21 @@
 * duration--累计在线时间超过duration(小时)，奖励物品itemType个数 awardsNum
 
 ###提供接口
+<h6>支持右值引用</h6>
+
 ``` c
-void init(std::function<void(bool)> callback);    //初始化接口，开始进入游戏时调用，请求时间服务器，会有网络延迟
-IntervalAward* getIntervalAwd(int id);    //获得间隔时间奖励
-EverydayAward* getEveryDayAwd();          //每日奖励
-OnlineTimeAward* getOnlineTimeAwd();      //累计在线时间奖励
+void fetchTime(std::function<void(bool)>&& callback);//请求时间服务器，发送Http请求，异步
+void fetchTime(std::function<void(bool)>& callback);//请求时间服务器，发送Http请求，异步
+HttpRequest* getHttpReq();                        //获得Http Request.
+IntervalAward& getIntervalAwd(int id);    //获得间隔时间奖励
+EverydayAward& getEveryDayAwd();          //每日奖励
+OnlineTimeAward& getOnlineTimeAwd();      //累计在线时间奖励
 system_clock::time_point getCurrentTime();//获取当前时间，服务器时间，为了防止作弊，不能用本地时间
 
 //每种奖励都提供了共同的接口：
 virtual void onTick(system_clock::time_point& current_time) = 0;     //Timer更新当前时间回调
-    virtual void restartCount() = 0;            //手动重置计时
-    virtual void loadAward(ValueMap& map) = 0;  //从json中加载奖励数据
+virtual void restartCount() = 0;            //手动重置计时
+virtual void loadAward(ValueMap& map) = 0;  //从json中加载奖励数据
 /**
  *	@brief	领取奖励
  *
