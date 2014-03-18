@@ -10,7 +10,11 @@
 
 #define UTF8(__MESSAGE__) [NSString stringWithUTF8String:__MESSAGE__]
 
-void showAlert(const char* title, const char* msg, const char* cancel, const char* ok, AlertCallback func)
+void showAlert(const char* title, const char* msg, const char* cancel, const char* ok, AlertCallback&& func)
+{
+    showAlert(title, msg, cancel, ok, func);
+}
+void showAlert(const char* title, const char* msg, const char* cancel, const char* ok, AlertCallback& func)
 {
     IsolatedAlert* instance = [IsolatedAlert new];
     assert(title);
@@ -23,5 +27,4 @@ void showAlert(const char* title, const char* msg, const char* cancel, const cha
     }else{
         [instance showAlert:func AlertTitle:UTF8(title) AlertMsg:UTF8(msg) CancalBtn:UTF8(cancel) OkBtn:nil];
     }
-    
 }

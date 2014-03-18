@@ -47,7 +47,8 @@ void forbidiCloud();                    //禁用iCloud
 **/
 #include <base/CCValue.h>
 using namespace cocos2d;
-void dealWithNotification(int identifier, std::function<void(ValueMap& data)> callback);
+void dealWithNotification(int identifier, std::function<void(ValueMap& data)>&& callback);
+void dealWithNotification(int identifier, std::function<void(ValueMap& data)>& callback);
 #endif
 
 #pragma mark -

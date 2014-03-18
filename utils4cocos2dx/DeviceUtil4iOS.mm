@@ -167,7 +167,11 @@ void localNotification(int identifier, const char* body, /*const char* action,*/
 }
 
 #include "ios/NotificationHelper.h"
-void dealWithNotification(int identifier, std::function<void(ValueMap& data)> callback)
+void dealWithNotification(int identifier, std::function<void(ValueMap& data)>&& callback)
+{
+    _dealWithNotification(identifier, callback);
+}
+void dealWithNotification(int identifier, std::function<void(ValueMap& data)>& callback)
 {
     _dealWithNotification(identifier, callback);
 }

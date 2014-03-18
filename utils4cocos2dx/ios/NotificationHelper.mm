@@ -169,7 +169,7 @@ void handleLocalInForeground(UILocalNotification *notif)
     handleLocal(notif, 1);
 }
 
-void _dealWithNotification(int identifier, std::function<void(ValueMap& data)> callback)
+void _dealWithNotification(int identifier, std::function<void(ValueMap& data)>& callback)
 {
     auto data = _NotiValueMap.find(identifier);
     if (data!=_NotiValueMap.end()) {

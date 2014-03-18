@@ -14,7 +14,7 @@
     AlertCallback _callback;
 }
 
-- (void) showAlert: (AlertCallback)callback AlertTitle:(NSString*)title AlertMsg:(NSString*)msg
+- (void) showAlert: (AlertCallback&)callback AlertTitle:(NSString*)title AlertMsg:(NSString*)msg
          CancalBtn:(NSString*)cb OkBtn:(NSString*)kb;
 
 @end

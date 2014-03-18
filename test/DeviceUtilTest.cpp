@@ -58,9 +58,9 @@ bool DeviceUtilTestLayer::init()
     auto btnShowAlert = MenuItemFont::create("ShowAlert", [this](Object* sender){
         showAlert("提示","服务器连接失败，请稍后再试","取消",nullptr,nullptr);
         showAlert("提示","服务器连接失败，请稍后再试1","取消","确定",nullptr);
-        showAlert("提示","服务器连接失败，请稍后再试2",nullptr,"确定",[](int index){log("clicked %d",index);});
-        showAlert("提示","服务器连接失败，请稍后再试3","取消",nullptr,[](int index){log("clicked %d",index);});
-        showAlert("提示","服务器连接失败，请稍后再试4","取消","确定",[](int index){log("clicked %d",index);});
+        showAlert("提示","服务器连接失败，请稍后再试2",nullptr,"确定",[](long index){log("clicked %li",index);});
+        showAlert("提示","服务器连接失败，请稍后再试3","取消",nullptr,[](long index){log("clicked %li",index);});
+        showAlert("提示","服务器连接失败，请稍后再试4","取消","确定",[](long index){log("clicked %li",index);});
     });
     btnShowAlert->setPosition(470,400);
     

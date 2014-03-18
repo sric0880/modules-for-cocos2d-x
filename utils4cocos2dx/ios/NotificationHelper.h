@@ -26,4 +26,4 @@ void handleRemoteInForeground(NSDictionary * remoteInfo);
 void handleLocalInForeground(UILocalNotification *notif);
 
 #include <base/CCValue.h>
-void _dealWithNotification(int identifier, std::function<void(cocos2d::ValueMap& data)> callback);
+void _dealWithNotification(int identifier, std::function<void(cocos2d::ValueMap& data)>& callback);

@@ -63,8 +63,8 @@ void HttpCallback::callbackReg(HttpClient *sender, HttpResponse *response)
             break;
         }
         
-        int statusCode = response->getResponseCode();
-        log("HTTP Status Code: %d, tag = %s", statusCode, response->getHttpRequest()->getTag());
+        long statusCode = response->getResponseCode();
+        log("HTTP Status Code: %li, tag = %s", statusCode, response->getHttpRequest()->getTag());
         
         if (!response->isSucceed())
         {
@@ -117,7 +117,11 @@ HttpRequest* getHttpReq(const char* url, const char* tag, HttpRequest::Type type
 }
 #include <algorithm>
 #include <iterator>
-void onAllReqsOver(std::vector<HttpRequest*> requests, std::function<void(std::vector<int>&)>callback)
+void onAllReqsOver(std::vector<HttpRequest*>& requests, std::function<void(std::vector<int>&)>&& callback)
+{
+    onAllReqsOver(requests, callback);
+}
+void onAllReqsOver(std::vector<HttpRequest*>& requests, std::function<void(std::vector<int>&)>& callback)
 {
     if (!callback) {
         return;
@@ -204,7 +208,7 @@ void sendHttpReq(HttpRequest* request, Params params, size_t size, bool checkNet
             case HttpRequest::Type::PUT:
             case HttpRequest::Type::POST:
             {
-                request->setRequestData(data.c_str(), data.length());
+                request->setRequestData(data.c_str(), (unsigned int)data.length());
                 break;
             }
             case HttpRequest::Type::DELETE:
@@ -238,21 +242,42 @@ void bindDlgWithHttp(HttpRequest* request, Object* dlg)
     _httpMap[request->getTag()]->dlg = dlg;
 }
 
-void onReqFail(HttpRequest* request, std::function<void(const char*)> callback)
+void onReqFail(HttpRequest* request, std::function<void(const char*)>&& callback)
 {
     if (!request) {
         return;
     }
     _httpMap[request->getTag()]->on_fail = callback;
 }
-void onReqOk(HttpRequest* request, std::function<void(Value)> callback)
+void onReqOk(HttpRequest* request, std::function<void(Value)>&& callback)
 {
     if (!request) {
         return;
     }
     _httpMap[request->getTag()]->on_ok = callback;
 }
-void onParamInval(HttpRequest* request, std::function<void(int)> callback)
+void onParamInval(HttpRequest* request, std::function<void(int)>&& callback)
+{
+    if (!request) {
+        return;
+    }
+    _httpMap[request->getTag()]->on_inval = callback;
+}
+void onReqFail(HttpRequest* request, std::function<void(const char*)>& callback)
+{
+    if (!request) {
+        return;
+    }
+    _httpMap[request->getTag()]->on_fail = callback;
+}
+void onReqOk(HttpRequest* request, std::function<void(Value)>& callback)
+{
+    if (!request) {
+        return;
+    }
+    _httpMap[request->getTag()]->on_ok = callback;
+}
+void onParamInval(HttpRequest* request, std::function<void(int)>& callback)
 {
     if (!request) {
         return;

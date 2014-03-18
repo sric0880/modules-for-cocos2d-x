@@ -181,9 +181,9 @@ void PomeloClientTestLayer::printUsers()
 {
     for_each(UsersView.begin(), UsersView.end(), [](LabelTTF* label){label->removeFromParentAndCleanup(true);});
     UsersView.clear();
-    int size = UsersData.size();
+    size_t size = UsersData.size();
     cocos2d::Size winsize = Director::getInstance()->getVisibleSize();
-    for(int i = 0; i < size; ++i)
+    for(size_t i = 0; i < size; ++i)
     {
         auto userlabel = LabelTTF::create(UsersData[i], "", 30);
         userlabel->setPosition(winsize.width/2,20+i*30);

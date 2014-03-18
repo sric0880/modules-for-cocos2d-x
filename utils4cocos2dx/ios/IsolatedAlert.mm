@@ -9,7 +9,7 @@
 
 @implementation IsolatedAlert
 
-- (void) showAlert: (AlertCallback)callback AlertTitle:(NSString*)title AlertMsg:(NSString*)msg
+- (void) showAlert: (AlertCallback&)callback AlertTitle:(NSString*)title AlertMsg:(NSString*)msg
          CancalBtn:(NSString*)cb OkBtn:(NSString*)kb
 {
     _callback = callback;

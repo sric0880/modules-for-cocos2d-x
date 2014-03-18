@@ -29,11 +29,15 @@ typedef struct _param {
 
 HttpRequest* getHttpReq(const char* url, const char* tag, HttpRequest::Type type = HttpRequest::Type::POST, bool supportJson = false);
 
-void onReqFail(HttpRequest* request, std::function<void(const char*)> callback);
-void onReqOk(HttpRequest* request, std::function<void(Value)> callback);
-void onParamInval(HttpRequest* request, std::function<void(int)> callback);
+void onReqFail(HttpRequest* request, std::function<void(const char*)>&& callback);
+void onReqOk(HttpRequest* request, std::function<void(Value)>&& callback);
+void onParamInval(HttpRequest* request, std::function<void(int)>&& callback);
+void onReqFail(HttpRequest* request, std::function<void(const char*)>& callback);
+void onReqOk(HttpRequest* request, std::function<void(Value)>& callback);
+void onParamInval(HttpRequest* request, std::function<void(int)>& callback);
 void bindDlgWithHttp(HttpRequest* request, Object* dlg);            //must be called before sendHttpReq
-void onAllReqsOver(std::vector<HttpRequest*>, std::function<void(std::vector<int>&)>); //must be called before sendHttpReq
+void onAllReqsOver(std::vector<HttpRequest*>&, std::function<void(std::vector<int>&)>&&); //must be called before sendHttpReq
+void onAllReqsOver(std::vector<HttpRequest*>&, std::function<void(std::vector<int>&)>&); //must be called before sendHttpReq
 //After this method, request is released.
 void sendHttpReq(HttpRequest* request, Params params, size_t size, bool checkNetwork = true);
 
