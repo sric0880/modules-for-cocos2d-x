@@ -79,4 +79,36 @@ inline void nodeToTop(Node* node)
     node->setPosition(VisibleRect::top());
 }
 
+#include <cocostudio/CocoStudio.h>
+using namespace cocos2d::ui;
+inline Widget* getUIFromSceneByTag(Node* scene, int tag)
+{
+    cocostudio::ComRender *render = static_cast<cocostudio::ComRender*>(scene->getChildByTag(tag)->getComponent("GUIComponent"));
+    return static_cast<Widget*>(render->getNode());
+}
+
+inline Sprite* getSpriteFromSceneByTag(Node* scene, int tag)
+{
+    cocostudio::ComRender *render = static_cast<cocostudio::ComRender*>(scene->getChildByTag(tag)->getComponent("CCSprite"));
+    return static_cast<Sprite*>(render->getNode());
+}
+
+inline cocostudio::Armature* getArmatureFromSceneByTag(Node* scene, int tag)
+{
+    cocostudio::ComRender *render = static_cast<cocostudio::ComRender*>(scene->getChildByTag(tag)->getComponent("CCArmature"));
+    return static_cast<cocostudio::Armature*>(render->getNode());
+}
+
+inline ParticleSystemQuad* getParticleFromSceneByTag(Node* scene, int tag)
+{
+    cocostudio::ComRender *render = static_cast<cocostudio::ComRender*>(scene->getChildByTag(tag)->getComponent("CCParticleSystemQuad"));
+    return static_cast<ParticleSystemQuad*>(render->getNode());
+}
+
+inline TMXTiledMap* getMapFromSceneByTag(Node* scene, int tag)
+{
+    cocostudio::ComRender *render = static_cast<cocostudio::ComRender*>(scene->getChildByTag(tag)->getComponent("CCTMXTiledMap"));
+    return static_cast<TMXTiledMap*>(render->getNode());
+}
+
 #endif /* defined(__FruitSlot__CocosUtil__) */
