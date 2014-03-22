@@ -45,9 +45,9 @@ public:
     void onLoginSuc(int status, Value& data);
     void onRandom(int status, Value& data);
     
-    void btnGo(Object* sender);
-    void btnIcon(Object* sender);
-    void btnReset(Object* sender);
+    void btnGo(Ref* sender);
+    void btnIcon(Ref* sender);
+    void btnReset(Ref* sender);
 };
 
 #endif /* defined(__fruit_slots__FruitSlotDemo__) */

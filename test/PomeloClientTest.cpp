@@ -197,7 +197,7 @@ void PomeloClientTestLayer::onNotify(int status)
     log("receive notify callback status: %d", status);
 }
 
-void PomeloClientTestLayer::btnSendNotify(Object* sender)
+void PomeloClientTestLayer::btnSendNotify(Ref* sender)
 {
     PomeloClient& pc = PomeloClient::getInstance();
     ValueMap map;

@@ -67,7 +67,7 @@ Scene* UnitTestLayer::createScene()
     return pScene;
 }
 
-void UnitTestLayer::menuCallback(Object * sender)
+void UnitTestLayer::menuCallback(Ref * sender)
 {
 	Director::getInstance()->purgeCachedData();
     

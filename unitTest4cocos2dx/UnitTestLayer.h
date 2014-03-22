@@ -29,7 +29,7 @@ public:
 **/
     static Scene* createScene();
     
-    void menuCallback(Object * sender);
+    void menuCallback(Ref * sender);
     
     bool onTouchBegan(Touch* touches, Event  *event);
     void onTouchMoved(Touch* touches, Event  *event);

@@ -271,7 +271,7 @@ void UserManagerTestLayer::onExitTransitionDidStart()
     Layer::onExitTransitionDidStart();
 }
 
-void UserManagerTestLayer::btnGo(Object* sender)
+void UserManagerTestLayer::btnGo(Ref* sender)
 {
     log("click click click me");
 }

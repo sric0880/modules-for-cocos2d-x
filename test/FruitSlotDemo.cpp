@@ -270,7 +270,7 @@ void FruitSlotDemoLayer::onRandom(int status, Value& data)
     }
 }
 
-void FruitSlotDemoLayer::btnGo(Object* sender)
+void FruitSlotDemoLayer::btnGo(Ref* sender)
 {
     int allbets = std::accumulate(_bets, _bets+bet_cols_size, 0);
     _coins-=allbets;
@@ -291,7 +291,7 @@ void FruitSlotDemoLayer::btnGo(Object* sender)
     pc.request("connector.entryHandler.random", v, CC_CALLBACK_2(FruitSlotDemoLayer::onRandom, this));
 }
 
-void FruitSlotDemoLayer::btnIcon(Object* sender)
+void FruitSlotDemoLayer::btnIcon(Ref* sender)
 {
     int i = (dynamic_cast<MenuItemLabel*>(sender))->getTag();
     _bets[i] += 1;
@@ -300,7 +300,7 @@ void FruitSlotDemoLayer::btnIcon(Object* sender)
     _bets_ttf[i]->setString(buf);
 }
 
-void FruitSlotDemoLayer::btnReset(Object* sender)
+void FruitSlotDemoLayer::btnReset(Ref* sender)
 {
     for (int i = 0; i < bet_cols_size; ++i) {
         _bets[i] = 0;

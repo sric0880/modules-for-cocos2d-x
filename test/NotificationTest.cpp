@@ -58,7 +58,7 @@ void NotificationTestLayer::onExitTransitionDidStart()
     Layer::onExitTransitionDidStart();
 }
 
-void NotificationTestLayer::btnlocal(Object* sender)
+void NotificationTestLayer::btnlocal(Ref* sender)
 {
     /*now notify*/
     time_t t = time(NULL);
@@ -74,12 +74,12 @@ void NotificationTestLayer::btnlocal(Object* sender)
     /*20 sec later*/
     localNotification(2, "我是史上最牛逼的程序员，O(∩_∩)O哈哈~ 2", 20);
 }
-void NotificationTestLayer::btnCancel(Object* sender)
+void NotificationTestLayer::btnCancel(Ref* sender)
 {
     cancelLocalNotification(2);
 }
 
-void NotificationTestLayer::btnCancelAll(Object* sender)
+void NotificationTestLayer::btnCancelAll(Ref* sender)
 {
     cancelAllLocalNotifications();
 }

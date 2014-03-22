@@ -31,11 +31,11 @@ bool DeviceUtilTestLayer::init()
     log("getPackageName:%s",getPackageName());
     log("getAppName:%s",getAppName());
     
-    auto btnOpenUrl = MenuItemFont::create("OpenUrl", [](Object* sender){
+    auto btnOpenUrl = MenuItemFont::create("OpenUrl", [](Ref* sender){
         openURL("itms-apps://itunes.apple.com/app/id692618522");
     });
     btnOpenUrl->setPosition(200,200);
-    auto btnSendEmail = MenuItemFont::create("SendEmail", [](Object* sender){
+    auto btnSendEmail = MenuItemFont::create("SendEmail", [](Ref* sender){
         sendEmail("aiwo中华", "shide", "lzqiong@gmail.com");
     });
     btnSendEmail->setPosition(400,200);
@@ -45,17 +45,17 @@ bool DeviceUtilTestLayer::init()
     }else{
         log("不能入网");
     }
-    auto btnGameCenter = MenuItemFont::create("LoginGamecenter", [](Object* sender){
+    auto btnGameCenter = MenuItemFont::create("LoginGamecenter", [](Ref* sender){
         loginGameCenter();
     });
     btnGameCenter->setPosition(600,300);
-    auto btnGcBoard = MenuItemFont::create("GamecenterBoard", [](Object* sender){
+    auto btnGcBoard = MenuItemFont::create("GamecenterBoard", [](Ref* sender){
         showGameGKLeaderboardView();
     });
     btnGcBoard->setPosition(800,500);
     
     ///Alert Dialog
-    auto btnShowAlert = MenuItemFont::create("ShowAlert", [this](Object* sender){
+    auto btnShowAlert = MenuItemFont::create("ShowAlert", [this](Ref* sender){
         showAlert("提示","服务器连接失败，请稍后再试","取消",nullptr,nullptr);
         showAlert("提示","服务器连接失败，请稍后再试1","取消","确定",nullptr);
         showAlert("提示","服务器连接失败，请稍后再试2",nullptr,"确定",[](long index){log("clicked %li",index);});

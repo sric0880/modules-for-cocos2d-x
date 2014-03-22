@@ -60,7 +60,7 @@ public:
      */
     virtual void onExitTransitionDidStart();
     
-    void btnGo(Object* sender);
+    void btnGo(Ref* sender);
 };
 
 #endif

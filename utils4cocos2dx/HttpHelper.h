@@ -35,7 +35,7 @@ void onParamInval(HttpRequest* request, std::function<void(int)>&& callback);
 void onReqFail(HttpRequest* request, std::function<void(const char*)>& callback);
 void onReqOk(HttpRequest* request, std::function<void(Value)>& callback);
 void onParamInval(HttpRequest* request, std::function<void(int)>& callback);
-void bindDlgWithHttp(HttpRequest* request, Object* dlg);            //must be called before sendHttpReq
+void bindDlgWithHttp(HttpRequest* request, Ref* dlg);            //must be called before sendHttpReq
 void onAllReqsOver(std::vector<HttpRequest*>&, std::function<void(std::vector<int>&)>&&); //must be called before sendHttpReq
 void onAllReqsOver(std::vector<HttpRequest*>&, std::function<void(std::vector<int>&)>&); //must be called before sendHttpReq
 //After this method, request is released.

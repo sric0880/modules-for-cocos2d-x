@@ -60,9 +60,9 @@ public:
      */
     virtual void onExitTransitionDidStart();
     
-    void btnlocal(Object* sender);
-    void btnCancel(Object* sender);
-    void btnCancelAll(Object* sender);
+    void btnlocal(Ref* sender);
+    void btnCancel(Ref* sender);
+    void btnCancelAll(Ref* sender);
 };
 
 #endif

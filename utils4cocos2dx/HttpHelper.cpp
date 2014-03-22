@@ -40,12 +40,12 @@ std::string formatParams(Params params, size_t size){
 
 enum HttpStatus { BeforeSend, Sending, Fail, OK };
 
-class HttpCallback : public Object{
+class HttpCallback : public Ref{
 public:
     std::function<void(const char*)> on_fail;
     std::function<void(Value)> on_ok;
     std::function<void(int)> on_inval;
-    Object* dlg;
+    Ref* dlg;
     HttpStatus state;
     void callbackReg(HttpClient *sender, HttpResponse *response);
     HttpCallback():on_ok(nullptr),on_fail(nullptr),on_inval(nullptr),dlg(nullptr),state(BeforeSend){}
@@ -234,7 +234,7 @@ void sendHttpReq(HttpRequest* request, Params params, size_t size, bool checkNet
         httpCallback->dlg->retain();
 }
 
-void bindDlgWithHttp(HttpRequest* request, Object* dlg)
+void bindDlgWithHttp(HttpRequest* request, Ref* dlg)
 {
     if (!request) {
         return;

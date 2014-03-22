@@ -37,7 +37,7 @@ public:
     void onAdd(Value& data);
     void onNotify(int status);
     
-    void btnSendNotify(Object* sender);
+    void btnSendNotify(Ref* sender);
     
     void printUsers();
 };
