@@ -58,14 +58,25 @@ typedef struct _bmfConfig
 Label* getLabel(std::string& text, const TTFConfig& , const BMFConfig&); //FIXME: Config不能传入临时变量
 Label* getLabel(std::string&& text, const TTFConfig& , const BMFConfig&);
 
-/*将win size 居中到visible size: 640*1136-->640*960*/
+/*
+ 640*1136-->640*960
+ 将node对齐到visible size的底部 TODO: Test
+ */
 #include "VisibleRect.h"
-inline void centerRootNode(Node* node)
+inline void nodeToBottom(Node* node)
 {
-    Size visiableSize = VisibleRect::getVisibleRect().size;
-    Size winSize = Director::getInstance()->getWinSize();
-    node->setPosition(0, (visiableSize.height-winSize.height)/2);
-    log("%f,%f",node->getPosition().x, node->getPosition().y);
+    node->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
+    node->setPosition(VisibleRect::bottom());
+}
+/*
+ 640*1136-->640*960
+ 将node对齐到visible size的顶部 TODO: Test
+ */
+#include "VisibleRect.h"
+inline void nodeToTop(Node* node)
+{
+    node->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
+    node->setPosition(VisibleRect::top());
 }
 
 #endif /* defined(__FruitSlot__CocosUtil__) */
