@@ -7,9 +7,9 @@
 
 #ifndef __LoadingDialogSys__
 #define __LoadingDialogSys__
-#include <base/CCObject.h>
+#include <CCRef.h>
 
-class LoadingDlg : public cocos2d::Object{
+class LoadingDlg : public cocos2d::Ref{
 public:
     LoadingDlg(const char* msg);
     virtual~LoadingDlg();
