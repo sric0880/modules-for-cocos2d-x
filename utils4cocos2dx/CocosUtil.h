@@ -39,16 +39,23 @@ void loadAllResourcesAsyc(bool encrypted, unsigned int* key, const std::vector<s
 typedef struct _bmfConfig
 {
     std::string bmfontFilePath;     //字体路径
+    bool isShadow;                  //是否开启阴影
+    Color3B color;                  //字体颜色
+    float scale;                    //字体缩放
     TextHAlignment alignment;       //对齐
     int lineWidth;                  //长度
     Point imageOffset;              //偏离
     
-    _bmfConfig(const char* filePath = "", TextHAlignment a = TextHAlignment::LEFT, int l = 0,
-               Point ioff = Point::ZERO)
+    _bmfConfig(const char* filePath = "", bool shadow = false, GLubyte r = 255, GLubyte g = 255, GLubyte b= 255, float sc = 1.0f, TextHAlignment a = TextHAlignment::LEFT, int l = 0, Point ioff = Point::ZERO)
     :bmfontFilePath(filePath)
+    ,isShadow(shadow)
+    ,color(r,g,b)
+    ,scale(sc)
     ,alignment(a)
     ,lineWidth(l)
-    ,imageOffset(ioff){}
+    ,imageOffset(ioff)
+    {
+    }
 }BMFConfig;
 /*
  不使用cocostudio提供的UI,而是
@@ -60,27 +67,51 @@ Label* getLabel(std::string&& text, const TTFConfig& , const BMFConfig&);
 
 /*
  640*1136-->640*960
- 将node对齐到visible size的底部 TODO: Test
+ 将node对齐到visible size的底部
  */
 #include "VisibleRect.h"
 inline void nodeToBottom(Node* node)
 {
     node->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
-    node->setPosition(VisibleRect::bottom());
+    auto point = node->getParent()->convertToNodeSpace(VisibleRect::bottom());
+    node->setPosition(point);
 }
 /*
  640*1136-->640*960
- 将node对齐到visible size的顶部 TODO: Test
+ 将node对齐到visible size的顶部
  */
-#include "VisibleRect.h"
 inline void nodeToTop(Node* node)
 {
     node->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
-    node->setPosition(VisibleRect::top());
+    auto point = node->getParent()->convertToNodeSpace(VisibleRect::top());
+    node->setPosition(point);
 }
 
+inline void nodeToCenter(Node* node)
+{
+    node->setAnchorPoint(Point::ANCHOR_MIDDLE);
+    auto point = node->getParent()->convertToNodeSpace(VisibleRect::center());
+    node->setPosition(point);
+}
+
+inline float diffHeight()
+{
+    return Director::getInstance()->getWinSize().height - VisibleRect::getVisibleRect().size.height;
+}
+
+inline float diffWidth()
+{
+    return Director::getInstance()->getWinSize().width - VisibleRect::getVisibleRect().size.width;
+}
+
+#pragma mark -
+#pragma mark Cocostudio Helper
 #include <cocostudio/CocoStudio.h>
 using namespace cocos2d::ui;
+inline Node* getNodeFromSceneByTag(Node* scene, int tag)
+{
+    return scene->getChildByTag(tag);
+}
 inline Widget* getUIFromSceneByTag(Node* scene, int tag)
 {
     cocostudio::ComRender *render = static_cast<cocostudio::ComRender*>(scene->getChildByTag(tag)->getComponent("GUIComponent"));
@@ -110,5 +141,98 @@ inline TMXTiledMap* getMapFromSceneByTag(Node* scene, int tag)
     cocostudio::ComRender *render = static_cast<cocostudio::ComRender*>(scene->getChildByTag(tag)->getComponent("CCTMXTiledMap"));
     return static_cast<TMXTiledMap*>(render->getNode());
 }
+
+inline cocostudio::ComAudio* getAudioFromSceneByTag(Node* scene, int tag)
+{
+    return static_cast<cocostudio::ComAudio*>(scene->getChildByTag(tag)->getComponent("CCComAudio"));
+}
+#include <UIHelper.h>
+#include <cocostudio/CCSGUIReader.h>
+#include <UIImageView.h>
+#include <UIButton.h>
+#include <UILayout.h>
+#include <UIPageView.h>
+
+inline Button* getButtonFromUI(Widget* ui, const char* buttonName)
+{
+    auto btn = dynamic_cast<Button*>(ui::Helper::seekWidgetByName(ui, buttonName));
+    assert(btn);
+    return btn;
+}
+inline PageView* getPageViewFromUI(Widget* ui, const char* pageName)
+{
+    auto pageview = dynamic_cast<PageView*>(ui::Helper::seekWidgetByName(ui, pageName));
+    assert(pageview);
+    return pageview;
+}
+inline ImageView* getImageViewFromUI(Widget* ui, const char* imageName)
+{
+    auto imageview = dynamic_cast<ImageView*>(ui::Helper::seekWidgetByName(ui, imageName));
+    assert(imageview);
+    return imageview;
+}
+
+#include "CustomButton.h"
+#include "CustomLabel.h"
+inline CustomLabel* getCustomLabelFromUI(Widget* ui, const char* labelName)
+{
+    auto lb = dynamic_cast<CustomLabel*>(ui::Helper::seekWidgetByName(ui, labelName));
+    assert(lb);
+    return lb;
+}
+inline CustomButton* getCustomButtonFromUI(Widget* ui, const char* buttonName)
+{
+    auto btn = dynamic_cast<CustomButton*>(ui::Helper::seekWidgetByName(ui, buttonName));
+    assert(btn);
+    return btn;
+}
+#include <cocostudio/CCActionManagerEx.h>
+inline void playAction(const char* jsonName, const char* actionName)
+{
+    cocostudio::ActionManagerEx::getInstance()->playActionByName(jsonName, actionName);
+}
+
+/*
+ 使层能接受点击事件，屏蔽层下获得点击事件
+ 实现模态
+ */
+void swallowTouchesOfLayer(Layer* lyer);
+
+#pragma mark -
+#pragma mark Audio Helper
+
+inline bool isMusicOn()
+{
+    return UserDefault::getInstance()->getBoolForKey("musicOn",true);
+}
+inline bool isEffectOn()
+{
+    return UserDefault::getInstance()->getBoolForKey("effectOn",true);
+}
+inline void turnOffMusic()
+{
+    UserDefault::getInstance()->setBoolForKey("musicOn", false);
+}
+inline void turnOnMusic()
+{
+    UserDefault::getInstance()->setBoolForKey("musicOn", true);
+}
+inline void turnOffEffect()
+{
+    UserDefault::getInstance()->setBoolForKey("effectOn", false);
+}
+inline void turnOnEffect()
+{
+    UserDefault::getInstance()->setBoolForKey("effectOn", true);
+}
+void preloadBgMusic(std::vector<std::string>& bgMuscNames);
+void preloadEffects(std::vector<std::string>& effectsNames);
+void playEffect(const char* effectName);
+void playBgMusic(const char* MuscName);
+void playBgMusic_Ex(const char* MuscName);  //如果此时有背景音乐 不播放
+void stopBgMusic(const char* MuscName);
+void resumeBgMusic();
+void pauseBgMusic();
+bool isBgMusicPlaying(const char* MuscName);    //是否某个背景音乐正在播放
 
 #endif /* defined(__FruitSlot__CocosUtil__) */

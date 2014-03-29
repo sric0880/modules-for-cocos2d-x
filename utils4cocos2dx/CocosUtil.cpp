@@ -137,6 +137,80 @@ Label* getLabel(std::string& text, const TTFConfig& ttfConfig, const BMFConfig& 
     {
         label = Label::createWithBMFont(bmfConfig.bmfontFilePath,text,bmfConfig.alignment,
                                         bmfConfig.lineWidth,bmfConfig.imageOffset);
+        if(bmfConfig.isShadow){
+            label->enableShadow();
+        }
+        if(bmfConfig.color!=Color3B::WHITE)
+        {
+            label->setColor(bmfConfig.color);
+        }
+        if(bmfConfig.scale!=1.0f){
+            label->setScale(bmfConfig.scale);
+        }
     }
     return label;
+}
+
+void swallowTouchesOfLayer(Layer* lyer)
+{
+    auto touchEvent = EventListenerTouchOneByOne::create();
+    touchEvent->onTouchBegan = [](Touch *pTouch, Event *pEvent)->bool{return true;};
+    touchEvent->setSwallowTouches(true);
+    lyer->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchEvent, lyer);
+}
+
+#include <SimpleAudioEngine.h>
+static char bgmusicPlaying[20];
+void preloadBgMusic(std::vector<std::string>& bgMuscNames)
+{
+    for(auto& name: bgMuscNames){
+        CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(name.c_str());
+    }
+}
+void preloadEffects(std::vector<std::string>& effectsNames)
+{
+    for(auto& name: effectsNames){
+        CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(name.c_str());
+    }
+}
+void playEffect(const char* effectName)
+{
+    if (isEffectOn()) {
+        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(effectName);
+    }
+}
+void playBgMusic(const char* MuscName)
+{
+    if (isMusicOn()) {
+        strcpy(bgmusicPlaying, MuscName);
+        CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(MuscName, true);
+    }
+}
+
+void playBgMusic_Ex(const char* MuscName)
+{
+    if(!CocosDenshion::SimpleAudioEngine::getInstance()->isBackgroundMusicPlaying())
+    playBgMusic(MuscName);
+}
+
+void stopBgMusic()
+{
+    CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic(true);
+}
+
+void resumeBgMusic(){
+    CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+}
+
+void pauseBgMusic()
+{
+    CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+}
+
+bool isBgMusicPlaying(const char* MuscName)
+{
+    if (strcmp(bgmusicPlaying, MuscName) == 0) {
+        return true;
+    }
+    return false;
 }
