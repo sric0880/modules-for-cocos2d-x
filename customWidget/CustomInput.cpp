@@ -35,6 +35,8 @@ bool CustomInput::init()
 {
     if (Widget::init())
     {
+        /*touch event*/
+        setTouchEnabled(true);
         return true;
     }
     return false;
@@ -44,8 +46,46 @@ void CustomInput::initRenderer()
 {
     Widget::initRenderer();
     _editbox = new EditBox();
-    addChild(_editbox);
+    Node::addChild(_editbox,getZOrder()+1,-1);
 }
+
+void CustomInput::setTouchSize(const Size &size)
+{
+    _touchWidth = size.width;
+    _touchHeight = size.height;
+}
+
+Size CustomInput::getTouchSize()
+{
+    return Size(_touchWidth, _touchHeight);
+}
+
+bool CustomInput::hitTest(const Point &pt)
+{
+    Point nsp = convertToNodeSpace(pt);
+    Rect bb = Rect(-_touchWidth * _anchorPoint.x, -_touchHeight * _anchorPoint.y, _touchWidth, _touchHeight);
+    if (nsp.x >= bb.origin.x && nsp.x <= bb.origin.x + bb.size.width && nsp.y >= bb.origin.y && nsp.y <= bb.origin.y + bb.size.height)
+    {
+        return true;
+    }
+    
+    return false;
+}
+
+bool CustomInput::onTouchBegan(Touch *touch, Event *unusedEvent)
+{
+    if(Widget::onTouchBegan(touch, unusedEvent)){
+        _editbox->touchDownAction(_editbox, Control::EventType::TOUCH_UP_INSIDE);
+        return true;
+    }
+    return false;
+}
+
+//void CustomInput::setAnchorPoint(const cocos2d::Point &pt)
+//{
+//    Widget::setAnchorPoint(pt);
+//    _editbox->setAnchorPoint(pt);
+//}
 
 const std::string CustomInput::getText() const
 {
@@ -60,6 +100,7 @@ void CustomInput::setText(std::string && pText)
 void CustomInput::initWithSizeAndBackgroundSprite(const cocos2d::Size& size, Scale9Sprite* pPressed9SpriteBg)
 {
     _editbox->initWithSizeAndBackgroundSprite(size, pPressed9SpriteBg);
+    setTouchSize(size);
     _editbox->autorelease();
 }
 
@@ -89,4 +130,17 @@ void CustomInput::setInputFlag(EditBox::InputFlag flag)
 void CustomInput::setInputMode(EditBox::InputMode mode)
 {
     _editbox->setInputMode(mode);
+}
+std::string CustomInput::getPlaceHolder()
+{
+    return _editbox->getPlaceHolder();
+}
+int CustomInput::getMaxLength()
+{
+    return _editbox->getMaxLength();
+}
+
+void CustomInput::setDelegate(cocos2d::extension::EditBoxDelegate* delegate)
+{
+    _editbox->setDelegate(delegate);
 }

@@ -19,15 +19,15 @@ using namespace cocostudio;
 inline void registerCustomWidget()
 {
     GUIReader* guiReader = GUIReader::getInstance();
-    guiReader->registerTypeAndCallBack("CustomLabel",
-                                       &CustomLabel::createInstance,
-                                       CustomLabelReader::getInstance(),
+    guiReader->registerTypeAndCallBack("CustomInput",
+                                       &CustomInput::createInstance,
+                                       CustomInputReader::getInstance(),
                                        parseselector(CustomInputReader::setProperties));
     guiReader->registerTypeAndCallBack("CustomLabel",
                                        &CustomLabel::createInstance,
                                        CustomLabelReader::getInstance(),
                                        parseselector(CustomLabelReader::setProperties));
-    guiReader->registerTypeAndCallBack("CustomLabel",
+    guiReader->registerTypeAndCallBack("CustomButton",
                                        &CustomButton::createInstance,
                                        CustomButtonReader::getInstance(),
                                        parseselector(CustomButtonReader::setProperties));

@@ -29,7 +29,17 @@ CustomButtonReader* CustomButtonReader::getInstance()
 void CustomButtonReader::setProperties(const std::string& classType, cocos2d::ui::Widget *widget, const rapidjson::Value &customOptions)
 {
     CustomButton* custom = static_cast<CustomButton*>(widget);
-    custom->label->setTextId(DICTOOL->getStringValue_json(customOptions, "Textid"));
-    custom->label->setTTFConfigId(DICTOOL->getStringValue_json(customOptions, "TTFConfigId"));
-    custom->label->setBMFConfigId(DICTOOL->getStringValue_json(customOptions, "BMFConfigId"));
+    auto ttfconfig = DICTOOL->getStringValue_json(customOptions, "TTFConfigId");
+    if (ttfconfig) {
+        custom->label->setTTFConfigId(ttfconfig);
+    }
+    auto bmfconfig =DICTOOL->getStringValue_json(customOptions, "BMFConfigId");
+    if (bmfconfig) {
+        custom->label->setBMFConfigId(bmfconfig);
+    }
+    auto textid = DICTOOL->getStringValue_json(customOptions, "TextId");
+    if (textid) {
+        custom->label->setTextId(textid);
+    }
+    custom->label->setAnchorPoint_Ex(Point::ANCHOR_MIDDLE);
 }

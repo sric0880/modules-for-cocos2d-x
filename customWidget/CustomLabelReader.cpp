@@ -29,7 +29,16 @@ CustomLabelReader* CustomLabelReader::getInstance()
 void CustomLabelReader::setProperties(const std::string& classType, cocos2d::ui::Widget *widget, const rapidjson::Value &customOptions)
 {
     CustomLabel* custom = static_cast<CustomLabel*>(widget);
-    custom->setTextId(DICTOOL->getStringValue_json(customOptions, "Textid"));
-    custom->setTTFConfigId(DICTOOL->getStringValue_json(customOptions, "TTFConfigId"));
-    custom->setBMFConfigId(DICTOOL->getStringValue_json(customOptions, "BMFConfigId"));
+    auto ttfconfig = DICTOOL->getStringValue_json(customOptions, "TTFConfigId");
+    if (ttfconfig) {
+        custom->setTTFConfigId(ttfconfig);
+    }
+    auto bmfconfig =DICTOOL->getStringValue_json(customOptions, "BMFConfigId");
+    if (bmfconfig) {
+        custom->setBMFConfigId(bmfconfig);
+    }
+    auto textid = DICTOOL->getStringValue_json(customOptions, "TextId");
+    if (textid) {
+        custom->setTextId(textid);
+    }
 }

@@ -17,37 +17,27 @@ public:
     virtual~CustomInput();
     
     static CustomInput* create();
-    static cocos2d::Ref* createInstance();
+    static cocos2d::CCObject* createInstance();
     
 //    setFontColor(Color3B); //TODO:
-    void initWithSizeAndBackgroundSprite(const cocos2d::Size& size, Scale9Sprite* pPressed9SpriteBg);
+    void initWithSizeAndBackgroundSprite(const cocos2d::CCSize& size, CCScale9Sprite* pPressed9SpriteBg);
     void setFontName(std::string && pFontName);
     void setFontSize(int fontSize);
-    void setPlaceHolder(std::string && text);
+    void setPlaceHolder(const char* text);
     void setMaxLength(int maxlen);
-    void setInputFlag(EditBox::InputFlag);
-    void setInputMode(EditBox::InputMode);
-    void setDelegate(cocos2d::extension::EditBoxDelegate *);
-    
-    std::string getPlaceHolder();
+	void setInputFlag(EditBoxInputFlag);
+	void setInputMode(EditBoxInputMode);
+
+	std::string getPlaceHolder();
     int getMaxLength();
-    
+
     const std::string getText() const;
     void setText(std::string && pText);
-    
-    void setTouchSize(const cocos2d::Size &size);
-    cocos2d::Size getTouchSize();
-    virtual bool hitTest(const cocos2d::Point &pt);
-    virtual bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unusedEvent);
-    
 protected:
     virtual bool init() override;
     virtual void initRenderer() override;
 private:
-    EditBox* _editbox;
-    float _touchWidth;
-    float _touchHeight;
-    
+	CCEditBox* _editbox;
 };
 
 #endif
