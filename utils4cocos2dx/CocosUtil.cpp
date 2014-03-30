@@ -125,6 +125,7 @@ void loadAllResourcesAsyc(const std::vector<std::string>& resources, std::functi
 void loadAllResourcesAsyc(const std::vector<std::string>& resources, std::function<void(size_t)>& callback)
 {
     if (resources.size() == 0) {
+        callback(0);
         return;
     }
     struct __Args* args = new __Args();

@@ -157,6 +157,7 @@ inline cocostudio::ComAudio* getAudioFromSceneByTag(Node* scene, int tag)
 #include <UIButton.h>
 #include <UILayout.h>
 #include <UIPageView.h>
+#include <UIText.h>
 
 inline Button* getButtonFromUI(Widget* ui, const char* buttonName)
 {
@@ -175,6 +176,12 @@ inline ImageView* getImageViewFromUI(Widget* ui, const char* imageName)
     auto imageview = dynamic_cast<ImageView*>(ui::Helper::seekWidgetByName(ui, imageName));
     assert(imageview);
     return imageview;
+}
+inline Text* getLabelFromUI(Widget* ui, const char* labelName)
+{
+    auto text = dynamic_cast<Text*>(ui::Helper::seekWidgetByName(ui, labelName));
+    assert(text);
+    return text;
 }
 
 #include "CustomButton.h"
