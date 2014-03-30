@@ -30,11 +30,14 @@ extern const Resource iPadRetinaRes;
 /*屏幕适配*/
 Resource setResolutionSize(GLView*);
 
+void setDecryptKey(unsigned int* key);//如果加密请在加载资源前调用
 /*异步加载资源
  包括plist图片集 音频文件 png纹理图片
  支持pvr.ccz解密*/
-void loadAllResourcesAsyc(bool encrypted, unsigned int* key, const std::vector<std::string>& resources, std::function<void(size_t)>&& callback);
-void loadAllResourcesAsyc(bool encrypted, unsigned int* key, const std::vector<std::string>& resources, std::function<void(size_t)>& callback);
+void loadAllResourcesAsyc(const std::vector<std::string>& resources, std::function<void(size_t)>&& callback);
+void loadAllResourcesAsyc(const std::vector<std::string>& resources, std::function<void(size_t)>& callback);
+/*同步加载资源接口*/
+void loadAllResources(std::vector<std::string>& resources);
 
 typedef struct _bmfConfig
 {
@@ -227,6 +230,8 @@ inline void turnOnEffect()
 }
 void preloadBgMusic(std::vector<std::string>& bgMuscNames);
 void preloadEffects(std::vector<std::string>& effectsNames);
+void preloadBgMusic(const char* bgMuscName);
+void preloadEffects(const char* effectName);
 void playEffect(const char* effectName);
 void playBgMusic(const char* MuscName);
 void playBgMusic_Ex(const char* MuscName);  //如果此时有背景音乐 不播放

@@ -46,18 +46,64 @@ struct __Args
 /*private function*/
 void _asyncLoadThreadFunc(struct __Args*);
 
-void loadAllResourcesAsyc(bool encrypted, unsigned int* key, const std::vector<std::string>& resources, std::function<void(size_t)>&& callback)
+void setDecryptKey(unsigned int* key)
 {
-    loadAllResourcesAsyc(encrypted, key, resources, callback);
+    ZipUtils::setPvrEncryptionKeyPart(0, key[0]);
+    ZipUtils::setPvrEncryptionKeyPart(1, key[1]);
+    ZipUtils::setPvrEncryptionKeyPart(2, key[2]);
+    ZipUtils::setPvrEncryptionKeyPart(3, key[3]);
 }
 
-void loadAllResourcesAsyc(bool encrypted, unsigned int* key, const std::vector<std::string>& resources, std::function<void(size_t)>& callback)
+void loadOtherResources(const std::string& filename)
 {
-    if (encrypted) {
-        ZipUtils::setPvrEncryptionKeyPart(0, key[0]);
-        ZipUtils::setPvrEncryptionKeyPart(1, key[1]);
-        ZipUtils::setPvrEncryptionKeyPart(2, key[2]);
-        ZipUtils::setPvrEncryptionKeyPart(3, key[3]);
+    log("load other resource: %s",filename.c_str());
+    auto pos = filename.find_last_of(".");
+    auto fileType = filename.substr(pos,filename.length()-pos);
+    if (fileType == "plist") {
+        SpriteFrameCache::getInstance()->addSpriteFramesWithFile(filename);
+    }else if(fileType == "mp3" || fileType == "mid"){ //FIXME: 可能是音效哦
+        preloadBgMusic(filename.c_str());
+    }else if(fileType == "ogg" || fileType == "caf" || fileType == "wav"){  //FIXME: 可能是背景音乐哦
+        preloadEffects(filename.c_str());
+    }else{
+        log("not supported resource type");
+    }
+}
+
+void loadAllResources(std::vector<std::string>& resources)
+{
+    if(resources.size() == 0) return;
+    /*将pvr或png分离出来单独加载*/
+    auto bound = std::partition(resources.begin(), resources.end(), [](std::string& value)->bool{
+        if(value.find("pvr")!=-1 || value.find("png")!=-1){
+            return true;
+        }
+        else
+            return false;
+    });
+    /*先加载纹理*/
+    auto textureCache = Director::getInstance()->getTextureCache();
+    for (auto it=resources.begin(); it!=bound; ++it)
+    {
+        log("load texture image: %s",it->c_str());
+        textureCache->addImage(*it);
+    }
+    /*然后加载其他资源*/
+    for (auto it=bound; it!=resources.end(); ++it)
+    {
+        loadOtherResources(*it);
+    }
+}
+
+void loadAllResourcesAsyc(const std::vector<std::string>& resources, std::function<void(size_t)>&& callback)
+{
+    loadAllResourcesAsyc(resources, callback);
+}
+
+void loadAllResourcesAsyc(const std::vector<std::string>& resources, std::function<void(size_t)>& callback)
+{
+    if (resources.size() == 0) {
+        return;
     }
     struct __Args* args = new __Args();
     std::copy(resources.begin(), resources.end(), std::back_inserter(args->resources));
@@ -100,18 +146,10 @@ void _asyncLoadThreadFunc(struct __Args* args)
     std::mutex mt;
     std::unique_lock<std::mutex> lock(mt);
     args->cv.wait(lock);
-    auto frameCache = SpriteFrameCache::getInstance();
     auto scheduler = Director::getInstance()->getScheduler();
     for (auto it=args->bound; it!=args->resources.end(); ++it)
     {
-        log("load other resource: %s",it->c_str());
-        if(it->find("plist")!=-1){
-            frameCache->addSpriteFramesWithFile(*it);
-        }else if(it->find("mp3")!=-1){
-            //TODO: add music resource
-        }else{
-            log("not supported resource type");
-        }
+        loadOtherResources(*it);
         --args->size_res;
         scheduler->performFunctionInCocosThread(std::bind(args->callback, args->size_res));
         if (args->size_res == 0) {
@@ -172,6 +210,14 @@ void preloadEffects(std::vector<std::string>& effectsNames)
     for(auto& name: effectsNames){
         CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(name.c_str());
     }
+}
+void preloadBgMusic(const char* bgMuscName)
+{
+    CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(bgMuscName);
+}
+void preloadEffects(const char* effectName)
+{
+    CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(effectName);
 }
 void playEffect(const char* effectName)
 {
