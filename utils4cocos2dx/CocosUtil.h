@@ -38,6 +38,8 @@ void loadAllResourcesAsyc(const std::vector<std::string>& resources, std::functi
 void loadAllResourcesAsyc(const std::vector<std::string>& resources, std::function<void(size_t)>& callback);
 /*同步加载资源接口*/
 void loadAllResources(std::vector<std::string>& resources);
+/*释放资源接口*/
+void releaseAllResources(std::vector<std::string>& resources);
 
 typedef struct _bmfConfig
 {

@@ -59,12 +59,14 @@ void loadOtherResources(const std::string& filename)
     log("load other resource: %s",filename.c_str());
     auto pos = filename.find_last_of(".");
     auto fileType = filename.substr(pos,filename.length()-pos);
-    if (fileType == "plist") {
+    if (fileType == ".plist") {
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile(filename);
-    }else if(fileType == "mp3" || fileType == "mid"){ //FIXME: 可能是音效哦
+    }else if(fileType == ".mp3" || fileType == ".mid"){ //FIXME: 可能是音效哦
         preloadBgMusic(filename.c_str());
-    }else if(fileType == "ogg" || fileType == "caf" || fileType == "wav"){  //FIXME: 可能是背景音乐哦
+    }else if(fileType == ".ogg" || fileType == ".caf" || fileType == ".wav"){  //FIXME: 可能是背景音乐哦
         preloadEffects(filename.c_str());
+    }else if(fileType == ".ExportJson"){//动画
+        cocostudio::ArmatureDataManager::getInstance()->addArmatureFileInfo(filename);
     }else{
         log("not supported resource type");
     }
@@ -93,6 +95,26 @@ void loadAllResources(std::vector<std::string>& resources)
     {
         loadOtherResources(*it);
     }
+}
+
+void releaseAllResources(std::vector<std::string>& resources)
+{
+    for (auto& filename: resources)
+    {
+        log("release resource: %s",filename.c_str());
+        auto pos = filename.find_last_of(".");
+        auto fileType = filename.substr(pos,filename.length()-pos);
+        if (fileType == ".plist") {
+            SpriteFrameCache::getInstance()->removeSpriteFramesFromFile(filename);
+        }else if(fileType == ".ExportJson"){//动画
+            cocostudio::ArmatureDataManager::getInstance()->removeArmatureFileInfo(filename);
+        }else if(fileType == ".ccz" || fileType == ".png"){
+            Director::getInstance()->getTextureCache()->removeTextureForKey(filename);
+        }else{
+            log("not supported resource type");
+        }
+    }
+//    cocostudio::ActionManagerEx::destroyInstance();
 }
 
 void loadAllResourcesAsyc(const std::vector<std::string>& resources, std::function<void(size_t)>&& callback)
