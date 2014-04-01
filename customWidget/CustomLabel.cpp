@@ -51,8 +51,8 @@ void CustomLabel::initRenderer()
 #include "CocosUtil.h"
 #include "Variables.h"
 /*根据具体游戏自己定义 这里只是声明*/
-extern const std::unordered_map<std::string,const TTFConfig> ttfConfigs;
-extern const std::unordered_map<std::string,const BMFConfig> bmfConfigs;
+extern std::unordered_map<std::string,const TTFConfig> ttfConfigs;
+extern std::unordered_map<std::string,const BMFConfig> bmfConfigs;
 
 #include "StringUtil.h"
 void CustomLabel::setTTFConfigId(const std::string&& id)

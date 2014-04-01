@@ -212,6 +212,16 @@ Label* getLabel(std::string& text, const TTFConfig& ttfConfig, const BMFConfig& 
     return label;
 }
 
+GLProgram* getShader(const char* fragFile)
+{
+    GLchar * fragSource = (GLchar*) String::createWithContentsOfFile(
+                                                                     FileUtils::getInstance()->fullPathForFilename(fragFile).c_str())->getCString();
+    auto program = new GLProgram();
+    program->initWithByteArrays(ccPositionTextureColor_vert, fragSource);
+    program->autorelease();
+    return program;
+}
+
 void swallowTouchesOfLayer(Layer* lyer)
 {
     auto touchEvent = EventListenerTouchOneByOne::create();

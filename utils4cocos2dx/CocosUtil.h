@@ -70,6 +70,9 @@ typedef struct _bmfConfig
 Label* getLabel(std::string& text, const TTFConfig& , const BMFConfig&); //FIXME: Config不能传入临时变量
 Label* getLabel(std::string&& text, const TTFConfig& , const BMFConfig&);
 
+/*从frag文件中获取Shader*/
+GLProgram* getShader(const char* fragFile);
+
 /*
  640*1136-->640*960
  将node对齐到visible size的底部
@@ -182,6 +185,10 @@ inline Text* getLabelFromUI(Widget* ui, const char* labelName)
     auto text = dynamic_cast<Text*>(ui::Helper::seekWidgetByName(ui, labelName));
     assert(text);
     return text;
+}
+inline Layout* getLayoutFromUI(Widget* ui, const char* layoutName)
+{
+    return dynamic_cast<Layout*>(ui::Helper::seekWidgetByName(ui, layoutName));
 }
 
 #include "CustomButton.h"
