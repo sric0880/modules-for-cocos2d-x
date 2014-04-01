@@ -5,7 +5,7 @@ lzqiong@gmail.com
 ###objective
 Make building cocos2d-x game easier and funny
 
-coco2d-x : version 3.0beta2
+coco2d-x : version 3.0rc0
 ###list:
 1. ***pomelo4cocos2dx***
     * pomelo client for cocos2d-x writing in c++.
@@ -25,6 +25,9 @@ coco2d-x : version 3.0beta2
 		3. remote and local notification
 		4. open url and send email...
 	* AlertHelper: show alert dialog using interface provided by ios or android.
+	* LoadingDlg: an iOS custom loading dialog.
+	* ShaderSprite: very useful class for custom fragment shader.
+	* CocosUtil: all other helpful functions like load resources async or sync, audio manager, cocostudio helper and so on.
 5. ***pomeloRobot_console***
 	* auto pressure test tool for pomelo running in xcode console. Removed from this git, see [github](https://github.com/sric0880/pomeloRobot_console)
 6. ***tools***
@@ -34,6 +37,8 @@ coco2d-x : version 3.0beta2
 	4. **safe_sqlite3** Encrypt and decrypt tool for sqlite database You can make a static lib: libsqlite3.a
 7. ***times4cocos2dx***
 	* awards related to time like everyday online award and every hour award and so on.
+8. ***customWidget***
+	* custom widget using in cocostudio, including custom label, lableButton and textfield.
 
 ###test
 All unit tests are in the file folder 'test'.
