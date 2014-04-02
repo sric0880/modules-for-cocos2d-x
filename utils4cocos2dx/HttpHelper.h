@@ -35,6 +35,10 @@ void onParamInval(HttpRequest* request, std::function<void(int)>&& callback);
 void onReqFail(HttpRequest* request, std::function<void(const char*)>& callback);
 void onReqOk(HttpRequest* request, std::function<void(Value)>& callback);
 void onParamInval(HttpRequest* request, std::function<void(int)>& callback);
+/*
+ 不调用该函数，可以自己在发送请求前调用dlg->ratain()
+ 并在onReq***回调中dlg->release()即可
+ */
 void bindDlgWithHttp(HttpRequest* request, Ref* dlg);            //must be called before sendHttpReq
 void onAllReqsOver(std::vector<HttpRequest*>&, std::function<void(std::vector<int>&)>&&); //must be called before sendHttpReq
 void onAllReqsOver(std::vector<HttpRequest*>&, std::function<void(std::vector<int>&)>&); //must be called before sendHttpReq

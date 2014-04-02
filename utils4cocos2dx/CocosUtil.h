@@ -176,9 +176,7 @@ inline PageView* getPageViewFromUI(Widget* ui, const char* pageName)
 }
 inline ImageView* getImageViewFromUI(Widget* ui, const char* imageName)
 {
-    auto imageview = dynamic_cast<ImageView*>(ui::Helper::seekWidgetByName(ui, imageName));
-    assert(imageview);
-    return imageview;
+    return dynamic_cast<ImageView*>(ui::Helper::seekWidgetByName(ui, imageName));
 }
 inline Text* getLabelFromUI(Widget* ui, const char* labelName)
 {

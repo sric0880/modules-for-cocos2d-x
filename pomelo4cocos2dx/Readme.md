@@ -9,7 +9,7 @@
 
 ##依赖库
 1. libpomelo 0.0.1
-    * github: <https://github.com/NetEase/libpomelo>
+    * [github](https://github.com/NetEase/libpomelo)
     * 使用ios选项进行编译，生成.a文件只能用于真机调试
 2. cocos2d-x-3.0beta2及以上
 
