@@ -161,6 +161,7 @@ inline cocostudio::ComAudio* getAudioFromSceneByTag(Node* scene, int tag)
 #include <UILayout.h>
 #include <UIPageView.h>
 #include <UIText.h>
+#include <UITextBMFont.h>
 
 inline Button* getButtonFromUI(Widget* ui, const char* buttonName)
 {
@@ -181,6 +182,12 @@ inline ImageView* getImageViewFromUI(Widget* ui, const char* imageName)
 inline Text* getLabelFromUI(Widget* ui, const char* labelName)
 {
     auto text = dynamic_cast<Text*>(ui::Helper::seekWidgetByName(ui, labelName));
+    assert(text);
+    return text;
+}
+inline TextBMFont* getTextBMFontFromUI(Widget* ui, const char* labelName)
+{
+    auto text = dynamic_cast<TextBMFont*>(ui::Helper::seekWidgetByName(ui, labelName));
     assert(text);
     return text;
 }
@@ -253,5 +260,9 @@ void stopBgMusic(const char* MuscName);
 void resumeBgMusic();
 void pauseBgMusic();
 bool isBgMusicPlaying(const char* MuscName);    //是否某个背景音乐正在播放
+
+#pragma mark -
+#pragma mark RenderTexture Helper
+ClippingNode* drawRoundRect(const Size& s, float radius, const char* bgSpriteFrameName);
 
 #endif /* defined(__FruitSlot__CocosUtil__) */

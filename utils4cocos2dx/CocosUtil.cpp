@@ -293,3 +293,110 @@ bool isBgMusicPlaying(const char* MuscName)
     }
     return false;
 }
+
+RenderTexture* clipPolygon(Point* points, int count,const Size& s, const char* bgSpriteFrameName)
+{
+    auto _clippingNode = ClippingNode::create();
+    auto drawNode = DrawNode::create();
+    drawNode->drawPolygon(points, count, Color4F(1,0,0,1), 0, Color4F(0,0,1,1));
+    _clippingNode->setStencil(drawNode);
+    auto sprite = Sprite::createWithSpriteFrameName(bgSpriteFrameName);
+    sprite->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
+    _clippingNode->addChild(sprite);
+    RenderTexture* texBg = RenderTexture::create(s.width,s.height,Texture2D::PixelFormat::RGBA8888);
+    texBg->begin();
+    auto renderer = Director::getInstance()->getRenderer();
+    kmMat4 parentTransform = _clippingNode->getNodeToParentTransform();
+//    kmMat4 parentTransform;
+//    kmGLGetMatrix(KM_GL_MODELVIEW, &parentTransform);
+    _clippingNode->visit(renderer,parentTransform,true);
+    texBg->end();
+    texBg->setPosition(Point(s.width/2,s.height/2));
+    return texBg;
+}
+
+ClippingNode* _clipPolygon(Point* points, int count,const Size& s, const char* bgSpriteFrameName)
+{
+    auto _clippingNode = ClippingNode::create();
+    auto drawNode = DrawNode::create();
+    drawNode->drawPolygon(points, count, Color4F(1,0,0,1), 0, Color4F(0,0,1,1));
+    _clippingNode->setStencil(drawNode);
+    auto sprite = Sprite::createWithSpriteFrameName(bgSpriteFrameName);
+    sprite->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
+    _clippingNode->addChild(sprite);
+    return _clippingNode;
+}
+
+ClippingNode* drawRoundRect(const Size& size, float radius, const char* bgSpriteFrameName)
+{
+    Size s = Size(size.width -2, size.height -2);
+    const unsigned int segments = 20;
+    Point origin(2,1);
+    Point destination(s.width, s.height);
+    const float coef    = 0.5f * (float)M_PI / segments;
+    Point * vertices    = new Point[segments + 1];
+    Point * thisVertices = vertices;
+    for(unsigned int i = 0; i <= segments; ++i, ++thisVertices)
+    {
+        float rads        = (segments - i)*coef;
+        thisVertices->x    = (int)(radius * sinf(rads));
+        thisVertices->y    = (int)(radius * cosf(rads));
+    }
+    //
+    Point tagCenter;
+    float minX    = MIN(origin.x, destination.x);
+    float maxX    = MAX(origin.x, destination.x);
+    float minY    = MIN(origin.y, destination.y);
+    float maxY    = MAX(origin.y, destination.y);
+    
+    unsigned int dwPolygonPtMax = (segments + 1) * 4;
+    Point * pPolygonPtArr = new Point[dwPolygonPtMax];
+    Point * thisPolygonPt = pPolygonPtArr;
+    int aa = 0;
+    //左上角
+    tagCenter.x        = minX + radius;
+    tagCenter.y        = maxY - radius;
+    thisVertices    = vertices;
+    for(unsigned int i = 0; i <= segments; ++i, ++thisPolygonPt, ++thisVertices)
+    {
+        thisPolygonPt->x    = tagCenter.x - thisVertices->x;
+        thisPolygonPt->y    = tagCenter.y + thisVertices->y;
+        ++aa;
+    }
+    //右上角
+    tagCenter.x        = maxX - radius;
+    tagCenter.y        = maxY - radius;
+    thisVertices    = vertices + segments;
+    for(unsigned int i = 0; i <= segments; ++i, ++thisPolygonPt, --thisVertices)
+    {
+        thisPolygonPt->x    = tagCenter.x + thisVertices->x;
+        thisPolygonPt->y    = tagCenter.y + thisVertices->y;
+        ++aa;
+    }
+    //右下角
+    tagCenter.x        = maxX - radius;
+    tagCenter.y        = minY + radius;
+    thisVertices    = vertices;
+    for(unsigned int i = 0; i <= segments; ++i, ++thisPolygonPt, ++thisVertices)
+    {
+        thisPolygonPt->x    = tagCenter.x + thisVertices->x;
+        thisPolygonPt->y    = tagCenter.y - thisVertices->y;
+        ++aa;
+    }
+    //左下角
+    tagCenter.x        = minX + radius;
+    tagCenter.y        = minY + radius;
+    thisVertices    = vertices + segments;
+    for(unsigned int i = 0; i <= segments; ++i, ++thisPolygonPt, --thisVertices)
+    {
+        thisPolygonPt->x    = tagCenter.x - thisVertices->x;
+        thisPolygonPt->y    = tagCenter.y - thisVertices->y;
+        ++aa;
+    }
+//    Point points[3] = {Point(0, 0),Point(s.width/2,s.height),Point(s.width,0)};
+    auto ret = _clipPolygon(pPolygonPtArr,dwPolygonPtMax,s,bgSpriteFrameName);
+//    auto ret = _clipPolygon(points,3,s,bgSpriteFrameName);
+    CC_SAFE_DELETE_ARRAY(vertices);
+    CC_SAFE_DELETE_ARRAY(pPolygonPtArr);
+    return ret;
+}
