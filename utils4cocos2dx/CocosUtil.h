@@ -41,7 +41,7 @@ void loadAllResources(std::vector<std::string>& resources);
 /*释放资源接口*/
 void releaseAllResources(std::vector<std::string>& resources);
 
-typedef struct _bmfConfig
+struct _bmfConfig
 {
     std::string bmfontFilePath;     //字体路径
     bool isShadow;                  //是否开启阴影
@@ -61,7 +61,8 @@ typedef struct _bmfConfig
     ,imageOffset(ioff)
     {
     }
-}BMFConfig;
+};
+typedef struct _bmfConfig BMFConfig;
 /*
  不使用cocostudio提供的UI,而是
  自己添加字体Label,根据是否中文自动

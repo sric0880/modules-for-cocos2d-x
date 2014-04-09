@@ -9,6 +9,9 @@
 #define __CustomLabel__
 
 #include <CocosGUI.h>
+struct _bmfConfig;
+typedef struct _bmfConfig BMFConfig;
+
 class CustomLabel : public cocos2d::ui::Widget{
 public:
     CustomLabel();
@@ -17,10 +20,13 @@ public:
     static CustomLabel* create();
     static cocos2d::Ref* createInstance();
     
+    void setColor(const cocos2d::Color3B &color);
     void setTextId(const std::string&& textid);
     void setText(const std::string& text);
     void setTTFConfigId(const std::string&& id);
     void setBMFConfigId(const std::string&& id);
+    void setTTFConfig(const cocos2d::TTFConfig&);
+    void setBMFConfig(const BMFConfig&);
     const std::string& getText() const;
     void setDimensions(unsigned int width,unsigned int height);
     

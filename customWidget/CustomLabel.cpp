@@ -75,27 +75,13 @@ void CustomLabel::setText(const std::string& text)
         auto config = ttfConfigs.find(_ttfConfigId);
         if(config!=ttfConfigs.end())
         {
-            _label->setTTFConfig(config->second);
+            setTTFConfig(config->second);
         }
     }else{
         auto config = bmfConfigs.find(_bmfConfigId);
         if(config!=bmfConfigs.end())
         {
-            if (_label->setBMFontFilePath(config->second.bmfontFilePath,config->second.imageOffset))
-            {
-                _label->setMaxLineWidth(config->second.lineWidth);
-            }
-            _label->setAlignment(config->second.alignment);
-            if(config->second.isShadow){
-                _label->enableShadow();
-            }
-            if(config->second.color!=Color3B::WHITE)
-            {
-                _label->setColor(config->second.color);
-            }
-            if(config->second.scale!=1.0f){
-                _label->setScale(config->second.scale);
-            }
+            setBMFConfig(config->second);
         }
     }
 }
@@ -113,4 +99,28 @@ void CustomLabel::setAnchorPoint_Ex(const Point &pt)
 void CustomLabel::setDimensions(unsigned int width,unsigned int height)
 {
     _label->setDimensions(width, height);
+}
+
+void CustomLabel::setColor(const cocos2d::Color3B &color)
+{
+    _label->setColor(color);
+}
+void CustomLabel::setTTFConfig(const TTFConfig& config)
+{
+    _label->setTTFConfig(config);
+}
+void CustomLabel::setBMFConfig(const BMFConfig& config)
+{
+    if (_label->setBMFontFilePath(config.bmfontFilePath,config.imageOffset))
+    {
+        _label->setMaxLineWidth(config.lineWidth);
+    }
+    _label->setAlignment(config.alignment);
+    if(config.isShadow){
+        _label->enableShadow();
+    }
+    _label->setColor(config.color);
+    if(config.scale!=1.0f){
+        _label->setScale(config.scale);
+    }
 }
