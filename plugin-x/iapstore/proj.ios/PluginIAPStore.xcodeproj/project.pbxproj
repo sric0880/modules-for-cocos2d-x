@@ -1,0 +1,311 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CFEE498118F662ED00393281 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFEE498018F662ED00393281 /* Foundation.framework */; };
+		CFEE49A818F6672F00393281 /* IAPStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CFEE49A718F6672F00393281 /* IAPStore.m */; };
+		CFEE49AA18F66CED00393281 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFEE49A918F66CED00393281 /* StoreKit.framework */; };
+		CFEE49AD18F6774600393281 /* IAPWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = CFEE49AB18F6774600393281 /* IAPWrapper.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CFEE497B18F662ED00393281 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		CFEE497D18F662ED00393281 /* libPluginIAPStore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPluginIAPStore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFEE498018F662ED00393281 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CFEE498418F662EE00393281 /* PluginIAPStore-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PluginIAPStore-Prefix.pch"; sourceTree = "<group>"; };
+		CFEE499118F662EE00393281 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		CFEE49A618F6672F00393281 /* IAPStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPStore.h; sourceTree = SOURCE_ROOT; };
+		CFEE49A718F6672F00393281 /* IAPStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPStore.m; sourceTree = SOURCE_ROOT; };
+		CFEE49A918F66CED00393281 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		CFEE49AB18F6774600393281 /* IAPWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IAPWrapper.mm; sourceTree = SOURCE_ROOT; };
+		CFEE49AC18F6774600393281 /* IAPWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPWrapper.h; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CFEE497A18F662ED00393281 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFEE49AA18F66CED00393281 /* StoreKit.framework in Frameworks */,
+				CFEE498118F662ED00393281 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CFEE497418F662ED00393281 = {
+			isa = PBXGroup;
+			children = (
+				CFEE498218F662EE00393281 /* PluginIAPStore */,
+				CFEE497F18F662ED00393281 /* Frameworks */,
+				CFEE497E18F662ED00393281 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CFEE497E18F662ED00393281 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CFEE497D18F662ED00393281 /* libPluginIAPStore.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CFEE497F18F662ED00393281 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CFEE49A918F66CED00393281 /* StoreKit.framework */,
+				CFEE498018F662ED00393281 /* Foundation.framework */,
+				CFEE499118F662EE00393281 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CFEE498218F662EE00393281 /* PluginIAPStore */ = {
+			isa = PBXGroup;
+			children = (
+				CFEE49AB18F6774600393281 /* IAPWrapper.mm */,
+				CFEE49AC18F6774600393281 /* IAPWrapper.h */,
+				CFEE49A618F6672F00393281 /* IAPStore.h */,
+				CFEE49A718F6672F00393281 /* IAPStore.m */,
+				CFEE498318F662EE00393281 /* Supporting Files */,
+			);
+			path = PluginIAPStore;
+			sourceTree = "<group>";
+		};
+		CFEE498318F662EE00393281 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CFEE498418F662EE00393281 /* PluginIAPStore-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CFEE497C18F662ED00393281 /* PluginIAPStore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CFEE49A018F662EE00393281 /* Build configuration list for PBXNativeTarget "PluginIAPStore" */;
+			buildPhases = (
+				CFEE497918F662ED00393281 /* Sources */,
+				CFEE497A18F662ED00393281 /* Frameworks */,
+				CFEE497B18F662ED00393281 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PluginIAPStore;
+			productName = PluginIAPStore;
+			productReference = CFEE497D18F662ED00393281 /* libPluginIAPStore.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CFEE497518F662ED00393281 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = qiong;
+			};
+			buildConfigurationList = CFEE497818F662ED00393281 /* Build configuration list for PBXProject "PluginIAPStore" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CFEE497418F662ED00393281;
+			productRefGroup = CFEE497E18F662ED00393281 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CFEE497C18F662ED00393281 /* PluginIAPStore */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CFEE497918F662ED00393281 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFEE49AD18F6774600393281 /* IAPWrapper.mm in Sources */,
+				CFEE49A818F6672F00393281 /* IAPStore.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		CFEE499E18F662EE00393281 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PluginIAPStore-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../protocols/platform/ios",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../protocols/include",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = PluginIAPStore;
+				SDKROOT = iphoneos;
+				SEPARATE_STRIP = YES;
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = debugging;
+			};
+			name = Debug;
+		};
+		CFEE499F18F662EE00393281 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PluginIAPStore-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../protocols/platform/ios",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../protocols/include",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = PluginIAPStore;
+				SDKROOT = iphoneos;
+				SEPARATE_STRIP = YES;
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = debugging;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CFEE49A118F662EE00393281 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				DSTROOT = /tmp/PluginIAPStore.dst;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PluginIAPStore-Prefix.pch";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		CFEE49A218F662EE00393281 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				DSTROOT = /tmp/PluginIAPStore.dst;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PluginIAPStore-Prefix.pch";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CFEE497818F662ED00393281 /* Build configuration list for PBXProject "PluginIAPStore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFEE499E18F662EE00393281 /* Debug */,
+				CFEE499F18F662EE00393281 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CFEE49A018F662EE00393281 /* Build configuration list for PBXNativeTarget "PluginIAPStore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFEE49A118F662EE00393281 /* Debug */,
+				CFEE49A218F662EE00393281 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CFEE497518F662ED00393281 /* Project object */;
+}

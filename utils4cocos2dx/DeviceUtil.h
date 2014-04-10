@@ -49,6 +49,9 @@ void forbidiCloud();                    //禁用iCloud
 using namespace cocos2d;
 void dealWithNotification(int identifier, std::function<void(ValueMap& data)>&& callback);
 void dealWithNotification(int identifier, std::function<void(ValueMap& data)>& callback);
+
+//内购 In-app Purchase
+
 #endif
 
 #pragma mark -
