@@ -31,6 +31,8 @@ public:
     void setDimensions(unsigned int width,unsigned int height);
     
     void setAnchorPoint_Ex(const cocos2d::Point &pt);
+    unsigned int getWidth();
+    cocos2d::Size getContentSize();
     
 protected:
     virtual bool init() override;

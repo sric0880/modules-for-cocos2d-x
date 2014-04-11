@@ -124,3 +124,11 @@ void CustomLabel::setBMFConfig(const BMFConfig& config)
         _label->setScale(config.scale);
     }
 }
+unsigned int CustomLabel::getWidth()
+{
+    return _label->getWidth();
+}
+Size CustomLabel::getContentSize()
+{
+    return _label->getContentSize();
+}
