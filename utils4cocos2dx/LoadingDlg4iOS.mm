@@ -42,30 +42,31 @@ void LoadingDlg::show(const char* msg)
     UIView * rootview =[RootViewProxy sharedRootView].getRootViewController.view;
     CGRect rect = rootview.frame;
 
-    UIActivityIndicatorView* activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 128.0f, 96.0f)];
+    UIActivityIndicatorView* activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 96.0f, 64.0f)];
     NSLog(@"size: %f, %f", rect.size.height/2,rect.size.width/2);
-    [activityIndicator setCenter:CGPointMake(rect.size.height/2, rect.size.width/2)];
-    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite/*Large*/];
+    [activityIndicator setCenter:CGPointMake(rect.size.width/2, rect.size.height/2)];
+    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
     [activityIndicator setBackgroundColor:[UIColor blackColor]];
-    [activityIndicator setAlpha:0.6];
-    [activityIndicator.layer setCornerRadius:6];
+    [activityIndicator setAlpha:0.8];
+    [activityIndicator.layer setCornerRadius:8];
     [activityIndicator.layer setMasksToBounds:YES];
     
 //    (128-80)/2 = 24;
 //    96-30/2 = 81
-    UILabel* label = [[UILabel alloc]initWithFrame:CGRectMake(24, 75, 80, 30)];
-    label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    label.font = [UIFont boldSystemFontOfSize:12.0f];
-    label.numberOfLines = 1;
-    label.backgroundColor = [UIColor clearColor];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor whiteColor];
-    label.text = [NSString stringWithUTF8String:msg];
+    //FIXME: 添加文字说明
+//    UILabel* label = [[UILabel alloc] init];
+//    label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//    label.font = [UIFont boldSystemFontOfSize:12.0f];
+//    label.numberOfLines = 1;
+//    label.backgroundColor = [UIColor clearColor];
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.textColor = [UIColor whiteColor];
+//    label.text = [NSString stringWithUTF8String:msg];
     
     [activityIndicator startAnimating];
     
     [rootview addSubview:activityIndicator];
-    [activityIndicator addSubview:label];
+//    [activityIndicator addSubview:label];
     [rootview setUserInteractionEnabled:NO];
     _theDialog = activityIndicator;
 
