@@ -163,6 +163,8 @@ inline cocostudio::ComAudio* getAudioFromSceneByTag(Node* scene, int tag)
 #include <UIPageView.h>
 #include <UIText.h>
 #include <UITextBMFont.h>
+#include <UILoadingBar.h>
+#include <UITextAtlas.h>
 
 inline Button* getButtonFromUI(Widget* ui, const char* buttonName)
 {
@@ -192,9 +194,21 @@ inline TextBMFont* getTextBMFontFromUI(Widget* ui, const char* labelName)
     assert(text);
     return text;
 }
+inline LoadingBar* getLoadingBarFromUI(Widget* ui, const char* loadingBarName)
+{
+    auto loadingbar = dynamic_cast<LoadingBar*>(ui::Helper::seekWidgetByName(ui, loadingBarName));
+    assert(loadingbar);
+    return loadingbar;
+}
 inline Layout* getLayoutFromUI(Widget* ui, const char* layoutName)
 {
     return dynamic_cast<Layout*>(ui::Helper::seekWidgetByName(ui, layoutName));
+}
+inline TextAtlas* getTextAtlasFromUI(Widget* ui, const char* labelName)
+{
+    auto text = dynamic_cast<TextAtlas*>(ui::Helper::seekWidgetByName(ui, labelName));
+    assert(text);
+    return text;
 }
 
 #include "CustomButton.h"

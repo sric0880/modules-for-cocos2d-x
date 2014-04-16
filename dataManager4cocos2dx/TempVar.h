@@ -32,6 +32,8 @@ public:
     double getDouble(const std::string& key, double def = 0) const;
     bool getBool(const std::string& key, bool def = false) const;
     std::string getString(const std::string& key, const std::string& def = "") const;
+    cocos2d::ValueMap& getValueMap(const std::string& key);
+    cocos2d::ValueVector& getValueVector(const std::string& key);
     cocos2d::ValueMap getValueMap(const std::string& key) const;
     cocos2d::ValueVector getValueVector(const std::string& key) const;
     

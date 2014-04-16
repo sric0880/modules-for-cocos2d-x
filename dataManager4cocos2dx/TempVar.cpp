@@ -112,9 +112,17 @@ std::string TempVar::getString(const std::string& key, const std::string& def/* 
     return def;
 }
 
+cocos2d::ValueMap& TempVar::getValueMap(const std::string& key)
+{
+    return _dict[key].asValueMap();
+}
+cocos2d::ValueVector& TempVar::getValueVector(const std::string& key)
+{
+    return _dict[key].asValueVector();
+}
+
 cocos2d::ValueMap TempVar::getValueMap(const std::string& key) const
 {
-    
     if (_dict.find(key) != _dict.end())
     {
         const cocos2d::Value& v = _dict.at(key);
