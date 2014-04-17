@@ -107,6 +107,7 @@ void releaseAllResources(std::vector<std::string>& resources)
         if (fileType == ".plist") {
             SpriteFrameCache::getInstance()->removeSpriteFramesFromFile(filename);
         }else if(fileType == ".ExportJson"){//动画
+            //FIXME: 貌似会内存泄露 不知道为啥
             cocostudio::ArmatureDataManager::getInstance()->removeArmatureFileInfo(filename);
         }else if(fileType == ".ccz" || fileType == ".png"){
             Director::getInstance()->getTextureCache()->removeTextureForKey(filename);
@@ -114,9 +115,10 @@ void releaseAllResources(std::vector<std::string>& resources)
             log("not supported resource type");
         }
     }
-//    auto texInfo = Director::getInstance()->getTextureCache()->getCachedTextureInfo();
-//    log("texInfo: %s", texInfo.c_str());
-//    cocostudio::ActionManagerEx::destroyInstance();
+#if COCOS2D_DEBUG
+    auto texInfo = Director::getInstance()->getTextureCache()->getCachedTextureInfo();
+    log("texInfo: %s", texInfo.c_str());
+#endif
 }
 
 void loadAllResourcesAsyc(const std::vector<std::string>& resources, std::function<void(size_t)>&& callback)
@@ -171,8 +173,10 @@ void _asyncLoadThreadFunc(struct __Args* args)
     std::mutex mt;
     std::unique_lock<std::mutex> lock(mt);
     args->cv.wait(lock);
-//    auto texInfo = Director::getInstance()->getTextureCache()->getCachedTextureInfo();
-//    log("texInfo: %s", texInfo.c_str());
+#if COCOS2D_DEBUG
+    auto texInfo = Director::getInstance()->getTextureCache()->getCachedTextureInfo();
+    log("texInfo: %s", texInfo.c_str());
+#endif
     auto scheduler = Director::getInstance()->getScheduler();
     for (auto it=args->bound; it!=args->resources.end(); ++it)
     {
@@ -232,6 +236,47 @@ void swallowTouchesOfLayer(Layer* lyer)
     touchEvent->onTouchBegan = [](Touch *pTouch, Event *pEvent)->bool{return true;};
     touchEvent->setSwallowTouches(true);
     lyer->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchEvent, lyer);
+}
+
+typedef std::unordered_map<std::string, Node*> SceneNodeMap;
+typedef std::unordered_map<std::string, Layout*> UINodeMap;
+extern SceneNodeMap _sceneNodes;
+extern UINodeMap _uiNodes;
+
+Node* getNodeWithSceneFile(const std::string& filename)
+{
+    auto n = _sceneNodes.find(filename);
+    if (n != _sceneNodes.end()) {
+        return n->second;
+    }else{
+        auto ret = cocostudio::SceneReader::getInstance()->createNodeWithSceneFile(filename);
+        ret->retain();
+        _sceneNodes.insert(make_pair(filename, ret));
+        return ret;
+    }
+}
+Layout* getLayoutFromJsonFile(const std::string& filename)
+{
+    auto n = _uiNodes.find(filename);
+    if (n != _uiNodes.end()) {
+        return n->second;
+    }else{
+        auto ret = static_cast<Layout*>(cocostudio::GUIReader::getInstance()->widgetFromJsonFile(filename.c_str()));
+        ret->retain();
+        _uiNodes.insert(make_pair(filename, ret));
+        return ret;
+    }
+}
+void releaseNodesAndLayouts()
+{
+    for(auto & node : _sceneNodes)
+    {
+        node.second->release();
+    }
+    for(auto & layout: _uiNodes)
+    {
+        layout.second->release();
+    }
 }
 
 #include <SimpleAudioEngine.h>

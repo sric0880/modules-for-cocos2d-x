@@ -116,7 +116,11 @@ inline float diffWidth()
 #pragma mark -
 #pragma mark Cocostudio Helper
 #include <cocostudio/CocoStudio.h>
+#include <UILayout.h>
 using namespace cocos2d::ui;
+Node* getNodeWithSceneFile(const std::string& filename);
+Layout* getLayoutFromJsonFile(const std::string& filename);
+void releaseNodesAndLayouts();
 inline Node* getNodeFromSceneByTag(Node* scene, int tag)
 {
     return scene->getChildByTag(tag);
@@ -159,7 +163,6 @@ inline cocostudio::ComAudio* getAudioFromSceneByTag(Node* scene, int tag)
 #include <cocostudio/CCSGUIReader.h>
 #include <UIImageView.h>
 #include <UIButton.h>
-#include <UILayout.h>
 #include <UIPageView.h>
 #include <UIText.h>
 #include <UITextBMFont.h>
