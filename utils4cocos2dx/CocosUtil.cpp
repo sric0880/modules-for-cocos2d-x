@@ -114,6 +114,8 @@ void releaseAllResources(std::vector<std::string>& resources)
             log("not supported resource type");
         }
     }
+//    auto texInfo = Director::getInstance()->getTextureCache()->getCachedTextureInfo();
+//    log("texInfo: %s", texInfo.c_str());
 //    cocostudio::ActionManagerEx::destroyInstance();
 }
 
@@ -143,6 +145,10 @@ void loadAllResourcesAsyc(const std::vector<std::string>& resources, std::functi
         else
             return false;
     });
+    /*等纹理加载完毕，再加载其他资源
+     另外再开一个线程加载*/
+    std::thread loadThread(&_asyncLoadThreadFunc, args);
+    loadThread.detach();
     /*因为必须在主线程将纹理加载进入显存，所以可以用cocos2d-x异步加载函数*/
     auto textureCache = Director::getInstance()->getTextureCache();
     for (auto it=args->resources.begin(); it!=args->bound; ++it)
@@ -159,16 +165,14 @@ void loadAllResourcesAsyc(const std::vector<std::string>& resources, std::functi
             }
         });
     }
-    /*等纹理加载完毕，再加载其他资源
-     另外再开一个线程加载*/
-    std::thread loadThread(&_asyncLoadThreadFunc, args);
-    loadThread.detach();
 }
 void _asyncLoadThreadFunc(struct __Args* args)
 {
     std::mutex mt;
     std::unique_lock<std::mutex> lock(mt);
     args->cv.wait(lock);
+//    auto texInfo = Director::getInstance()->getTextureCache()->getCachedTextureInfo();
+//    log("texInfo: %s", texInfo.c_str());
     auto scheduler = Director::getInstance()->getScheduler();
     for (auto it=args->bound; it!=args->resources.end(); ++it)
     {
