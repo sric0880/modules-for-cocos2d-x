@@ -97,7 +97,7 @@ void loadAllResources(std::vector<std::string>& resources)
     }
 }
 
-void releaseAllResources(std::vector<std::string>& resources)
+void releaseAllResources(const std::vector<std::string>& resources)
 {
     for (auto& filename: resources)
     {
