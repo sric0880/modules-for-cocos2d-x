@@ -27,7 +27,7 @@ protected:
     virtual void buildCustomUniforms() = 0;
     virtual void setCustomUniforms() = 0;
 protected:
-    std::string _fragSourceFile;
+    const GLchar * _fragSource;
     
 protected:
     CustomCommand _renderCommand;

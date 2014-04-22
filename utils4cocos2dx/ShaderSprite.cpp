@@ -23,10 +23,8 @@ void ShaderSprite::setBackgroundNotification()
 
 void ShaderSprite::initShader()
 {
-    GLchar * fragSource = (GLchar*) String::createWithContentsOfFile(
-                                                                     FileUtils::getInstance()->fullPathForFilename(_fragSourceFile).c_str())->getCString();
     auto program = new GLProgram();
-    program->initWithByteArrays(ccPositionTextureColor_vert, fragSource);
+    program->initWithByteArrays(ccPositionTextureColor_vert, _fragSource);
     setShaderProgram(program);
     program->release();
     
