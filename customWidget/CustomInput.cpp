@@ -46,7 +46,7 @@ void CustomInput::initRenderer()
 {
     Widget::initRenderer();
     _editbox = new EditBox();
-    Node::addChild(_editbox,getZOrder()+1,-1);
+    addProtectedChild(_editbox,getZOrder()+1,-1);
 }
 
 void CustomInput::setTouchSize(const Size &size)
