@@ -44,6 +44,7 @@ void CustomLabel::initRenderer()
 {
     Widget::initRenderer();
     _label = Label::create();
+    _label->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
     Node::addChild(_label, getZOrder()+1, -1);//必须调用Nodo::addChild(Node*,int,int)接口，除非_label是Widget
 }
 
