@@ -103,6 +103,19 @@ bool networkReachable()
         return true;
     }
 }
+std::function<void()> motionListener = nullptr;
+void addMotionListener(std::function<void()>&& listener)
+{
+    [[UIApplication sharedApplication] setApplicationSupportsShakeToEdit:YES];
+    if (listener) {
+        motionListener = listener;
+    }
+}
+void removeMotionListener()
+{
+    [[UIApplication sharedApplication] setApplicationSupportsShakeToEdit:NO];
+    motionListener = nullptr;
+}
 
 #pragma mark -
 #pragma mark Local Notification

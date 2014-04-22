@@ -25,6 +25,25 @@ void localNotification(int identifier, const char* body, /*const char* action,*/
 void localNotification(int identifier, const char* body, /*const char* action,*/ long secondsAfter);
 void cancelLocalNotification(int identifier);
 void cancelAllLocalNotifications();
+#include <functional>
+extern std::function<void()> motionListener;
+//TODO:需要在RootViewController中添加3个方法
+/*
+ - (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event NS_AVAILABLE_IOS(3_0)
+ {
+ }
+ - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event NS_AVAILABLE_IOS(3_0)
+ {
+ if (motion == UIEventSubtypeMotionShake) {
+ if(motionListener) motionListener();
+ }
+ }
+ - (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event NS_AVAILABLE_IOS(3_0)
+ {
+ }
+ */
+void addMotionListener(std::function<void()>&&); //注册手机摇一摇监听事件
+void removeMotionListener();
 
 #pragma mark -
 #pragma mark iOS Special function
