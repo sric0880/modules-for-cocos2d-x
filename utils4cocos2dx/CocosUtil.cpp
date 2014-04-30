@@ -230,12 +230,13 @@ GLProgram* getShader(const char* fragFile)
     return program;
 }
 
-void swallowTouchesOfLayer(Layer* lyer)
+EventListener* swallowTouchesOfLayer(Layer* lyer)
 {
     auto touchEvent = EventListenerTouchOneByOne::create();
     touchEvent->onTouchBegan = [](Touch *pTouch, Event *pEvent)->bool{return true;};
     touchEvent->setSwallowTouches(true);
     lyer->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchEvent, lyer);
+    return touchEvent;
 }
 
 typedef std::unordered_map<std::string, Node*> SceneNodeMap;

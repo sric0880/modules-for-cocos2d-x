@@ -237,8 +237,9 @@ inline void playAction(const char* jsonName, const char* actionName)
 /*
  使层能接受点击事件，屏蔽层下获得点击事件
  实现模态
+ 返回该layer的事件监听对象，用于取消模态
  */
-void swallowTouchesOfLayer(Layer* lyer);
+EventListener* swallowTouchesOfLayer(Layer* lyer);
 
 #pragma mark -
 #pragma mark Audio Helper
