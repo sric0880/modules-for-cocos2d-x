@@ -59,7 +59,7 @@ const char* symbol[all_fruits_size]={
     "a"
 };
 
-extern const int fruit_to_bet[all_fruits_size]={
+extern const int fruit_to_bet_[all_fruits_size]={
     0,
     0,
     -1,
@@ -257,7 +257,7 @@ void FruitSlotDemoLayer::onRandom(int status, Value& data)
             sprintf(buf, "中神秘盒子，%s", box_type[ret-((ret>>4)<<4)]);
             _msg->setString(buf);
         }else{
-            int win = _bets[fruit_to_bet[ret]]*boosts[ret];
+            int win = _bets[fruit_to_bet_[ret]]*boosts[ret];
             sprintf(buf, "结果：%s, 倍数：%d，赢取：%d", symbol[ret], boosts[ret], win);
             _msg->setString(buf);
             
