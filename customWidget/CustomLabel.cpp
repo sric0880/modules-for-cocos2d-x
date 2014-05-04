@@ -68,6 +68,15 @@ void CustomLabel::setTextId(const std::string&& textid)
 {
     setText(VARIABLES_LOCAL("strings.json")->getString(textid));
 }
+void CustomLabel::setTextByBmf(const std::string& text)
+{
+    _label->setString(text);
+    auto config = bmfConfigs.find(_bmfConfigId);
+    if(config!=bmfConfigs.end())
+    {
+        setBMFConfig(config->second);
+    }
+}
 void CustomLabel::setText(const std::string& text)
 {
     _label->setString(text);

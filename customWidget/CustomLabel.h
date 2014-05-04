@@ -23,6 +23,7 @@ public:
     void setColor(const cocos2d::Color3B &color);
     void setTextId(const std::string&& textid);
     void setText(const std::string& text);
+    void setTextByBmf(const std::string& text);
     void setTTFConfigId(const std::string&& id);
     void setBMFConfigId(const std::string&& id);
     void setTTFConfig(const cocos2d::TTFConfig&);
