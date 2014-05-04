@@ -192,30 +192,31 @@ void _asyncLoadThreadFunc(struct __Args* args)
 
 #include "Variables.h"
 #include "StringUtil.h"
-Label* getLabel(std::string&& text, const TTFConfig& ttfConfig, const BMFConfig& bmfConfig)
+Label* getLabel(const std::string& text, const TTFConfig& ttfConfig, const BMFConfig& bmfConfig)
 {
-    return getLabel(text, ttfConfig, bmfConfig);
-}
-Label* getLabel(std::string& text, const TTFConfig& ttfConfig, const BMFConfig& bmfConfig)
-{
-    Label* label;
+    Label* label = nullptr;
     if(splitUtf8(text.c_str()) == text.length())    //英文
     {
         label = Label::createWithTTF(ttfConfig, text);
     }else
     {
-        label = Label::createWithBMFont(bmfConfig.bmfontFilePath,text,bmfConfig.alignment,
-                                        bmfConfig.lineWidth,bmfConfig.imageOffset);
-        if(bmfConfig.isShadow){
-            label->enableShadow();
-        }
-        if(bmfConfig.color!=Color3B::WHITE)
-        {
-            label->setColor(bmfConfig.color);
-        }
-        if(bmfConfig.scale!=1.0f){
-            label->setScale(bmfConfig.scale);
-        }
+        label = getLabel(text, bmfConfig);
+    }
+    return label;
+}
+Label* getLabel(const std::string& text, const BMFConfig& bmfConfig)
+{
+    auto label = Label::createWithBMFont(bmfConfig.bmfontFilePath,text,bmfConfig.alignment,
+                                    bmfConfig.lineWidth,bmfConfig.imageOffset);
+    if(bmfConfig.isShadow){
+        label->enableShadow();
+    }
+    if(bmfConfig.color!=Color3B::WHITE)
+    {
+        label->setColor(bmfConfig.color);
+    }
+    if(bmfConfig.scale!=1.0f){
+        label->setScale(bmfConfig.scale);
     }
     return label;
 }

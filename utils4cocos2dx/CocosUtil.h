@@ -68,8 +68,8 @@ typedef struct _bmfConfig BMFConfig;
  自己添加字体Label,根据是否中文自动
  选择,英文默认使用ttf格式,中文使用fnt格式
  */
-Label* getLabel(std::string& text, const TTFConfig& , const BMFConfig&); //FIXME: Config不能传入临时变量
-Label* getLabel(std::string&& text, const TTFConfig& , const BMFConfig&);
+Label* getLabel(const std::string& text, const TTFConfig&, const BMFConfig&);
+Label* getLabel(const std::string& text, const BMFConfig&); //不管是中文还是英文都用中文字体
 
 /*从frag文件中获取Shader*/
 GLProgram* getShader(const char* fragFile);
@@ -168,6 +168,7 @@ inline cocostudio::ComAudio* getAudioFromSceneByTag(Node* scene, int tag)
 #include <UITextBMFont.h>
 #include <UILoadingBar.h>
 #include <UITextAtlas.h>
+#include <UITextField.h>
 
 inline Button* getButtonFromUI(Widget* ui, const char* buttonName)
 {
@@ -212,6 +213,12 @@ inline TextAtlas* getTextAtlasFromUI(Widget* ui, const char* labelName)
     auto text = dynamic_cast<TextAtlas*>(ui::Helper::seekWidgetByName(ui, labelName));
     assert(text);
     return text;
+}
+inline TextField* getTextFiledFromUI(Widget* ui, const char* name)
+{
+    auto textfiled = dynamic_cast<TextField*>(ui::Helper::seekWidgetByName(ui, name));
+    assert(textfiled);
+    return textfiled;
 }
 
 #include "CustomButton.h"
