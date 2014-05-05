@@ -281,6 +281,12 @@ void releaseNodesAndLayouts()
     }
 }
 
+void stopAction(const char* jsonName, const char* actionName)
+{
+    auto action = cocostudio::ActionManagerEx::getInstance()->getActionByName(jsonName, actionName);
+    action->stop();
+}
+
 #include <SimpleAudioEngine.h>
 static char bgmusicPlaying[20];
 void preloadBgMusic(std::vector<std::string>& bgMuscNames)

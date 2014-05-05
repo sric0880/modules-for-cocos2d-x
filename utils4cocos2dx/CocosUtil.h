@@ -240,7 +240,7 @@ inline void playAction(const char* jsonName, const char* actionName)
 {
     cocostudio::ActionManagerEx::getInstance()->playActionByName(jsonName, actionName);
 }
-
+void stopAction(const char* jsonName,const char* actionName);
 /*
  使层能接受点击事件，屏蔽层下获得点击事件
  实现模态
