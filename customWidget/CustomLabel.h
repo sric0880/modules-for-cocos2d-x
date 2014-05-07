@@ -34,6 +34,7 @@ public:
     void setAnchorPoint_Ex(const cocos2d::Point &pt);
     unsigned int getWidth();
     cocos2d::Size getContentSize();
+    void setGlowColor(cocos2d::Color4B);
     
 protected:
     virtual bool init() override;

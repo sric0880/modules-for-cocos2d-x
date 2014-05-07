@@ -142,3 +142,7 @@ Size CustomLabel::getContentSize()
 {
     return _label->getContentSize();
 }
+void CustomLabel::setGlowColor(Color4B color)
+{
+    _label->enableGlow(color);
+}
