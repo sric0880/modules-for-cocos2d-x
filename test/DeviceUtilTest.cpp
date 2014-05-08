@@ -46,11 +46,15 @@ bool DeviceUtilTestLayer::init()
         log("不能入网");
     }
     auto btnGameCenter = MenuItemFont::create("LoginGamecenter", [](Ref* sender){
+#ifdef GAMECENTER_ENABLE
         loginGameCenter();
+#endif
     });
     btnGameCenter->setPosition(600,300);
     auto btnGcBoard = MenuItemFont::create("GamecenterBoard", [](Ref* sender){
+#ifdef GAMECENTER_ENABLE
         showGameGKLeaderboardView();
+#endif
     });
     btnGcBoard->setPosition(800,500);
     

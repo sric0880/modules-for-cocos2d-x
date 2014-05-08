@@ -189,6 +189,7 @@ void dealWithNotification(int identifier, std::function<void(ValueMap& data)>& c
     _dealWithNotification(identifier, callback);
 }
 
+#ifdef GAMECENTER_ENABLE
 #pragma mark -
 #pragma mark GameCenter
 #import <GameKit/GameKit.h>             ///Need GameKit.framework
@@ -292,6 +293,7 @@ void reportAchievement(const char* achid, float percent)
          }];
     }
 }
+#endif
 
 #import <sys/xattr.h>
 void forbidiCloud()

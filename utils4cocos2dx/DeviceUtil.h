@@ -50,11 +50,14 @@ void removeMotionListener();
 
 #ifdef CC_TARGET_OS_IPHONE              //在preprocessor macro中定义
 void openAppStore(const char* appleId); //打开AppStore链接
+//#define GAMECENTER_ENABLE
+#ifdef GAMECENTER_ENABLE
 bool isGameCenterLogin();               //是否已经登录GameCenter
 void loginGameCenter();                 //登录GameCenter获得player id
 void showGameGKLeaderboardView();
 void reportLeaderboard(const char* category, int64_t score);
 void reportAchievement(const char* achid, float percent);
+#endif
 void forbidiCloud();                    //禁用iCloud
 
 //处理远程或者本地通知（远程和本地通知需要有唯一表示identifier）
