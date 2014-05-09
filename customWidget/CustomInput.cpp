@@ -100,6 +100,7 @@ void CustomInput::setText(std::string && pText)
 void CustomInput::initWithSizeAndBackgroundSprite(const cocos2d::Size& size, Scale9Sprite* pPressed9SpriteBg)
 {
     _editbox->initWithSizeAndBackgroundSprite(size, pPressed9SpriteBg);
+    _editbox->setReturnType(EditBox::KeyboardReturnType::DONE);
     setTouchSize(size);
     _editbox->autorelease();
 }
