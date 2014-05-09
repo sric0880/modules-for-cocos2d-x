@@ -41,20 +41,11 @@ bool UserManagerTestLayer::init()
     });
     onReqOk(req1, [this](Value v){
     });
-    onParamInval(req1, [this](int index){
-        log("%d", index);
-        assert(0);
-    });
     const char* email ="lzqiong@gmail.com";
     Param params[3] = {
-        {"email",email,true,reg_email},
-        {"pwd","123",true,reg_username,[](std::string& value)->bool{
-            if (strlen(value.c_str())>15) {
-                return false;
-            }
-            return true;
-        }},
-        {"nick", "hao123",true,reg_password}
+        {"email",email},
+        {"pwd","123"},
+        {"nick", "hao123"}
     };
     bindDlgWithHttp(req1, dlg);
     allReqs.push_back(req1);
@@ -62,23 +53,13 @@ bool UserManagerTestLayer::init()
     auto req2 = getHttpReq(appendBaseUrl("url_reg").c_str(), "Register2",HttpRequest::Type::GET);
     onReqFail(req2, [this](const char* reason){
         log("%s", reason);
-        assert(0);
     });
     onReqOk(req2, [this](Value v){
-        assert(0);
-    });
-    onParamInval(req2, [this](int index){
-        log("%d", index);
     });
     Param params2[3] = {
-        {"email","lzqiong@gmail.com",true,reg_email},
-        {"pwd","我是中国人啊",true,reg_username,[](std::string& value)->bool{
-            if (strlen(value.c_str())>15) {
-                return false;
-            }
-            return true;
-        }},
-        {"nick", "hao123",true,reg_password}
+        {"email","lzqiong@gmail.com"},
+        {"pwd","我是中国人啊"},
+        {"nick", "hao123"}
     };
     bindDlgWithHttp(req2, dlg);
     allReqs.push_back(req2);
@@ -86,23 +67,13 @@ bool UserManagerTestLayer::init()
     auto req3 = getHttpReq(appendBaseUrl("url_reg").c_str(), "Register3", HttpRequest::Type::GET);
     onReqFail(req3, [this](const char* reason){
         log("%s", reason);
-        assert(0);
     });
     onReqOk(req3, [this](Value v){
     });
-    onParamInval(req3, [this](int index){
-        log("%d", index);
-        assert(0);
-    });
     Param params3[3] = {
-        {"email","haooa@qq.com",true,reg_email},
-        {"pwd","1234567890",true,reg_username,[](std::string& value)->bool{
-            if (strlen(value.c_str())>25) {
-                return false;
-            }
-            return true;
-        }},
-        {"nick", "123456",true,reg_password}
+        {"email","haooa@qq.com"},
+        {"pwd","1234567890"},
+        {"nick", "123456"}
     };
     bindDlgWithHttp(req3, dlg);
     allReqs.push_back(req3);
@@ -113,9 +84,6 @@ bool UserManagerTestLayer::init()
         log("%s", reason);
     });
     onReqOk(http_req_login, [this](Value v){
-    });
-    onParamInval(http_req_login, [this](int index){
-        log("%d", index);
     });
     bindDlgWithHttp(http_req_login, dlg);
     Param params_[2] = {
@@ -131,9 +99,6 @@ bool UserManagerTestLayer::init()
     });
     onReqOk(req_v1, [this](Value v){
     });
-    onParamInval(req_v1, [this](int index){
-        log("%d", index);
-    });
     bindDlgWithHttp(req_v1, dlg);
     allReqs.push_back(req_v1);
     
@@ -143,9 +108,6 @@ bool UserManagerTestLayer::init()
         log("%s", reason);
     });
     onReqOk(req_v2, [this](Value v){
-    });
-    onParamInval(req_v2, [this](int index){
-        log("%d", index);
     });
     Param params_1[1] = {
         {"email","lzqiong@gmail.com"},
@@ -160,9 +122,6 @@ bool UserManagerTestLayer::init()
     });
     onReqOk(req_v3, [this](Value v){
     });
-    onParamInval(req_v3, [this](int index){
-        log("%d", index);
-    });
     bindDlgWithHttp(req_v3, dlg);
     allReqs.push_back(req_v3);
     
@@ -172,9 +131,6 @@ bool UserManagerTestLayer::init()
         log("%s", reason);
     });
     onReqOk(req_v4, [this](Value v){
-    });
-    onParamInval(req_v4, [this](int index){
-        log("%d", index);
     });
     Param params_2[2] = {
         {"ver_no", getAppVersion()},
@@ -190,9 +146,6 @@ bool UserManagerTestLayer::init()
     });
     onReqOk(req_v5, [this](Value v){
     });
-    onParamInval(req_v5, [this](int index){
-        log("%d", index);
-    });
     bindDlgWithHttp(req_v5, dlg);
     allReqs.push_back(req_v5);
     
@@ -202,9 +155,6 @@ bool UserManagerTestLayer::init()
         log("%s", reason);
     });
     onReqOk(req_v6, [this](Value v){
-    });
-    onParamInval(req_v6, [this](int index){
-        log("%d", index);
     });
     bindDlgWithHttp(req_v6, dlg);
     allReqs.push_back(req_v6);
@@ -216,9 +166,6 @@ bool UserManagerTestLayer::init()
     });
     onReqOk(req_v7, [this](Value v){
     });
-    onParamInval(req_v7, [this](int index){
-        log("%d", index);
-    });
     bindDlgWithHttp(req_v7, dlg);
     allReqs.push_back(req_v7);
     
@@ -229,28 +176,25 @@ bool UserManagerTestLayer::init()
     });
     onReqOk(req_v8, [this](Value v){
     });
-    onParamInval(req_v8, [this](int index){
-        log("%d", index);
-    });
     bindDlgWithHttp(req_v8, dlg);
     allReqs.push_back(req_v8);
     
     onAllReqsOver(allReqs, [](std::vector<int>& res){
-        assert(res.size() == 1);
+        assert(res.size() == 0);
     });
     
     sendHttpReq(req3, params3, 3);
     sendHttpReq(req1, params, 3);
     sendHttpReq(req2, params2, 3);
     sendHttpReq(http_req_login, params_, 2);
-    sendHttpReq(req_v1, NULL, 0);
+    sendHttpReq(req_v1);
     sendHttpReq(req_v2, params_1, 1);
-    sendHttpReq(req_v3, NULL, 0);
+    sendHttpReq(req_v3);
     sendHttpReq(req_v4, params_2, 2);
-    sendHttpReq(req_v5, NULL, 0);
-    sendHttpReq(req_v6, NULL, 0);
-    sendHttpReq(req_v7, NULL, 0);
-    sendHttpReq(req_v8, NULL, 0);
+    sendHttpReq(req_v5);
+    sendHttpReq(req_v6);
+    sendHttpReq(req_v7);
+    sendHttpReq(req_v8);
     return true;
 }
 

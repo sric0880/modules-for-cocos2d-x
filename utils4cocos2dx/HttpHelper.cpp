@@ -7,25 +7,6 @@
 #include "HttpHelper.h"
 #include "JsonConverter.h"
 
-std::regex reg_email("[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\\.[a-zA-Z]{2,4}");
-std::regex reg_username("\\S{1,10}");
-std::regex reg_password("\\w{6,20}");
-
-int validateParams(Params params, size_t size){
-    for(int i =0; i < size; ++i)
-    {
-        if(params[i].match_reg &&
-           !std::regex_match(params[i].value,params[i].reg))
-        {
-            return i;
-        }
-        if (params[i].validFunc && !params[i].validFunc(params[i].value)) {
-            return i;
-        }
-    }
-    return -1;
-}
-
 std::string formatParams(Params params, size_t size){
     std::stringstream is;
     for(int i =0; i < size; ++i)
@@ -44,11 +25,10 @@ class HttpCallback : public Ref{
 public:
     std::function<void(const char*)> on_fail;
     std::function<void(Value)> on_ok;
-    std::function<void(int)> on_inval;
     Ref* dlg;
     HttpStatus state;
     void callbackReg(HttpClient *sender, HttpResponse *response);
-    HttpCallback():on_ok(nullptr),on_fail(nullptr),on_inval(nullptr),dlg(nullptr),state(BeforeSend){}
+    HttpCallback():on_ok(nullptr),on_fail(nullptr),dlg(nullptr),state(BeforeSend){}
 };
 
 void checkAllHttpReqs();
@@ -176,7 +156,7 @@ void checkAllHttpReqs()
 
 #include "DeviceUtil.h"
 #include "AlertHelper.h"
-void sendHttpReq(HttpRequest* request, Params params, size_t size, bool checkNetwork /*= false*/)
+void sendHttpReq(HttpRequest* request, Params params /*= nullptr*/, size_t size /*=0*/, bool checkNetwork /*= false*/)
 {
     if (!request) {
         return;
@@ -191,18 +171,6 @@ void sendHttpReq(HttpRequest* request, Params params, size_t size, bool checkNet
         return;
     }
     if(params!=NULL&&size != 0){
-        int index = validateParams(params, size);
-        if (index >= 0) {
-            request->release();
-            auto _http_iter = _httpMap.find(request->getTag());
-            if (_http_iter!=_httpMap.end()) {
-                auto cb = _http_iter->second->on_inval;
-                if(cb) cb(index);
-                _http_iter->second->release();
-                _httpMap.erase(_http_iter);
-            }
-            return;
-        }
         std::string data = formatParams(params, size);
         switch (request->getRequestType()) {
             case HttpRequest::Type::PUT:
@@ -256,13 +224,6 @@ void onReqOk(HttpRequest* request, std::function<void(Value)>&& callback)
     }
     _httpMap[request->getTag()]->on_ok = callback;
 }
-void onParamInval(HttpRequest* request, std::function<void(int)>&& callback)
-{
-    if (!request) {
-        return;
-    }
-    _httpMap[request->getTag()]->on_inval = callback;
-}
 void onReqFail(HttpRequest* request, std::function<void(const char*)>& callback)
 {
     if (!request) {
@@ -276,11 +237,4 @@ void onReqOk(HttpRequest* request, std::function<void(Value)>& callback)
         return;
     }
     _httpMap[request->getTag()]->on_ok = callback;
-}
-void onParamInval(HttpRequest* request, std::function<void(int)>& callback)
-{
-    if (!request) {
-        return;
-    }
-    _httpMap[request->getTag()]->on_inval = callback;
 }
