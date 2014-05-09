@@ -39,7 +39,8 @@ public:
     cocos2d::Size getTouchSize();
     virtual bool hitTest(const cocos2d::Point &pt);
     virtual bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unusedEvent);
-    
+    void openEditBox();
+    const EditBox* getEditBox(){return _editbox;}
 protected:
     virtual bool init() override;
     virtual void initRenderer() override;

@@ -223,6 +223,7 @@ inline TextField* getTextFiledFromUI(Widget* ui, const char* name)
 
 #include "CustomButton.h"
 #include "CustomLabel.h"
+#include "CustomInput.h"
 inline CustomLabel* getCustomLabelFromUI(Widget* ui, const char* labelName)
 {
     auto lb = dynamic_cast<CustomLabel*>(ui::Helper::seekWidgetByName(ui, labelName));
@@ -234,6 +235,12 @@ inline CustomButton* getCustomButtonFromUI(Widget* ui, const char* buttonName)
     auto btn = dynamic_cast<CustomButton*>(ui::Helper::seekWidgetByName(ui, buttonName));
     assert(btn);
     return btn;
+}
+inline CustomInput* getCustomInputFromUI(Widget* ui, const char* inputName)
+{
+    auto input = dynamic_cast<CustomInput*>(ui::Helper::seekWidgetByName(ui, inputName));
+    assert(input);
+    return input;
 }
 #include <cocostudio/CCActionManagerEx.h>
 inline void playAction(const char* jsonName, const char* actionName)

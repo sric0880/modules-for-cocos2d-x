@@ -145,3 +145,7 @@ void CustomInput::setDelegate(cocos2d::extension::EditBoxDelegate* delegate)
 {
     _editbox->setDelegate(delegate);
 }
+void CustomInput::openEditBox()
+{
+    _editbox->touchDownAction(this, cocos2d::extension::Control::EventType::TOUCH_DOWN);
+}
