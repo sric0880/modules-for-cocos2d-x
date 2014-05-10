@@ -57,13 +57,13 @@ void setDecryptKey(unsigned int* key)
 void loadOtherResources(const std::string& filename)
 {
     log("load other resource: %s",filename.c_str());
-    auto pos = filename.find_last_of(".");
+    auto pos = filename.find_first_of(".");
     auto fileType = filename.substr(pos,filename.length()-pos);
     if (fileType == ".plist") {
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile(filename);
-    }else if(fileType == ".mp3" || fileType == ".mid"){ //FIXME: 可能是音效哦
+    }else if(fileType == ".bg.mp3" || fileType == ".mid"){ //FIXME: 可能是音效哦
         preloadBgMusic(filename.c_str());
-    }else if(fileType == ".ogg" || fileType == ".caf" || fileType == ".wav"){  //FIXME: 可能是背景音乐哦
+    }else if(fileType == ".mp3" || fileType == ".ogg" || fileType == ".caf" || fileType == ".wav"){  //FIXME: 可能是背景音乐哦
         preloadEffects(filename.c_str());
     }else if(fileType == ".ExportJson"){//动画
         cocostudio::ArmatureDataManager::getInstance()->addArmatureFileInfo(filename);
