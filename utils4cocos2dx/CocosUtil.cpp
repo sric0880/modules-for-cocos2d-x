@@ -288,7 +288,7 @@ void stopAction(const char* jsonName, const char* actionName)
 }
 
 #include <SimpleAudioEngine.h>
-static char bgmusicPlaying[20];
+static char bgmusicPlaying[30];
 void preloadBgMusic(std::vector<std::string>& bgMuscNames)
 {
     for(auto& name: bgMuscNames){
@@ -309,10 +309,17 @@ void preloadEffects(const char* effectName)
 {
     CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(effectName);
 }
-void playEffect(const char* effectName)
+unsigned int playEffect(const char* effectName, bool loop /*= false*/)
 {
     if (isEffectOn()) {
-        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(effectName);
+        return CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(effectName,loop);
+    }else
+        return 0;
+}
+void stopEffect(unsigned int soundid)
+{
+    if (soundid != 0) {
+        CocosDenshion::SimpleAudioEngine::getInstance()->stopEffect(soundid);
     }
 }
 void playBgMusic(const char* MuscName)

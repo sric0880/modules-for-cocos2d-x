@@ -257,7 +257,18 @@ EventListener* swallowTouchesOfLayer(Layer* lyer);
 
 #pragma mark -
 #pragma mark Audio Helper
-
+void preloadBgMusic(std::vector<std::string>& bgMuscNames);
+void preloadEffects(std::vector<std::string>& effectsNames);
+void preloadBgMusic(const char* bgMuscName);
+void preloadEffects(const char* effectName);
+unsigned int playEffect(const char* effectName, bool loop = false);
+void stopEffect(unsigned int);
+void playBgMusic(const char* MuscName);
+void playBgMusic_Ex(const char* MuscName);  //如果此时有背景音乐 不播放
+void stopBgMusic();
+void resumeBgMusic();
+void pauseBgMusic();
+bool isBgMusicPlaying(const char* MuscName);    //是否某个背景音乐正在播放
 inline bool isMusicOn()
 {
     return UserDefault::getInstance()->getBoolForKey("musicOn",true);
@@ -273,6 +284,7 @@ inline void turnOffMusic()
 inline void turnOnMusic()
 {
     UserDefault::getInstance()->setBoolForKey("musicOn", true);
+    
 }
 inline void turnOffEffect()
 {
@@ -282,17 +294,6 @@ inline void turnOnEffect()
 {
     UserDefault::getInstance()->setBoolForKey("effectOn", true);
 }
-void preloadBgMusic(std::vector<std::string>& bgMuscNames);
-void preloadEffects(std::vector<std::string>& effectsNames);
-void preloadBgMusic(const char* bgMuscName);
-void preloadEffects(const char* effectName);
-void playEffect(const char* effectName);
-void playBgMusic(const char* MuscName);
-void playBgMusic_Ex(const char* MuscName);  //如果此时有背景音乐 不播放
-void stopBgMusic(const char* MuscName);
-void resumeBgMusic();
-void pauseBgMusic();
-bool isBgMusicPlaying(const char* MuscName);    //是否某个背景音乐正在播放
 
 #pragma mark -
 #pragma mark RenderTexture Helper
