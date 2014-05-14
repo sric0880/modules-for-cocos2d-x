@@ -22,8 +22,10 @@ Value getValueFromFile(const std::string& filename)
         return Value::Null;
     }
     unsigned char* bytes = data.getBytes();
-    decrypt(data.getSize(), bytes, bytes);
-    content = (char*)bytes;
+    auto len = data.getSize();
+    decrypt(len, bytes, bytes);
+    std::string contentStr((char*)bytes, len);
+    content = contentStr.c_str();
 #else
     std::string contentStr = cocos2d::FileUtils::getInstance()->getStringFromFile(filename);
     if (contentStr == "") {//if the file not found, also return a value
