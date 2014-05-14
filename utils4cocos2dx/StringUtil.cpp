@@ -56,3 +56,19 @@ int splitUtf8(const char * src)
     }
     return i;
 }
+
+#import <CommonCrypto/CommonDigest.h>
+std::string md5(const char* str){
+    if (!str || strlen(str) == 0) {
+        return "";
+    }
+    unsigned char outputBuffer[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(str, strlen(str), outputBuffer);
+    
+    char res[CC_MD5_DIGEST_LENGTH*2+1];
+    res[CC_MD5_DIGEST_LENGTH*2] = '\0';
+    for(int count = 0; count < CC_MD5_DIGEST_LENGTH; ++count){
+        sprintf(res+count*2, "%02x", outputBuffer[count]);
+    }
+    return res;
+}
