@@ -263,6 +263,8 @@ void preloadBgMusic(const char* bgMuscName);
 void preloadEffects(const char* effectName);
 unsigned int playEffect(const char* effectName, bool loop = false);
 void stopEffect(unsigned int);
+void pauseAllEffects();
+void resumeAllEffects();
 void playBgMusic(const char* MuscName);
 void playBgMusic_Ex(const char* MuscName);  //如果此时有背景音乐 不播放
 void stopBgMusic();

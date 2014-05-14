@@ -322,6 +322,14 @@ void stopEffect(unsigned int soundid)
         CocosDenshion::SimpleAudioEngine::getInstance()->stopEffect(soundid);
     }
 }
+void pauseAllEffects()
+{
+    CocosDenshion::SimpleAudioEngine::getInstance()->pauseAllEffects();
+}
+void resumeAllEffects()
+{
+    CocosDenshion::SimpleAudioEngine::getInstance()->resumeAllEffects();
+}
 void playBgMusic(const char* MuscName)
 {
     if (isMusicOn()) {
