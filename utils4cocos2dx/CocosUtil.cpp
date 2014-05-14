@@ -314,11 +314,11 @@ unsigned int playEffect(const char* effectName, bool loop /*= false*/)
     if (isEffectOn()) {
         return CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(effectName,loop);
     }else
-        return 0;
+        return -1;
 }
 void stopEffect(unsigned int soundid)
 {
-    if (soundid != 0) {
+    if (soundid != -1) {
         CocosDenshion::SimpleAudioEngine::getInstance()->stopEffect(soundid);
     }
 }
@@ -342,7 +342,9 @@ void stopBgMusic()
 }
 
 void resumeBgMusic(){
-    CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+    if (isMusicOn()) {
+        CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+    }
 }
 
 void pauseBgMusic()
