@@ -11,7 +11,12 @@ std::string formatParams(Params params, size_t size){
     std::stringstream is;
     for(int i =0; i < size; ++i)
     {
-        is<<params[i].key<<"="<<params[i].value;
+        std::string& val = params[i].value;
+        auto iter = val.find(" ");
+        if (iter!=std::string::npos) {
+            val.replace(iter, 1, "%20");
+        }
+        is<<params[i].key<<"="<<val;
         if(i != (size-1)){
             is<<"&";
         }
