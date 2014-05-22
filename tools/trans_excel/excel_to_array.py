@@ -1,5 +1,5 @@
 from openpyxl import load_workbook
-from biplist import *
+import plistlib
 import sys
 import json
 from sqlite3 import *
@@ -75,10 +75,7 @@ if __name__=='__main__':
 		elif(sys.argv[2].lower()=='plist'):
 			for (file_name, raw_array, header) in data:
 				good_arr = merge_work(raw_array,0, header)
-				try:
-					writePlist(good_arr, file_name+'.plist')
-				except (InvalidPlistException, NotBinaryPlistException), e:
-					print(e)
+				plistlib.writePlist(good_arr, file_name+'.plist')
 		elif(sys.argv[2].lower()=='sqlite'):
 			conn = connect('rename_it.sqlite')
 			with conn:

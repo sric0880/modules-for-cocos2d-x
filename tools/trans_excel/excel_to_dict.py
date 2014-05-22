@@ -1,5 +1,5 @@
 from openpyxl import load_workbook
-from biplist import *
+import plistlib
 import sys
 import json
 
@@ -33,10 +33,7 @@ if __name__=='__main__':
 				f.close()
 		elif(sys.argv[2].lower()=='plist'):
 			for (file_name, dic) in data:
-				try:
-					writePlist(dic, file_name+'.plist')
-				except (InvalidPlistException, NotBinaryPlistException), e:
-					print(e)
+				plistlib.writePlist(dic, file_name+'.plist')
 		elif(sys.argv[2].lower()=='sqlite'):
 			print('Warning: excel of dictionary cannot convert to sqlite')
 		else:
