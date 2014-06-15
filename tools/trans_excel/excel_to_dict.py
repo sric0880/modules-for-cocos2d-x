@@ -10,10 +10,12 @@ def work(excel_file_name):
 	for name in sheetnames:
 		ws = wb.get_sheet_by_name(name)
 		pair={}
-		for r in range(ws.get_highest_row()):
-			key = ws.cell(row = r, column = 0).value
-			value = ws.cell(row = r, column = 1).value
-			pair[key] = value
+		for (col1,col2) in list(ws.rows):
+			pair[col1.value] = col2.value
+		# for r in range(ws.get_highest_row()):
+		# 	key = ws.cell(row = r, column = 1).value
+		# 	value = ws.cell(row = r, column = 2).value
+		# 	pair[key] = value
 		ret.append((ws.title,pair))
 	return ret
 
