@@ -126,12 +126,7 @@ void handleRemote(NSDictionary * remoteInfo, int status)
         ValueMap data = getValueMapFromNSDictionary(remoteInfo);
         data["status"] = status; //app is running
         log("Receive Remote Notification. status: %d", status);
-        if (data.find("id")!=data.end()) {
-            _NotiValueMap[data["id"].asInt()] = data;
-        }
-        else{
-            assert(0);/*remote notification must have an identifier */
-        }
+        _NotiValueMap[0] = data; //0标志被远程通知占用 TODO:: 以后可以使用string作为标示
     }
 }
 
