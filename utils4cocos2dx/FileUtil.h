@@ -9,7 +9,7 @@
 #define __JsonFileUtil__
 
 #include "JsonConverter.h"
-#include <cocos/2d/platform/CCFileUtils.h>
+#include <cocos/platform/CCFileUtils.h>
 #include "Variables.h"
 
 /*
