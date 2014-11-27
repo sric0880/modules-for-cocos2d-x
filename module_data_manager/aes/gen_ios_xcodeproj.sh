@@ -1,0 +1,1 @@
+gyp aes.gyp --depth=. -f xcode -DOS=ios --generator-output=./ --suffix=_ios

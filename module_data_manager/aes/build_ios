@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ -d "aes_ios.xcodeproj" ];then
+	xcodebuild -project aes_ios.xcodeproj
+else
+	echo 'execute ./gen_ios_xcodeproj.sh first!'
+fi

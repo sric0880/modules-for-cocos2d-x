@@ -1,19 +1,21 @@
-#介绍
-cocos2d-x游戏中可重用模块，c++实现，cocos2d-x版本：3.1.1
-##1. DataManager
+#coco2d-x 扩展模块
+
+**cocos2d-x版本：3.2**
+
+##1. 数据管理
 基于文件操作。加载本地数据，持久化本地数据，存储和读取临时变量，支持AES文件加密和解密。
 ####策略
 
 1. 临时数值变量：
    * 借鉴edit-support/cocostudio/CCComAttribute.cpp，定义了一个TempVar类，使用```cocos2d::ValueMap```数据结构来存储(key,value)。
-   
+
    		Variables.h中`VARIABLES`提供全局变量管理，使用方法：
-   
+
    	``` c
    	VARIABLES.getMemStorage()->setBool("test_bool", true);
    	```
    * 对象可以看做一种ValueMap
-  	
+
   	<br>
 
 2. 持久化变量：
@@ -21,31 +23,31 @@ cocos2d-x游戏中可重用模块，c++实现，cocos2d-x版本：3.1.1
 	* ```storage/local-storage/localStorage.h```提供了SQLite方案，<key,value>数据结构（string类型），不提供加密
 	* `VARIABLES`可以加载本地json文件，<key,value>数据结构，支持读入时解密，写入时加密，使用方法：
 	`JsonFileUtil.cpp`中宏控制加密: 1--开启 0--关闭
-	
+
 	``` c
 	#define __AES__ 1
 	```
-	
+
 	``` c
 	VARIABLES.getLocal("test_dict1.json");
 	VARIABLES.persistLocal("test_dict1.json");
 	```
-	
+
 		1. getLocal如果没有找到文件，同样也会返回空Map或空Vector。
 		2. persistLocal将文件存入Documents中。
 		3. 如果程序启动时，调用FileUitl.h中的方法loadFilenameLookupDictionary，并且程序结束时有调用saveFilenameLookupDictionary，
 		那么getLocal方法优先去Documents中查找文件，而不是.app包。
 	* `utils4cocos2dx/JsonFileUtil.h`提供如下方法，支持加密
-	
+
 	``` c
 	ValueMap getValueMapFromJson(const std::string& filename);
 ValueVector getValueVectorFromJson(const std::string& filename);
 bool writeToJson(ValueMap& dict, const std::string& fullPath);
 bool writeToJson(ValueVector& array, const std::string& fullPath);
 ```
-	
+
 	* `VARIABLES`同样支持plist文件，但不支持加密，cocos2dx提供如下方法：
-	
+
 	``` c
 	ValueMap getValueMapFromFile(const std::string& filename);
 	ValueVector getValueVectorFromFile(const std::string& filename);
@@ -56,32 +58,16 @@ bool writeToJson(ValueVector& array, const std::string& fullPath);
 		* sqlite数据库用tools/safe_sqlite3工具进行加密
 		* tools/trans_excel可以将excel文件导出为json或plist或SQLite文件
 
-##2. Network
-###2.1 pomelo服务器的socket封装
-对c版本的libpomelo进行了c++封装:
+##2. 网络模块
 
-1. 一个类——PomeloClient，代码简洁易懂
-2. 支持c++11特性，代码更加精简
-3. 线程安全，支持cocos2dx主线程回调，类似HttpClient
-4. 支持将json_t结构和cocos2d::Value对象的互换，更适合coco2dx编程
+1. [libpomelo-for-cocos2d-x](https://github.com/sric0880/libpomelo-for-coco2d-x)
 
-***依赖库：***[libpomelo 0.0.1](https://github.com/NetEase/libpomelo)，使用ios选项进行编译，生成.a文件只能用于真机调试
-
-***测试：***使用[chatofpomelo-websocket/game-server](https://github.com/NetEase/chatofpomelo-websocket)作为服务器。如果需要测试函数onKick回调，服务器需要添加如下代码：
-
-		sessionService.kick(uid,function(){console.log(session.uid);});
-如果需要测试notify，服务器需要添加如下代码：
-
-	handler.notify = function(msg, session) {
- 		console.log('receive notify content: '+msg.content);
- 		}
- 		
-##3.	TimeAward
+##3. 奖励系统
 游戏时间管理工具
 1. 间隔时间奖励（例如小时奖励）--Interval
 2. 每日登录奖励--DayAfterDay
 3. 累计在线时间奖励--OnlineTime
-	
+
 配置文件(json)
 
 ```
@@ -116,7 +102,7 @@ bool writeToJson(ValueVector& array, const std::string& fullPath);
 ```
 
 ###相关说明
-* interval--间隔时间（分钟） 
+* interval--间隔时间（分钟）
 * awardsNum--奖励物品个数
 * itemType--物品类型
 * awardsNums--连续N天奖励物品个数
@@ -170,7 +156,7 @@ seconds getCurrentOnlineTime(); //当前登录时间
 ```
 ##Test
 All unit tests are in the file folder 'test'.
- 		
+
 ##list:
 4. ***utils4cocos2dx*** some utility class like:
 	* JsonConverter: convert json to cocos2d::Value and vice versa.

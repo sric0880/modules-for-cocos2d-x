@@ -1,0 +1,5 @@
+gyp aes.gyp --depth=. -DOS=pc --suffix=_executable
+xcodebuild -project aes_executable.xcodeproj
+mv ./build/Default/* ../../../tools/aes
+rm -rf ./build
+rm -rf aes_executable.xcodeproj

@@ -1,0 +1,165 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3FD92DFE027952F9EA39DDEA /* aes.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BED1B4CD5388DEFFE9EAD62 /* aes.c */; };
+		9959A800A0DA157B4354B191 /* aes_my.c in Sources */ = {isa = PBXBuildFile; fileRef = D77D49BC935F5819DD9441E1 /* aes_my.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1BED1B4CD5388DEFFE9EAD62 /* aes.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = aes.c; sourceTree = "<group>"; };
+		670C54B8CE050DEA87235613 /* aes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
+		83DD8A1F3ACF1EAAF880FDCB /* aes_my.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aes_my.h; sourceTree = "<group>"; };
+		A8858FE2DCFA8969FD4856AE /* aes.gyp */ = {isa = PBXFileReference; explicitFileType = sourcecode; path = aes.gyp; sourceTree = "<group>"; };
+		D77D49BC935F5819DD9441E1 /* aes_my.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = aes_my.c; sourceTree = "<group>"; };
+		EB9D86FE407FAF799BA681F5 /* libaes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libaes.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4A7B780A621244212805561D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		29E1A4A2FEAB1104A09B30EC /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				1BED1B4CD5388DEFFE9EAD62 /* aes.c */,
+				670C54B8CE050DEA87235613 /* aes.h */,
+				D77D49BC935F5819DD9441E1 /* aes_my.c */,
+				83DD8A1F3ACF1EAAF880FDCB /* aes_my.h */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		9AC0C017AF9F467F4187E332 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EB9D86FE407FAF799BA681F5 /* libaes.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C0365A74B17BF6048C74A3C6 = {
+			isa = PBXGroup;
+			children = (
+				29E1A4A2FEAB1104A09B30EC /* Source */,
+				9AC0C017AF9F467F4187E332 /* Products */,
+				C28E9C79361E9900AF612C9F /* Build */,
+			);
+			sourceTree = "<group>";
+		};
+		C28E9C79361E9900AF612C9F /* Build */ = {
+			isa = PBXGroup;
+			children = (
+				A8858FE2DCFA8969FD4856AE /* aes.gyp */,
+			);
+			name = Build;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3E3799E5E630C5E3024307EB /* libaes */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EACE30A921D514783BCED092 /* Build configuration list for PBXNativeTarget "libaes" */;
+			buildPhases = (
+				5FF2563F65A9410A58BEEDE1 /* Sources */,
+				4A7B780A621244212805561D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libaes;
+			productName = aes;
+			productReference = EB9D86FE407FAF799BA681F5 /* libaes.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0232E3A0ABDDBD8F18F48CFE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+			};
+			buildConfigurationList = A2F8B00B8BCA0F5A1B28C342 /* Build configuration list for PBXProject "aes_ios" */;
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 1;
+			mainGroup = C0365A74B17BF6048C74A3C6;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3E3799E5E630C5E3024307EB /* libaes */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5FF2563F65A9410A58BEEDE1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9959A800A0DA157B4354B191 /* aes_my.c in Sources */,
+				3FD92DFE027952F9EA39DDEA /* aes.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		71939A72476B0E8CCBDC92D5 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EXECUTABLE_PREFIX = lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = aes;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Default;
+		};
+		BE64B853248932FA2A7197CA /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INTERMEDIATE_DIR = "$(PROJECT_DERIVED_FILE_DIR)/$(CONFIGURATION)";
+				SDKROOT = iphoneos;
+				SHARED_INTERMEDIATE_DIR = "$(SYMROOT)/DerivedSources/$(CONFIGURATION)";
+			};
+			name = Default;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A2F8B00B8BCA0F5A1B28C342 /* Build configuration list for PBXProject "aes_ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE64B853248932FA2A7197CA /* Default */,
+			);
+			defaultConfigurationIsVisible = 1;
+			defaultConfigurationName = Default;
+		};
+		EACE30A921D514783BCED092 /* Build configuration list for PBXNativeTarget "libaes" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				71939A72476B0E8CCBDC92D5 /* Default */,
+			);
+			defaultConfigurationIsVisible = 1;
+			defaultConfigurationName = Default;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0232E3A0ABDDBD8F18F48CFE /* Project object */;
+}
