@@ -14,9 +14,8 @@
 class DMTest : public TestScene
 {
 public:
-    void testMemStorage();          //测试临时变量
-    void testReadJsonFile();        //测试读取json加密文件
-    void testWriteJsonFile();       //测试持久化json加密文件
+    void testTempVar();          //测试临时变量
+    void testLocalVar();        //测试读取json加密文件
     virtual void runThisTest();
 };
 

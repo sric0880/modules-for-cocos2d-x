@@ -3,6 +3,8 @@
 **cocos2d-x版本：3.2**
 
 ##1. 数据管理
+使用JSON数据格式，json文件的解析采用`rapidjson`：[github地址](https://github.com/miloyip/rapidjson)，cocos2d-x 3.x已经集成了`rapidjson`
+
 基于文件操作。加载本地数据，持久化本地数据，存储和读取临时变量，支持AES文件加密和解密。
 ####策略
 

@@ -8,6 +8,46 @@
 #ifndef __LocalVar__
 #define __LocalVar__
 
+#include <cocos/platform/CCFileUtils.h>
+
+inline std::string getWritableFilename(const std::string& filename)
+{
+    return cocos2d::FileUtils::getInstance()->getWritablePath().append(filename);
+}
+
+class LookUpDict{
+public:
+    
+    constexpr static const char* const LookUpDictFile = "filename_lookup_dic.plist";
+    
+    static void addFilenameLookupDictionary(const std::string& filename)
+    {
+        _lookupDict[filename] = cocos2d::Value(getWritableFilename(filename));
+        cocos2d::FileUtils::getInstance()->setFilenameLookupDictionary(_lookupDict);
+    }
+    
+    static void loadFilenameLookupDictionary()
+    {
+        auto fu = cocos2d::FileUtils::getInstance();
+        cocos2d::ValueMap vm;
+        vm[LookUpDictFile] = cocos2d::Value(getWritableFilename(LookUpDictFile));
+        fu->setFilenameLookupDictionary(vm);
+        
+        _lookupDict = fu->getValueMapFromFile(LookUpDictFile);
+        fu->setFilenameLookupDictionary(_lookupDict);
+    }
+    
+    static void saveFilenameLookupDictionary()
+    {
+        addFilenameLookupDictionary(LookUpDictFile);
+        cocos2d::FileUtils::getInstance()->writeToFile(_lookupDict, LookUpDictFile);
+    }
+    
+private:
+    static cocos2d::ValueMap _lookupDict;
+};
+
+
 #include <json/document.h>
 #include <json/rapidjson.h>
 #include <json/stringbuffer.h>
@@ -42,11 +82,11 @@ public:
     DocumentType& getDocument(const std::string& filename);
     bool persistDocument(const std::string& filename);
     
+    ~LocalVar();
 private:
     LocalVar();
     LocalVar(LocalVar const&);
     LocalVar& operator = (LocalVar const&);
-    ~LocalVar();
     
     DocumentsMap _docMap;
     FileIO<DocumentType> _fileIO;
@@ -54,7 +94,6 @@ private:
 
 //! implementation
 
-#include "LookUpDict.h"
 #include "aes/aes_my.h"
 
 
