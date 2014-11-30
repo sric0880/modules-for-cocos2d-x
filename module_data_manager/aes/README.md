@@ -20,6 +20,7 @@ make
 ./gen_ios_xcodeproj.sh
 ./build_iossim
 ```
+**注意：build_iossim中的两个参数-sdk和-arch根据自己机器的情况来确定。** -arch [i386 / x86_64]  
 生成`build\Default-iphonesimulator\libaes.a`
 ###Mac
 ```
