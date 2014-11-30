@@ -60,6 +60,11 @@
 		CFB16038196F98C600E76456 /* TestScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB1602F196F98C600E76456 /* TestScene.cpp */; };
 		CFB16039196F98C600E76456 /* UnitTestLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB16031196F98C600E76456 /* UnitTestLayer.cpp */; };
 		CFB1603A196F98C600E76456 /* UnitTestLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB16031196F98C600E76456 /* UnitTestLayer.cpp */; };
+		CFD014F91A2ABBA500CE481C /* libaes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD014F81A2ABBA500CE481C /* libaes.a */; };
+		CFD015051A2AE46D00CE481C /* encrypt in Resources */ = {isa = PBXBuildFile; fileRef = CFD015031A2AE46D00CE481C /* encrypt */; };
+		CFD015061A2AE46D00CE481C /* encrypt in Resources */ = {isa = PBXBuildFile; fileRef = CFD015031A2AE46D00CE481C /* encrypt */; };
+		CFD015071A2AE46D00CE481C /* origin in Resources */ = {isa = PBXBuildFile; fileRef = CFD015041A2AE46D00CE481C /* origin */; };
+		CFD015081A2AE46D00CE481C /* origin in Resources */ = {isa = PBXBuildFile; fileRef = CFD015041A2AE46D00CE481C /* origin */; };
 		CFF07A5D1A29F51B00B4BD6A /* Serializable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFF07A5C1A29F51B00B4BD6A /* Serializable.cpp */; };
 		CFF07A5E1A29F51B00B4BD6A /* Serializable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFF07A5C1A29F51B00B4BD6A /* Serializable.cpp */; };
 		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
@@ -200,6 +205,9 @@
 		CFB16030196F98C600E76456 /* TestScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestScene.h; sourceTree = "<group>"; };
 		CFB16031196F98C600E76456 /* UnitTestLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UnitTestLayer.cpp; sourceTree = "<group>"; };
 		CFB16032196F98C600E76456 /* UnitTestLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitTestLayer.h; sourceTree = "<group>"; };
+		CFD014F81A2ABBA500CE481C /* libaes.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libaes.a; path = "../../../module_data_manager/aes/build/Default-iphonesimulator/libaes.a"; sourceTree = "<group>"; };
+		CFD015031A2AE46D00CE481C /* encrypt */ = {isa = PBXFileReference; lastKnownFileType = folder; path = encrypt; sourceTree = "<group>"; };
+		CFD015041A2AE46D00CE481C /* origin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = origin; sourceTree = "<group>"; };
 		CFF07A5C1A29F51B00B4BD6A /* Serializable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Serializable.cpp; sourceTree = "<group>"; };
 		CFF07A6B1A29F53500B4BD6A /* Serializable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Serializable.h; sourceTree = "<group>"; };
 		D44C620B132DFF330009C878 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -224,6 +232,7 @@
 				D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */,
 				D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */,
 				D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */,
+				CFD014F91A2ABBA500CE481C /* libaes.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +260,7 @@
 		080E96DDFE201D6D7F000001 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				CFD014F71A2ABB9B00CE481C /* libs */,
 				5087E77117EB970100C73F5D /* Icons */,
 				503AE0FA17EB989F00D1A890 /* AppController.h */,
 				503AE0FB17EB989F00D1A890 /* AppController.mm */,
@@ -268,7 +278,7 @@
 			children = (
 				CF3549901A28249E00A740B9 /* dm_test */,
 				CFB1602B196F98C600E76456 /* UnitTest */,
-				CFB15FF4196EE3E500E76456 /* examples */,
+				CFB15FF4196EE3E500E76456 /* examples_test */,
 				1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */,
 				1AFAF8B416D35DE700DB1158 /* AppDelegate.h */,
 			);
@@ -372,6 +382,8 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CFD015031A2AE46D00CE481C /* encrypt */,
+				CFD015041A2AE46D00CE481C /* origin */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -406,13 +418,13 @@
 			path = ../Classes/dm_test;
 			sourceTree = "<group>";
 		};
-		CFB15FF4196EE3E500E76456 /* examples */ = {
+		CFB15FF4196EE3E500E76456 /* examples_test */ = {
 			isa = PBXGroup;
 			children = (
 				CFB15FF5196EE3E500E76456 /* TestSceneExample.cpp */,
 				CFB15FF6196EE3E500E76456 /* TestSceneExample.h */,
 			);
-			name = examples;
+			name = examples_test;
 			path = ../Classes/examples;
 			sourceTree = "<group>";
 		};
@@ -430,6 +442,14 @@
 			);
 			name = UnitTest;
 			path = ../Classes/UnitTest;
+			sourceTree = "<group>";
+		};
+		CFD014F71A2ABB9B00CE481C /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				CFD014F81A2ABBA500CE481C /* libaes.a */,
+			);
+			name = libs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -476,11 +496,6 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0500;
-				TargetAttributes = {
-					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = KPWGQ5Y7AG;
-					};
-				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "test" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -586,11 +601,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFD015051A2AE46D00CE481C /* encrypt in Resources */,
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
+				CFD015071A2AE46D00CE481C /* origin in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
@@ -609,6 +626,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFD015081A2AE46D00CE481C /* origin in Resources */,
+				CFD015061A2AE46D00CE481C /* encrypt in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -677,7 +696,7 @@
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../../module_data_manager/aes/build/Default-iphonesimulator";
+				LIBRARY_SEARCH_PATHS = "/Users/qiong/Documents/hub/libs4cocos2d-x/module_data_manager/aes/build/Default-iphonesimulator";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -706,7 +725,7 @@
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../../module_data_manager/aes/build/Default-iphonesimulator";
+				LIBRARY_SEARCH_PATHS = "/Users/qiong/Documents/hub/libs4cocos2d-x/module_data_manager/aes/build/Default-iphonesimulator";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";

@@ -1,7 +1,7 @@
 //
 //  LocalVar.h
 //
-//  Created by qiong on 14-2-22.
+//  Created by qiong on 14-11-28.
 //
 //
 
@@ -15,17 +15,18 @@ inline std::string getWritableFilename(const std::string& filename)
     return cocos2d::FileUtils::getInstance()->getWritablePath().append(filename);
 }
 
+//! Use below methods to redirect the lookup dictionary to the writable path
+// when you persist your changed file to the writable path.
 class LookUpDict{
 public:
     
     constexpr static const char* const LookUpDictFile = "filename_lookup_dic.plist";
     
-    static void addFilenameLookupDictionary(const std::string& filename)
+    static void addFilenameLookupDictionary(const char* filename)
     {
         _lookupDict[filename] = cocos2d::Value(getWritableFilename(filename));
         cocos2d::FileUtils::getInstance()->setFilenameLookupDictionary(_lookupDict);
     }
-    
     static void loadFilenameLookupDictionary()
     {
         auto fu = cocos2d::FileUtils::getInstance();
@@ -40,33 +41,37 @@ public:
     static void saveFilenameLookupDictionary()
     {
         addFilenameLookupDictionary(LookUpDictFile);
-        cocos2d::FileUtils::getInstance()->writeToFile(_lookupDict, LookUpDictFile);
+        cocos2d::FileUtils::getInstance()->writeToFile(_lookupDict, getWritableFilename( LookUpDictFile));
     }
     
 private:
     static cocos2d::ValueMap _lookupDict;
 };
 
+cocos2d::ValueMap LookUpDict::_lookupDict;
 
 #include <json/document.h>
 #include <json/rapidjson.h>
 #include <json/stringbuffer.h>
 #include <json/writer.h>
+#include <json/prettywriter.h>
 #include <unordered_map>
 #include <string>
 #include <vector>
 #include <memory>
+#include <iostream>
+#include <fstream>
 
 template <typename DocumentType>
 class JsonIO{
 public:
     typedef DocumentType DocType;
-    std::shared_ptr<DocType> getDocument(const std::string& filename);
-    void writeDocument(DocType* ,const std::string& filename);
+    std::shared_ptr<DocumentType> getDocument(const char* filename);
+    void writeDocument(DocumentType* ,const char* filename);
 };
 
 template <
-template <typename T> class FileIO = JsonIO, //default file format is json
+template <typename T> class FileIO = JsonIO, //default file format is json, change when need support other files
 typename Encoding = rapidjson::UTF8<>,
 typename Allocator = rapidjson::MemoryPoolAllocator<>
 >
@@ -75,16 +80,24 @@ public:
     typedef rapidjson::GenericDocument<Encoding, Allocator> DocumentType;
     typedef std::unordered_map<std::string, std::shared_ptr<DocumentType> > DocumentsMap;
 
-    static LocalVar& getInstance(){
-        static LocalVar instance;
-        return instance;
+    //Single Instance
+    static LocalVar* getInstance(){
+        static LocalVar<FileIO, Encoding, Allocator> localvar;
+        return &localvar;
     };
-    DocumentType& getDocument(const std::string& filename);
-    bool persistDocument(const std::string& filename);
     
-    ~LocalVar();
+    //return empty document if not found
+    DocumentType& getDocument(const char* filename);
+    //return false if not found the document, else return true
+    bool persistDocument(const char* filename);
+    //print the document to the output stream
+    void printDocument(const char* filename, std::ostream& o);
+    //if not need any more, release the document to save memory
+    void releaseDocument(const char* filename);
+    
+    ~LocalVar(){};
 private:
-    LocalVar();
+    LocalVar(){};
     LocalVar(LocalVar const&);
     LocalVar& operator = (LocalVar const&);
     
@@ -92,17 +105,20 @@ private:
     FileIO<DocumentType> _fileIO;
 };
 
+#define LOCAL_VAR LocalVar<>::getInstance()
+typedef typename LocalVar<>::DocumentType DocumentType;
+
 //! implementation
 
 #include "aes/aes_my.h"
 
 
-#define __AES__ 1
+#define __AES__ 1//change to 0 if dont need encrypt
 
 template <typename DocumentType>
-std::shared_ptr<DocumentType> JsonIO<DocumentType>::getDocument(const std::string& filename)
+std::shared_ptr<DocumentType> JsonIO<DocumentType>::getDocument(const char* filename)
 {
-    const char* content;
+    const typename DocumentType::Ch* content;
     std::shared_ptr<DocumentType> document(new DocumentType());
 #if __AES__
     cocos2d::Data data = cocos2d::FileUtils::getInstance()->getDataFromFile(filename);
@@ -113,15 +129,15 @@ std::shared_ptr<DocumentType> JsonIO<DocumentType>::getDocument(const std::strin
     auto len = data.getSize();
     decrypt(len, bytes, bytes);
     std::string contentStr((char*)bytes, len);
-    content = contentStr.c_str();
+    content = contentStr.c_str(); // FIXME: only support utf8 char*
 #else
     std::string contentStr = cocos2d::FileUtils::getInstance()->getStringFromFile(filename);
-    if (contentStr == "") {//if the file not found, also return a document
+    if (contentStr == "") {//if the file not found, also return a empty document
         return document;
     }
     content = contentStr.c_str();
 #endif
-    auto& doc = document->Parse(content);
+    auto& doc = document->template Parse<rapidjson::kParseDefaultFlags>(content);
     if (doc.HasParseError()) {
         CCAssert(0, doc.GetParseError());
     }
@@ -129,7 +145,7 @@ std::shared_ptr<DocumentType> JsonIO<DocumentType>::getDocument(const std::strin
 }
 
 template <typename DocumentType>
-void JsonIO<DocumentType>::writeDocument(DocumentType* document ,const std::string& filename)
+void JsonIO<DocumentType>::writeDocument(DocumentType* document ,const char* filename)
 {
     LookUpDict::addFilenameLookupDictionary(filename);
     auto fullPath = getWritableFilename(filename);
@@ -150,8 +166,7 @@ void JsonIO<DocumentType>::writeDocument(DocumentType* document ,const std::stri
 
 template <
 template <typename T > class FileIO, typename Encoding, typename Allocator>
-typename LocalVar<FileIO, Encoding, Allocator>::DocumentType&
-LocalVar<FileIO, Encoding, Allocator>::getDocument(const std::string& filename)
+auto LocalVar<FileIO, Encoding, Allocator>::getDocument(const char* filename)->DocumentType&
 {
     auto doc_iter = _docMap.find(filename);
     if (doc_iter == _docMap.end()) {
@@ -163,7 +178,7 @@ LocalVar<FileIO, Encoding, Allocator>::getDocument(const std::string& filename)
 
 template <
 template <typename T > class FileIO, typename Encoding, typename Allocator>
-bool LocalVar<FileIO, Encoding, Allocator>::persistDocument(const std::string& filename)
+bool LocalVar<FileIO, Encoding, Allocator>::persistDocument(const char* filename)
 {
     auto doc_iter = _docMap.find(filename);
     if (doc_iter != _docMap.end()) {
@@ -171,5 +186,24 @@ bool LocalVar<FileIO, Encoding, Allocator>::persistDocument(const std::string& f
         return true;
     }
     return false;
+}
+
+template <
+template <typename T > class FileIO, typename Encoding, typename Allocator>
+void LocalVar<FileIO, Encoding, Allocator>::releaseDocument(const char* filename)
+{
+    _docMap.erase(filename);
+}
+
+template <
+template <typename T > class FileIO, typename Encoding, typename Allocator>
+void LocalVar<FileIO, Encoding, Allocator>::printDocument(const char* filename, std::ostream& o)
+{
+    auto& doc = getDocument(filename);
+    assert(doc.IsObject()||doc.IsArray()); // connot print empyt document
+    rapidjson::StringBuffer buffer;
+    rapidjson::PrettyWriter<rapidjson::StringBuffer> pw(buffer);
+    doc.Accept(pw);
+    o << buffer.GetString() << std::endl;
 }
 #endif

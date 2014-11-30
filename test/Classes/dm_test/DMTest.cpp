@@ -221,39 +221,56 @@ void DMTest::testTempVar()
 }
 void DMTest::testLocalVar()
 {
-//    FileUtils::getInstance()->addSearchPath("test");
-//    
-//    TempVar* dic1 = VARIABLES.getLocal("test_dict1.json");
-//    TempVar* dic2 = VARIABLES.getLocal("test_dict2.json");
-//    TempVar* dic3 = VARIABLES.getLocal("test_dict3.json");
-//    
-//    printLocal(dic1);
-//    printLocal(dic2);
-//    printLocal(dic3);
-//    
-//    dic1->setString("key6_new_add", "添加一个字符串");
-//    dic1->setBool("key5_bool", false);
-//    dic1->setInt("key2_int", 10);
-//    dic1->setDouble("key4_double", 10.01);
-//    dic1->setFloat("key3_float", 19.1f);
-//    dic1->setString("key1_str", "hello world");
-//    dic1->setInt("key_new_int", 10000);
-//    dic2->setString("string3","改变了哦");
-//    dic2->setString("string5","又变了哦");
-//    dic2->setString("string7","不再改了");
-//    dic3->setBool("bool5",false);
-//    dic3->setBool("bool10",true);
-//    dic3->setBool("bool20",false);//添加一个新bool
-//    
-//    printLocal(dic1);
-//    printLocal(dic2);
-//    printLocal(dic3);
-//    
-//    VARIABLES.persistLocal("test_dict1.json");
-//    VARIABLES.persistLocal("test_dict2.json");
-//    VARIABLES.persistLocal("test_dict3.json");
-//    
-//    VARIABLES.getLocal("const_var1.plist");//print error msg here!
-//    
-//    log("test ok!");
+    //if you change the __AES__, remember to reinstall the app
+#if __AES__
+    cocos2d::FileUtils::getInstance()->addSearchPath("encrypt");
+#else
+    cocos2d::FileUtils::getInstance()->addSearchPath("origin");
+#endif
+    
+    //To Remember load the lookup dictionary
+    LookUpDict::loadFilenameLookupDictionary();
+    
+    //Test Object Document
+    auto& doc1 = LOCAL_VAR->getDocument("test_dict1.json");
+    auto& doc2 = LOCAL_VAR->getDocument("test_dict2.json");
+    auto& doc3 = LOCAL_VAR->getDocument("test_dict3.json");
+    
+    LOCAL_VAR->printDocument("test_dict1.json", std::cout);
+    LOCAL_VAR->printDocument("test_dict2.json", std::cout);
+    LOCAL_VAR->printDocument("test_dict3.json", std::cout);
+    
+    //change the content
+    doc1["key5_bool"] = false;
+    doc1["key2_int"] = 10;
+    doc1["key4_double"] = 10.01;
+    doc1["key1_str"] = "I love you forever";
+//    doc1.AddMember("key6_new_add", "添加汉字", TEMP_VAR->getAllocator());
+//    doc1.AddMember("key7_new_add", 19919.88, TEMP_VAR->getAllocator());
+    
+    
+    doc2["string3"] = "改变了哦";
+    doc2["string5"] = "又变了哦";
+    doc2["string7"] = "不再改了";
+    
+    doc3["bool5"] = false; //modify
+    doc3["bool10"] = true; //modify
+//    doc3.AddMember("bool20", true, TEMP_VAR->getAllocator()); //add
+    
+    LOCAL_VAR->printDocument("test_dict1.json", std::cout);
+    LOCAL_VAR->printDocument("test_dict2.json", std::cout);
+    LOCAL_VAR->printDocument("test_dict3.json", std::cout);
+    
+    LOCAL_VAR->persistDocument("test_dict1.json");
+    LOCAL_VAR->persistDocument("test_dict2.json");
+    LOCAL_VAR->persistDocument("test_dict3.json");
+    
+    LOCAL_VAR->releaseDocument("test_dict1.json");
+    
+    std::cout<< "After Remove:"<< std::endl;
+    LOCAL_VAR->printDocument("test_dict1.json", std::cout);
+    
+    //To Rememeber save the lookup dictionary
+    LookUpDict::saveFilenameLookupDictionary();
+    
 }
