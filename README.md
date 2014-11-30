@@ -7,23 +7,27 @@
 ios,mac用户打开`test/proj.ios_mac/test.xcodeproj`, 修改部分引用路径，直接编译运行即可。
 ##2. 数据管理
 使用JSON数据格式，json文件的解析采用`rapidjson`，github地址为 https://github.com/miloyip/rapidjson （cocos2d-x 3.x已经集成了`rapidjson`）
+
 1. **TempVar - 临时变量：**
-   * 变量始终保存保存在内存当中，由TempVar提供统一的管理。
-   * 支持类型int,uint,int64,uint64,bool,double,std::string(const char*),std::unordered_map,std::vector。
-   * 支持对象的序列化和反序列化。
+  * 变量始终保存保存在内存当中，由TempVar提供统一的管理。
+  * 支持类型int,uint,int64,uint64,bool,double,std::string(const char*),std::unordered_map,std::vector。
+  * 支持对象的序列化和反序列化。
 
    ***Example：***
    * Bool
+
    ```c
    TEMP_VAR->set("test_bool", true);
    bool b = TEMP_VAR->getBool("test_bool"); // == true
    ```
    * Double
+
    ```c
    TEMP_VAR->set("double1", 10.01);
    double d = TEMP_VAR->getDouble("double1"); // == 10.01
    ```
    * String
+
    ```c
    TEMP_VAR->set("string1", "i am a const char* !");
    const char* cc = TEMP_VAR->getCharArray("string1");
@@ -31,6 +35,7 @@ ios,mac用户打开`test/proj.ios_mac/test.xcodeproj`, 修改部分引用路径�
    std::string str = TEMP_VAR->getString("string2");
    ```
    * Map< K,V >( K must be std::string, V must be primitive type )
+
    ```c
    std::unordered_map<std::string, int> testmap = {{"key1", 0}, {"key2", 1}, {"key3", 2}};
     TEMP_VAR->set("map1", testmap); //left value
@@ -44,6 +49,7 @@ ios,mac用户打开`test/proj.ios_mac/test.xcodeproj`, 修改部分引用路径�
     int i = TEMP_VAR->getValueFromMap("map1", "key2").GetInt(); //get the key2 value
    ```
    * Array< V > ( V must be primitive type)
+
    ```c
    std::vector<int> array = {10,20,30,40,50};
    TEMP_VAR->set("arr1", array);
@@ -53,6 +59,7 @@ ios,mac用户打开`test/proj.ios_mac/test.xcodeproj`, 修改部分引用路径�
    int i = TEMP_VAR->getValueFromArray("arr1", 2).GetInt(); //== 30
    ```
    * Serializable
+
    ```c
 {
   Dependent dep("Lua YIP", 3, new Education("Happy Kindergarten", 3.5)); //An object
