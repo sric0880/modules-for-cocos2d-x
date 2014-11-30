@@ -2,63 +2,95 @@
 
 **cocos2d-x版本：3.2**
 
-##1. 数据管理
-使用JSON数据格式，json文件的解析采用`rapidjson`：[github地址](https://github.com/miloyip/rapidjson)，cocos2d-x 3.x已经集成了`rapidjson`
+##1. 单元测试
+所有的模块的单元测试在`test`文件夹下。  
+ios,mac用户打开`test/proj.ios_mac/test.xcodeproj`, 修改部分引用路径，直接编译运行即可。
+##2. 数据管理
+使用JSON数据格式，json文件的解析采用`rapidjson`，github地址为 https://github.com/miloyip/rapidjson （cocos2d-x 3.x已经集成了`rapidjson`）
+1. **TempVar - 临时变量：**
+   * 变量始终保存保存在内存当中，由TempVar提供统一的管理。
+   * 支持类型int,uint,int64,uint64,bool,double,std::string(const char*),std::unordered_map,std::vector。
+   * 支持对象的序列化和反序列化。
 
-基于文件操作。加载本地数据，持久化本地数据，存储和读取临时变量，支持AES文件加密和解密。
-####策略
+   ***Example：***
+   * Bool
+   ```c
+   TEMP_VAR->set("test_bool", true);
+   bool b = TEMP_VAR->getBool("test_bool"); // == true
+   ```
+   * Double
+   ```c
+   TEMP_VAR->set("double1", 10.01);
+   double d = TEMP_VAR->getDouble("double1"); // == 10.01
+   ```
+   * String
+   ```c
+   TEMP_VAR->set("string1", "i am a const char* !");
+   const char* cc = TEMP_VAR->getCharArray("string1");
+   TEMP_VAR->set("string2", std::string("hello"));
+   std::string str = TEMP_VAR->getString("string2");
+   ```
+   * Map< K,V >( K must be std::string, V must be primitive type )
+   ```c
+   std::unordered_map<std::string, int> testmap = {{"key1", 0}, {"key2", 1}, {"key3", 2}};
+    TEMP_VAR->set("map1", testmap); //left value
+    TEMP_VAR->addMemberToMap("map1", "key4", 4); //add key4
+    TEMP_VAR->removeFromMap("map1", "key1"); //remove key1
 
-1. 临时数值变量：
-   * 借鉴edit-support/cocostudio/CCComAttribute.cpp，定义了一个TempVar类，使用```cocos2d::ValueMap```数据结构来存储(key,value)。
+    //print the map1
+    auto& map1 = TEMP_VAR->getObject("map1");
+    std::for_each(map1.MemberonBegin(), map1.MemberonEnd(), [](ValueType::Member& member){std::cout<<"["<<member.name.GetString() << ","<<member.value.GetInt() << "] ";});
 
-   		Variables.h中`VARIABLES`提供全局变量管理，使用方法：
+    int i = TEMP_VAR->getValueFromMap("map1", "key2").GetInt(); //get the key2 value
+   ```
+   * Array< V > ( V must be primitive type)
+   ```c
+   std::vector<int> array = {10,20,30,40,50};
+   TEMP_VAR->set("arr1", array);
+   TEMP_VAR->addValueToArray("arr1", 60); //push back
+   CCASSERT(TEMP_VAR->getSize("arr1") == 6, ""); //get size
+   TEMP_VAR->popFromArray("arr1"); //pop back
+   int i = TEMP_VAR->getValueFromArray("arr1", 2).GetInt(); //== 30
+   ```
+   * Serializable
+   ```c
+{
+  Dependent dep("Lua YIP", 3, new Education("Happy Kindergarten", 3.5)); //An object
+  TEMP_VAR->setSerializable("p1", dep); //serialization
+}
+{
+  Dependent dep1;
+  TEMP_VAR->getSerializable("p1", dep1); //deserialization
+}
+   ```
 
-   	``` c
-   	VARIABLES.getMemStorage()->setBool("test_bool", true);
-   	```
-   * 对象可以看做一种ValueMap
+2. **LocalVar - 本地变量：**
+  * 当前只支持json文件读写
+  * AES加密解密支持，读入时解密，写入时加密，`LocalVar.h`中宏`__AES__`控制加密: 1--开启 0--关闭
+  * 以`rapidjson::document`形式统一管理，只支持Object和Array类型
 
-  	<br>
+  ***Example：***
+  ```c
+  auto& doc1 = LOCAL_VAR->getDocument("test_dict1.json"); //read the file and decrypt, then store it in memory
+  LOCAL_VAR->printDocument("test_dict1.json", std::cout);// print the json file
 
-2. 持久化变量：
-	* ```cocos2d::UserDefault```，没有加密，只能保存一些游戏的基本设置，比如音乐开关、音效开关等
-	* ```storage/local-storage/localStorage.h```提供了SQLite方案，<key,value>数据结构（string类型），不提供加密
-	* `VARIABLES`可以加载本地json文件，<key,value>数据结构，支持读入时解密，写入时加密，使用方法：
-	`JsonFileUtil.cpp`中宏控制加密: 1--开启 0--关闭
+  //change the document
+  doc1["key5_bool"] = false;
+  doc1["key2_int"] = 10;
+  doc1["key4_double"] = 10.01;
+  doc1["key1_str"] = "I love you forever";
 
-	``` c
-	#define __AES__ 1
-	```
-
-	``` c
-	VARIABLES.getLocal("test_dict1.json");
-	VARIABLES.persistLocal("test_dict1.json");
-	```
-
-		1. getLocal如果没有找到文件，同样也会返回空Map或空Vector。
-		2. persistLocal将文件存入Documents中。
-		3. 如果程序启动时，调用FileUitl.h中的方法loadFilenameLookupDictionary，并且程序结束时有调用saveFilenameLookupDictionary，
-		那么getLocal方法优先去Documents中查找文件，而不是.app包。
-	* `utils4cocos2dx/JsonFileUtil.h`提供如下方法，支持加密
-
-	``` c
-	ValueMap getValueMapFromJson(const std::string& filename);
-ValueVector getValueVectorFromJson(const std::string& filename);
-bool writeToJson(ValueMap& dict, const std::string& fullPath);
-bool writeToJson(ValueVector& array, const std::string& fullPath);
-```
-
-	* `VARIABLES`同样支持plist文件，但不支持加密，cocos2dx提供如下方法：
-
-	``` c
-	ValueMap getValueMapFromFile(const std::string& filename);
-	ValueVector getValueVectorFromFile(const std::string& filename);
-	```
-	* TODO DBHelper，SQLite数据库管理类，支持加密
-	* 工具集支持：
-		* 文件用tools/aes/工具进行加密
-		* sqlite数据库用tools/safe_sqlite3工具进行加密
-		* tools/trans_excel可以将excel文件导出为json或plist或SQLite文件
+  //then rewrite it to the hard disk storage
+  //when you restart your application, you will find the file has been changed.
+  LOCAL_VAR->persistDocument("test_dict1.json");
+  //then you can release the document
+  LOCAL_VAR->releaseDocument("test_dict1.json");
+  ```
+  注意：
+    1. 在程序启动时，需要调用`LookUpDict::loadFilenameLookupDictionary();`，程序结束后，需要调用`LookUpDict::saveFilenameLookupDictionary();`，那么读取文件时优先去Documents中查找文件，而不是.app包。
+    2. 关于aes加密见`module_data_manager/aes/README.md`。
+    3. `safe_sqlite3`工程支持数据库存储过程中的加密解密。
+    4. `aes`和`safe_sqlite3`都提供了可执行程序用以加密解密文件。
 
 ##2. 网络模块
 
@@ -156,12 +188,11 @@ seconds getMaxOnlineTime();		//最长一次在线时间
 seconds getMinOnlineTime();		//最短一次在线时间
 seconds getCurrentOnlineTime(); //当前登录时间
 ```
-##Test
-All unit tests are in the file folder 'test'.
+##其他
+tools/trans_excel可以将excel文件导出为json或plist或SQLite文件
 
 ##list:
 4. ***utils4cocos2dx*** some utility class like:
-	* JsonConverter: convert json to cocos2d::Value and vice versa.
 	* JsonFileUtil: read and write json file to cocos2d::ValueMap or cocos2d::ValueVector with data encrypted and plist not.
 	* FileUtil: a simple proxy method of cocos2d::FileUtil
 	* StringUtil: deal with utf-8 string.
