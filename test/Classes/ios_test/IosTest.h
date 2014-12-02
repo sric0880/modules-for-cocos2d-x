@@ -1,28 +1,28 @@
 //
-//  NotificationTest.h
+//  IosTest.h
 //
-//  Created by qiong on 14-3-15.
+//  Created by qiong on 14-3-12.
 //
 //
 
-#ifndef __NotificationTest__
-#define __NotificationTest__
+#ifndef __IosTest__
+#define __IosTest__
 
 #include "cocos2d.h"
 #include "TestScene.h"
 using namespace std;
 using namespace cocos2d;
 
-class NotificationTest : public TestScene{
+class IosTest : public TestScene{
 public:
     virtual void runThisTest();
 };
 
-class  NotificationTestLayer: public Layer{
+class  IosTestLayer: public Layer{
 public:
-    NotificationTestLayer();
-    virtual~NotificationTestLayer();
-    CREATE_FUNC(NotificationTestLayer);
+    IosTestLayer();
+    virtual~IosTestLayer();
+    CREATE_FUNC(IosTestLayer);
     virtual bool init();
     /**
      * Event callback that is invoked every time when Node enters the 'stage'.
@@ -60,6 +60,7 @@ public:
      */
     virtual void onExitTransitionDidStart();
     
+    //    void btnGo(Object* sender);
     void btnlocal(Ref* sender);
     void btnCancel(Ref* sender);
     void btnCancelAll(Ref* sender);

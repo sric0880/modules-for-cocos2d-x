@@ -196,27 +196,14 @@ seconds getMinOnlineTime();		//最短一次在线时间
 seconds getCurrentOnlineTime(); //当前登录时间
 ```
 ##其他
-tools/trans_excel可以将excel文件导出为json或plist或SQLite文件
-
-##list:
-4. ***utils4cocos2dx*** some utility class like:
-	* JsonFileUtil: read and write json file to cocos2d::ValueMap or cocos2d::ValueVector with data encrypted and plist not.
-	* FileUtil: a simple proxy method of cocos2d::FileUtil
+1. `tools/trans_excel`可以将excel文件导出为json或plist或SQLite文件，依赖库：[openpyxl](http://pythonhosted.org/openpyxl/)，[biplist](https://bitbucket.org/wooster/biplist).
+2. `tools/read_dir_to_excel` 将目录下的所有文件名以及大小信息存入Excel，依赖库：[xlslib](xlslib.sourceforge.net)
+3. `module_ios`有与iOS相关的接口封装
+  * 对话框和加载框
+  * 本地通知
+  * GameCenter
+  * 网络访问
+  * 其他(设备基本信息，发邮件，打开链接...)
+4. `module_utils`
 	* StringUtil: deal with utf-8 string.
 	* HttpHelper: make sending httprequest in few lines of code.
-	* DeviceUtil: platform related functions under ios and android
-		1. device basic information
-		2. gemecenter
-		3. remote and local notification
-		4. open url and send email...
-	* AlertHelper: show alert dialog using interface provided by ios or android.
-	* LoadingDlg: an iOS custom loading dialog.
-	* ShaderSprite: very useful class for custom fragment shader.
-	* CocosUtil: all other helpful functions like load resources async or sync, audio manager, cocostudio helper and so on.
-6. ***tools***
-	1. **trans_excel**. Python tool for converting excel to plist, json and sqlite. Depend on [openpyxl](http://pythonhosted.org/openpyxl/)，[biplist](https://bitbucket.org/wooster/biplist). It's two kinds of excel: array and dictionary
-	2. **read_dir_to_excel**. Tool for reading dir info into a excel file. Depend on [xlslib](xlslib.sourceforge.net).
-	3. **aes**. Encrypt and decrypt tool using aes algorithm. You can make a static lib: libaes.a
-	4. **safe_sqlite3** Encrypt and decrypt tool for sqlite database You can make a static lib: libsqlite3.a
-8. ***customWidget***
-	* custom widget using in cocostudio, including custom label, lableButton and textfield.

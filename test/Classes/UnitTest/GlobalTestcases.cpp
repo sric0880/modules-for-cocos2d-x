@@ -8,12 +8,9 @@
 #include "GlobalTestcases.h"
 #include "TestSceneExample.h"
 #include "DMTest.h"
-//#include "JsonConvertTest.h"
-//#include "JsonFileUtilTest.h"
 //#include "PomeloClientTest.h"
-//#include "FruitSlotDemo.h"
 //#include "HttpHelperTest.h"
-//#include "DeviceUtilTest.h"
+#include "IosTest.h"
 //#include "SystemClockTest.h"
 //#include "NotificationTest.h"
 
@@ -22,15 +19,11 @@
 #define CLN(__className__) [](){ auto obj = new __className__(); obj->autorelease(); return obj; }
 
 //add yourself
-TestCase tests[2]={
+TestCase tests[3]={
     {"Example Test", CLN(TestSceneExample)},
-//    {"PomeloClient Test", CLN(PomeloClientTest)},
-//    {"Json Convert Test",CLN(JsonConvertTest)},
-//    {"Json File Read and Write Test", CLN(JsonFileUtilTest)},
-    {"DataManager Test", CLN(DMTest)}
-//    {"Game Demo", CLN(FruitSlotDemo)},
+    {"DataManager Test", CLN(DMTest)},
 //    {"Http Helper Test", CLN(HttpHelperTest)},
-//    {"Device Util Test", CLN(DeviceUtilTest)},
+    {"iOS Test", CLN(IosTest)}
 //    {"System Clock Test", CLN(SystemClockTest)},
 //    {"Notification Test", CLN(NotificationTest)},
 };

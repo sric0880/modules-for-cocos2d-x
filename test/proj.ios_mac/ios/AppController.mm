@@ -27,6 +27,7 @@
 #import "cocos2d.h"
 #import "AppDelegate.h"
 #import "RootViewController.h"
+#import "NotificationHelper.h"
 
 @implementation AppController
 
@@ -79,6 +80,10 @@ static AppDelegate s_sharedApplication;
 
     cocos2d::Application::getInstance()->run();
 
+    //注册本地通知
+    registerLocalNotification(application);
+    handleNotificationAfterLaunching(launchOptions);
+    
     return YES;
 }
 
@@ -138,5 +143,14 @@ static AppDelegate s_sharedApplication;
     [super dealloc];
 }
 
-
+#pragma mark -
+#pragma mark Notification Handler
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    handleRemoteInForeground(userInfo);
+}
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    handleLocalInForeground(notification);
+}
 @end

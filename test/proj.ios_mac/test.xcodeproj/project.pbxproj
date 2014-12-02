@@ -60,6 +60,20 @@
 		CFB16038196F98C600E76456 /* TestScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB1602F196F98C600E76456 /* TestScene.cpp */; };
 		CFB16039196F98C600E76456 /* UnitTestLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB16031196F98C600E76456 /* UnitTestLayer.cpp */; };
 		CFB1603A196F98C600E76456 /* UnitTestLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB16031196F98C600E76456 /* UnitTestLayer.cpp */; };
+		CFC123421A2D55CF003AE428 /* IosTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFC123401A2D55CF003AE428 /* IosTest.cpp */; };
+		CFC123691A2D5D9C003AE428 /* AlertHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = CFC123561A2D5D9C003AE428 /* AlertHelper.mm */; };
+		CFC1236A1A2D5D9C003AE428 /* IsolatedAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = CFC123581A2D5D9C003AE428 /* IsolatedAlert.mm */; };
+		CFC1236B1A2D5D9C003AE428 /* DeviceUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = CFC1235A1A2D5D9C003AE428 /* DeviceUtil.mm */; };
+		CFC1236C1A2D5D9C003AE428 /* GameCenterUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = CFC1235C1A2D5D9C003AE428 /* GameCenterUtil.mm */; };
+		CFC123701A2D5D9C003AE428 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC123661A2D5D9C003AE428 /* Reachability.m */; };
+		CFC123711A2D5D9C003AE428 /* RootViewProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC123681A2D5D9C003AE428 /* RootViewProxy.m */; };
+		CFC123771A2D60C5003AE428 /* LocalNotify.mm in Sources */ = {isa = PBXBuildFile; fileRef = CFC123741A2D60C5003AE428 /* LocalNotify.mm */; };
+		CFC123781A2D60C5003AE428 /* NotificationHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = CFC123761A2D60C5003AE428 /* NotificationHelper.mm */; };
+		CFC1237A1A2D9292003AE428 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFC123791A2D9292003AE428 /* GameKit.framework */; };
+		CFC1237C1A2D93A8003AE428 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFC1237B1A2D93A8003AE428 /* CoreFoundation.framework */; };
+		CFC1237E1A2D9414003AE428 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFC1237D1A2D9414003AE428 /* SystemConfiguration.framework */; };
+		CFC123801A2D944E003AE428 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFC1237F1A2D944E003AE428 /* MessageUI.framework */; };
+		CFC123831A2DA510003AE428 /* LoadingHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = CFC123821A2DA510003AE428 /* LoadingHelper.mm */; };
 		CFD014F91A2ABBA500CE481C /* libaes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD014F81A2ABBA500CE481C /* libaes.a */; };
 		CFD015051A2AE46D00CE481C /* encrypt in Resources */ = {isa = PBXBuildFile; fileRef = CFD015031A2AE46D00CE481C /* encrypt */; };
 		CFD015061A2AE46D00CE481C /* encrypt in Resources */ = {isa = PBXBuildFile; fileRef = CFD015031A2AE46D00CE481C /* encrypt */; };
@@ -205,6 +219,30 @@
 		CFB16030196F98C600E76456 /* TestScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestScene.h; sourceTree = "<group>"; };
 		CFB16031196F98C600E76456 /* UnitTestLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UnitTestLayer.cpp; sourceTree = "<group>"; };
 		CFB16032196F98C600E76456 /* UnitTestLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitTestLayer.h; sourceTree = "<group>"; };
+		CFC123401A2D55CF003AE428 /* IosTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IosTest.cpp; sourceTree = "<group>"; };
+		CFC123411A2D55CF003AE428 /* IosTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IosTest.h; sourceTree = "<group>"; };
+		CFC123551A2D5D9C003AE428 /* AlertHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertHelper.h; sourceTree = "<group>"; };
+		CFC123561A2D5D9C003AE428 /* AlertHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AlertHelper.mm; sourceTree = "<group>"; };
+		CFC123571A2D5D9C003AE428 /* IsolatedAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsolatedAlert.h; sourceTree = "<group>"; };
+		CFC123581A2D5D9C003AE428 /* IsolatedAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IsolatedAlert.mm; sourceTree = "<group>"; };
+		CFC123591A2D5D9C003AE428 /* DeviceUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceUtil.h; sourceTree = "<group>"; };
+		CFC1235A1A2D5D9C003AE428 /* DeviceUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DeviceUtil.mm; sourceTree = "<group>"; };
+		CFC1235B1A2D5D9C003AE428 /* GameCenterUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterUtil.h; sourceTree = "<group>"; };
+		CFC1235C1A2D5D9C003AE428 /* GameCenterUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameCenterUtil.mm; sourceTree = "<group>"; };
+		CFC123651A2D5D9C003AE428 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		CFC123661A2D5D9C003AE428 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		CFC123671A2D5D9C003AE428 /* RootViewProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewProxy.h; sourceTree = "<group>"; };
+		CFC123681A2D5D9C003AE428 /* RootViewProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewProxy.m; sourceTree = "<group>"; };
+		CFC123731A2D60C5003AE428 /* LocalNotify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalNotify.h; sourceTree = "<group>"; };
+		CFC123741A2D60C5003AE428 /* LocalNotify.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LocalNotify.mm; sourceTree = "<group>"; };
+		CFC123751A2D60C5003AE428 /* NotificationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationHelper.h; sourceTree = "<group>"; };
+		CFC123761A2D60C5003AE428 /* NotificationHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NotificationHelper.mm; sourceTree = "<group>"; };
+		CFC123791A2D9292003AE428 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
+		CFC1237B1A2D93A8003AE428 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		CFC1237D1A2D9414003AE428 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		CFC1237F1A2D944E003AE428 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
+		CFC123811A2DA510003AE428 /* LoadingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingHelper.h; sourceTree = "<group>"; };
+		CFC123821A2DA510003AE428 /* LoadingHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LoadingHelper.mm; sourceTree = "<group>"; };
 		CFD014F81A2ABBA500CE481C /* libaes.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libaes.a; path = "../../../module_data_manager/aes/build/Default-iphonesimulator/libaes.a"; sourceTree = "<group>"; };
 		CFD015031A2AE46D00CE481C /* encrypt */ = {isa = PBXFileReference; lastKnownFileType = folder; path = encrypt; sourceTree = "<group>"; };
 		CFD015041A2AE46D00CE481C /* origin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = origin; sourceTree = "<group>"; };
@@ -221,6 +259,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFC123801A2D944E003AE428 /* MessageUI.framework in Frameworks */,
+				CFC1237E1A2D9414003AE428 /* SystemConfiguration.framework in Frameworks */,
+				CFC1237C1A2D93A8003AE428 /* CoreFoundation.framework in Frameworks */,
+				CFC1237A1A2D9292003AE428 /* GameKit.framework in Frameworks */,
 				CF35498F1A28237D00A740B9 /* libcocos2dx iOS.a in Frameworks */,
 				D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
@@ -260,6 +302,7 @@
 		080E96DDFE201D6D7F000001 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				CFC123531A2D5D9C003AE428 /* module_ios */,
 				CFD014F71A2ABB9B00CE481C /* libs */,
 				5087E77117EB970100C73F5D /* Icons */,
 				503AE0FA17EB989F00D1A890 /* AppController.h */,
@@ -276,6 +319,7 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CFC1233F1A2D55CF003AE428 /* ios_test */,
 				CF3549901A28249E00A740B9 /* dm_test */,
 				CFB1602B196F98C600E76456 /* UnitTest */,
 				CFB15FF4196EE3E500E76456 /* examples_test */,
@@ -312,6 +356,10 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CFC1237F1A2D944E003AE428 /* MessageUI.framework */,
+				CFC1237D1A2D9414003AE428 /* SystemConfiguration.framework */,
+				CFC1237B1A2D93A8003AE428 /* CoreFoundation.framework */,
+				CFC123791A2D9292003AE428 /* GameKit.framework */,
 				CF89FEDB1A276579008A8174 /* libcocos2dx iOS.a */,
 				CF89FECC1A2764C4008A8174 /* libmdm_ios.a */,
 				CF89FEBE1A2764C4008A8174 /* libmdm_ios.a */,
@@ -442,6 +490,74 @@
 			);
 			name = UnitTest;
 			path = ../Classes/UnitTest;
+			sourceTree = "<group>";
+		};
+		CFC1233F1A2D55CF003AE428 /* ios_test */ = {
+			isa = PBXGroup;
+			children = (
+				CFC123401A2D55CF003AE428 /* IosTest.cpp */,
+				CFC123411A2D55CF003AE428 /* IosTest.h */,
+			);
+			name = ios_test;
+			path = ../Classes/ios_test;
+			sourceTree = "<group>";
+		};
+		CFC123531A2D5D9C003AE428 /* module_ios */ = {
+			isa = PBXGroup;
+			children = (
+				CFC123541A2D5D9C003AE428 /* alert_dialog */,
+				CFC123591A2D5D9C003AE428 /* DeviceUtil.h */,
+				CFC1235A1A2D5D9C003AE428 /* DeviceUtil.mm */,
+				CFC1235B1A2D5D9C003AE428 /* GameCenterUtil.h */,
+				CFC1235C1A2D5D9C003AE428 /* GameCenterUtil.mm */,
+				CFC1235D1A2D5D9C003AE428 /* loading_dialog */,
+				CFC123721A2D60C5003AE428 /* notifications */,
+				CFC123641A2D5D9C003AE428 /* reachability */,
+				CFC123671A2D5D9C003AE428 /* RootViewProxy.h */,
+				CFC123681A2D5D9C003AE428 /* RootViewProxy.m */,
+			);
+			name = module_ios;
+			path = ../../../module_ios;
+			sourceTree = "<group>";
+		};
+		CFC123541A2D5D9C003AE428 /* alert_dialog */ = {
+			isa = PBXGroup;
+			children = (
+				CFC123551A2D5D9C003AE428 /* AlertHelper.h */,
+				CFC123561A2D5D9C003AE428 /* AlertHelper.mm */,
+				CFC123571A2D5D9C003AE428 /* IsolatedAlert.h */,
+				CFC123581A2D5D9C003AE428 /* IsolatedAlert.mm */,
+			);
+			path = alert_dialog;
+			sourceTree = "<group>";
+		};
+		CFC1235D1A2D5D9C003AE428 /* loading_dialog */ = {
+			isa = PBXGroup;
+			children = (
+				CFC123811A2DA510003AE428 /* LoadingHelper.h */,
+				CFC123821A2DA510003AE428 /* LoadingHelper.mm */,
+			);
+			path = loading_dialog;
+			sourceTree = "<group>";
+		};
+		CFC123641A2D5D9C003AE428 /* reachability */ = {
+			isa = PBXGroup;
+			children = (
+				CFC123651A2D5D9C003AE428 /* Reachability.h */,
+				CFC123661A2D5D9C003AE428 /* Reachability.m */,
+			);
+			path = reachability;
+			sourceTree = "<group>";
+		};
+		CFC123721A2D60C5003AE428 /* notifications */ = {
+			isa = PBXGroup;
+			children = (
+				CFC123731A2D60C5003AE428 /* LocalNotify.h */,
+				CFC123741A2D60C5003AE428 /* LocalNotify.mm */,
+				CFC123751A2D60C5003AE428 /* NotificationHelper.h */,
+				CFC123761A2D60C5003AE428 /* NotificationHelper.mm */,
+			);
+			path = notifications;
 			sourceTree = "<group>";
 		};
 		CFD014F71A2ABB9B00CE481C /* libs */ = {
@@ -641,15 +757,25 @@
 			files = (
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				CFB15FFE196EE3E500E76456 /* TestSceneExample.cpp in Sources */,
+				CFC1236C1A2D5D9C003AE428 /* GameCenterUtil.mm in Sources */,
+				CFC123691A2D5D9C003AE428 /* AlertHelper.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				CFC123711A2D5D9C003AE428 /* RootViewProxy.m in Sources */,
+				CFC123831A2DA510003AE428 /* LoadingHelper.mm in Sources */,
+				CFC123771A2D60C5003AE428 /* LocalNotify.mm in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
+				CFC1236A1A2D5D9C003AE428 /* IsolatedAlert.mm in Sources */,
 				CF89FE861A275899008A8174 /* VisibleRect.cpp in Sources */,
 				CFB16039196F98C600E76456 /* UnitTestLayer.cpp in Sources */,
 				CF3549931A28249E00A740B9 /* DMTest.cpp in Sources */,
 				CFF07A5D1A29F51B00B4BD6A /* Serializable.cpp in Sources */,
+				CFC123781A2D60C5003AE428 /* NotificationHelper.mm in Sources */,
+				CFC123701A2D5D9C003AE428 /* Reachability.m in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
+				CFC1236B1A2D5D9C003AE428 /* DeviceUtil.mm in Sources */,
 				CFB16037196F98C600E76456 /* TestScene.cpp in Sources */,
 				CFB16033196F98C600E76456 /* GlobalTestcases.cpp in Sources */,
+				CFC123421A2D55CF003AE428 /* IosTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
