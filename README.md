@@ -197,13 +197,15 @@ seconds getCurrentOnlineTime(); //当前登录时间
 ```
 ##其他
 1. `tools/trans_excel`可以将excel文件导出为json或plist或SQLite文件，依赖库：[openpyxl](http://pythonhosted.org/openpyxl/)，[biplist](https://bitbucket.org/wooster/biplist).
-2. `tools/read_dir_to_excel` 将目录下的所有文件名以及大小信息存入Excel，依赖库：[xlslib](xlslib.sourceforge.net)
-3. `module_ios`有与iOS相关的接口封装
+2. `tools/read_dir_to_excel` 将目录下的所有文件名以及大小信息存入Excel，依赖库：[xlslib](xlslib.sourceforge.net)。
+3. `module_ios`有与iOS相关的接口封装：
   * 对话框和加载框
   * 本地通知
   * GameCenter
   * 网络访问
   * 其他(设备基本信息，发邮件，打开链接...)
 4. `module_utils`
-	* StringUtil: deal with utf-8 string.
-	* HttpHelper: make sending httprequest in few lines of code.
+	* `StringUtil`: 主要是对中文utf8的处理。
+	* `HttpHelper`: 对`HttpRequest`封装了一层，支持GET/POST，支持json格式的请求，支持lamda函数回调。使用方法见单元测试`HttpHelperTest`。
+5. `module_audio`封装了背景音乐和音效的播放暂停以及开关。
+6.

@@ -77,6 +77,12 @@
 		CFC123871A2DB9BC003AE428 /* AudioHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFC123851A2DB9BC003AE428 /* AudioHelper.cpp */; };
 		CFC123881A2DB9BC003AE428 /* AudioHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFC123851A2DB9BC003AE428 /* AudioHelper.cpp */; };
 		CFC123891A2DBA73003AE428 /* libCocosDenshion iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF35498D1A28223D00A740B9 /* libCocosDenshion iOS.a */; };
+		CFC1238F1A2DBD5E003AE428 /* HttpHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFC1238B1A2DBD5E003AE428 /* HttpHelper.cpp */; };
+		CFC123901A2DBD5E003AE428 /* HttpHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFC1238B1A2DBD5E003AE428 /* HttpHelper.cpp */; };
+		CFC123911A2DBD5E003AE428 /* StringUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFC1238D1A2DBD5E003AE428 /* StringUtil.cpp */; };
+		CFC123921A2DBD5E003AE428 /* StringUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFC1238D1A2DBD5E003AE428 /* StringUtil.cpp */; };
+		CFC123961A2DBDB1003AE428 /* HttpHelperTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFC123941A2DBDB1003AE428 /* HttpHelperTest.cpp */; };
+		CFC123971A2DBDB1003AE428 /* HttpHelperTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFC123941A2DBDB1003AE428 /* HttpHelperTest.cpp */; };
 		CFD014F91A2ABBA500CE481C /* libaes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD014F81A2ABBA500CE481C /* libaes.a */; };
 		CFD015051A2AE46D00CE481C /* encrypt in Resources */ = {isa = PBXBuildFile; fileRef = CFD015031A2AE46D00CE481C /* encrypt */; };
 		CFD015061A2AE46D00CE481C /* encrypt in Resources */ = {isa = PBXBuildFile; fileRef = CFD015031A2AE46D00CE481C /* encrypt */; };
@@ -248,6 +254,12 @@
 		CFC123821A2DA510003AE428 /* LoadingHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LoadingHelper.mm; sourceTree = "<group>"; };
 		CFC123851A2DB9BC003AE428 /* AudioHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioHelper.cpp; sourceTree = "<group>"; };
 		CFC123861A2DB9BC003AE428 /* AudioHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioHelper.h; sourceTree = "<group>"; };
+		CFC1238B1A2DBD5E003AE428 /* HttpHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HttpHelper.cpp; sourceTree = "<group>"; };
+		CFC1238C1A2DBD5E003AE428 /* HttpHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpHelper.h; sourceTree = "<group>"; };
+		CFC1238D1A2DBD5E003AE428 /* StringUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StringUtil.cpp; sourceTree = "<group>"; };
+		CFC1238E1A2DBD5E003AE428 /* StringUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringUtil.h; sourceTree = "<group>"; };
+		CFC123941A2DBDB1003AE428 /* HttpHelperTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HttpHelperTest.cpp; sourceTree = "<group>"; };
+		CFC123951A2DBDB1003AE428 /* HttpHelperTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpHelperTest.h; sourceTree = "<group>"; };
 		CFD014F81A2ABBA500CE481C /* libaes.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libaes.a; path = "../../../module_data_manager/aes/build/Default-iphonesimulator/libaes.a"; sourceTree = "<group>"; };
 		CFD015031A2AE46D00CE481C /* encrypt */ = {isa = PBXFileReference; lastKnownFileType = folder; path = encrypt; sourceTree = "<group>"; };
 		CFD015041A2AE46D00CE481C /* origin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = origin; sourceTree = "<group>"; };
@@ -325,6 +337,7 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CFC123931A2DBDB1003AE428 /* httphelper_test */,
 				CFC1233F1A2D55CF003AE428 /* ios_test */,
 				CF3549901A28249E00A740B9 /* dm_test */,
 				CFB1602B196F98C600E76456 /* UnitTest */,
@@ -348,6 +361,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				CFC1238A1A2DBD5E003AE428 /* module_utils */,
 				CFC123841A2DB9BC003AE428 /* module_audio */,
 				CF35496B1A28223D00A740B9 /* cocos2d_libs.xcodeproj */,
 				15AA9C4015B7EC450033D6C2 /* Classes */,
@@ -577,6 +591,28 @@
 			path = ../../module_audio;
 			sourceTree = "<group>";
 		};
+		CFC1238A1A2DBD5E003AE428 /* module_utils */ = {
+			isa = PBXGroup;
+			children = (
+				CFC1238B1A2DBD5E003AE428 /* HttpHelper.cpp */,
+				CFC1238C1A2DBD5E003AE428 /* HttpHelper.h */,
+				CFC1238D1A2DBD5E003AE428 /* StringUtil.cpp */,
+				CFC1238E1A2DBD5E003AE428 /* StringUtil.h */,
+			);
+			name = module_utils;
+			path = ../../module_utils;
+			sourceTree = "<group>";
+		};
+		CFC123931A2DBDB1003AE428 /* httphelper_test */ = {
+			isa = PBXGroup;
+			children = (
+				CFC123941A2DBDB1003AE428 /* HttpHelperTest.cpp */,
+				CFC123951A2DBDB1003AE428 /* HttpHelperTest.h */,
+			);
+			name = httphelper_test;
+			path = ../Classes/httphelper_test;
+			sourceTree = "<group>";
+		};
 		CFD014F71A2ABB9B00CE481C /* libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -784,6 +820,7 @@
 				CFC1236A1A2D5D9C003AE428 /* IsolatedAlert.mm in Sources */,
 				CF89FE861A275899008A8174 /* VisibleRect.cpp in Sources */,
 				CFB16039196F98C600E76456 /* UnitTestLayer.cpp in Sources */,
+				CFC123911A2DBD5E003AE428 /* StringUtil.cpp in Sources */,
 				CF3549931A28249E00A740B9 /* DMTest.cpp in Sources */,
 				CFF07A5D1A29F51B00B4BD6A /* Serializable.cpp in Sources */,
 				CFC123781A2D60C5003AE428 /* NotificationHelper.mm in Sources */,
@@ -791,6 +828,8 @@
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				CFC1236B1A2D5D9C003AE428 /* DeviceUtil.mm in Sources */,
 				CFB16037196F98C600E76456 /* TestScene.cpp in Sources */,
+				CFC1238F1A2DBD5E003AE428 /* HttpHelper.cpp in Sources */,
+				CFC123961A2DBDB1003AE428 /* HttpHelperTest.cpp in Sources */,
 				CFB16033196F98C600E76456 /* GlobalTestcases.cpp in Sources */,
 				CFC123871A2DB9BC003AE428 /* AudioHelper.cpp in Sources */,
 				CFC123421A2D55CF003AE428 /* IosTest.cpp in Sources */,
@@ -801,12 +840,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFC123921A2DBD5E003AE428 /* StringUtil.cpp in Sources */,
 				CFF07A5E1A29F51B00B4BD6A /* Serializable.cpp in Sources */,
 				CFB15FFF196EE3E500E76456 /* TestSceneExample.cpp in Sources */,
 				CFC123881A2DB9BC003AE428 /* AudioHelper.cpp in Sources */,
 				CFB16034196F98C600E76456 /* GlobalTestcases.cpp in Sources */,
 				5087E75717EB910900C73F5D /* AppDelegate.cpp in Sources */,
+				CFC123901A2DBD5E003AE428 /* HttpHelper.cpp in Sources */,
 				CF89FE871A275899008A8174 /* VisibleRect.cpp in Sources */,
+				CFC123971A2DBDB1003AE428 /* HttpHelperTest.cpp in Sources */,
 				CF3549941A28249E00A740B9 /* DMTest.cpp in Sources */,
 				CFB1603A196F98C600E76456 /* UnitTestLayer.cpp in Sources */,
 				CFB16038196F98C600E76456 /* TestScene.cpp in Sources */,
