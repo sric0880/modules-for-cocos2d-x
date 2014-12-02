@@ -74,6 +74,9 @@
 		CFC1237E1A2D9414003AE428 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFC1237D1A2D9414003AE428 /* SystemConfiguration.framework */; };
 		CFC123801A2D944E003AE428 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFC1237F1A2D944E003AE428 /* MessageUI.framework */; };
 		CFC123831A2DA510003AE428 /* LoadingHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = CFC123821A2DA510003AE428 /* LoadingHelper.mm */; };
+		CFC123871A2DB9BC003AE428 /* AudioHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFC123851A2DB9BC003AE428 /* AudioHelper.cpp */; };
+		CFC123881A2DB9BC003AE428 /* AudioHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFC123851A2DB9BC003AE428 /* AudioHelper.cpp */; };
+		CFC123891A2DBA73003AE428 /* libCocosDenshion iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF35498D1A28223D00A740B9 /* libCocosDenshion iOS.a */; };
 		CFD014F91A2ABBA500CE481C /* libaes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD014F81A2ABBA500CE481C /* libaes.a */; };
 		CFD015051A2AE46D00CE481C /* encrypt in Resources */ = {isa = PBXBuildFile; fileRef = CFD015031A2AE46D00CE481C /* encrypt */; };
 		CFD015061A2AE46D00CE481C /* encrypt in Resources */ = {isa = PBXBuildFile; fileRef = CFD015031A2AE46D00CE481C /* encrypt */; };
@@ -243,6 +246,8 @@
 		CFC1237F1A2D944E003AE428 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
 		CFC123811A2DA510003AE428 /* LoadingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingHelper.h; sourceTree = "<group>"; };
 		CFC123821A2DA510003AE428 /* LoadingHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LoadingHelper.mm; sourceTree = "<group>"; };
+		CFC123851A2DB9BC003AE428 /* AudioHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioHelper.cpp; sourceTree = "<group>"; };
+		CFC123861A2DB9BC003AE428 /* AudioHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioHelper.h; sourceTree = "<group>"; };
 		CFD014F81A2ABBA500CE481C /* libaes.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libaes.a; path = "../../../module_data_manager/aes/build/Default-iphonesimulator/libaes.a"; sourceTree = "<group>"; };
 		CFD015031A2AE46D00CE481C /* encrypt */ = {isa = PBXFileReference; lastKnownFileType = folder; path = encrypt; sourceTree = "<group>"; };
 		CFD015041A2AE46D00CE481C /* origin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = origin; sourceTree = "<group>"; };
@@ -259,6 +264,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFC123891A2DBA73003AE428 /* libCocosDenshion iOS.a in Frameworks */,
 				CFC123801A2D944E003AE428 /* MessageUI.framework in Frameworks */,
 				CFC1237E1A2D9414003AE428 /* SystemConfiguration.framework in Frameworks */,
 				CFC1237C1A2D93A8003AE428 /* CoreFoundation.framework in Frameworks */,
@@ -342,6 +348,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				CFC123841A2DB9BC003AE428 /* module_audio */,
 				CF35496B1A28223D00A740B9 /* cocos2d_libs.xcodeproj */,
 				15AA9C4015B7EC450033D6C2 /* Classes */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -560,6 +567,16 @@
 			path = notifications;
 			sourceTree = "<group>";
 		};
+		CFC123841A2DB9BC003AE428 /* module_audio */ = {
+			isa = PBXGroup;
+			children = (
+				CFC123851A2DB9BC003AE428 /* AudioHelper.cpp */,
+				CFC123861A2DB9BC003AE428 /* AudioHelper.h */,
+			);
+			name = module_audio;
+			path = ../../module_audio;
+			sourceTree = "<group>";
+		};
 		CFD014F71A2ABB9B00CE481C /* libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -775,6 +792,7 @@
 				CFC1236B1A2D5D9C003AE428 /* DeviceUtil.mm in Sources */,
 				CFB16037196F98C600E76456 /* TestScene.cpp in Sources */,
 				CFB16033196F98C600E76456 /* GlobalTestcases.cpp in Sources */,
+				CFC123871A2DB9BC003AE428 /* AudioHelper.cpp in Sources */,
 				CFC123421A2D55CF003AE428 /* IosTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -785,6 +803,7 @@
 			files = (
 				CFF07A5E1A29F51B00B4BD6A /* Serializable.cpp in Sources */,
 				CFB15FFF196EE3E500E76456 /* TestSceneExample.cpp in Sources */,
+				CFC123881A2DB9BC003AE428 /* AudioHelper.cpp in Sources */,
 				CFB16034196F98C600E76456 /* GlobalTestcases.cpp in Sources */,
 				5087E75717EB910900C73F5D /* AppDelegate.cpp in Sources */,
 				CF89FE871A275899008A8174 /* VisibleRect.cpp in Sources */,
