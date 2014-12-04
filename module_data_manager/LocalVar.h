@@ -8,48 +8,6 @@
 #ifndef __LocalVar__
 #define __LocalVar__
 
-#include <cocos/platform/CCFileUtils.h>
-
-inline std::string getWritableFilename(const std::string& filename)
-{
-    return cocos2d::FileUtils::getInstance()->getWritablePath().append(filename);
-}
-
-//! Use below methods to redirect the lookup dictionary to the writable path
-// when you persist your changed file to the writable path.
-class LookUpDict{
-public:
-    
-    constexpr static const char* const LookUpDictFile = "filename_lookup_dic.plist";
-    
-    static void addFilenameLookupDictionary(const char* filename)
-    {
-        _lookupDict[filename] = cocos2d::Value(getWritableFilename(filename));
-        cocos2d::FileUtils::getInstance()->setFilenameLookupDictionary(_lookupDict);
-    }
-    static void loadFilenameLookupDictionary()
-    {
-        auto fu = cocos2d::FileUtils::getInstance();
-        cocos2d::ValueMap vm;
-        vm[LookUpDictFile] = cocos2d::Value(getWritableFilename(LookUpDictFile));
-        fu->setFilenameLookupDictionary(vm);
-        
-        _lookupDict = fu->getValueMapFromFile(LookUpDictFile);
-        fu->setFilenameLookupDictionary(_lookupDict);
-    }
-    
-    static void saveFilenameLookupDictionary()
-    {
-        addFilenameLookupDictionary(LookUpDictFile);
-        cocos2d::FileUtils::getInstance()->writeToFile(_lookupDict, getWritableFilename( LookUpDictFile));
-    }
-    
-private:
-    static cocos2d::ValueMap _lookupDict;
-};
-
-cocos2d::ValueMap LookUpDict::_lookupDict;
-
 #include <json/document.h>
 #include <json/rapidjson.h>
 #include <json/stringbuffer.h>
@@ -61,6 +19,8 @@ cocos2d::ValueMap LookUpDict::_lookupDict;
 #include <memory>
 #include <iostream>
 #include <fstream>
+#include "allocator.h"
+#include "lookup_dict.h"
 
 template <typename DocumentType>
 class JsonIO{
@@ -79,7 +39,8 @@ class LocalVar{
 public:
     typedef rapidjson::GenericDocument<Encoding, Allocator> DocumentType;
     typedef std::unordered_map<std::string, std::shared_ptr<DocumentType> > DocumentsMap;
-
+    typedef Allocator AllocatorType;
+    
     //Single Instance
     static LocalVar* getInstance(){
         static LocalVar<FileIO, Encoding, Allocator> localvar;

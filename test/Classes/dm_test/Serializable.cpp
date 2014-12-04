@@ -15,9 +15,9 @@ Person::~Person() {
 }
 
 void Person::serialize(ValueType& value) const {
-    ValueType name(name_.c_str(), (rapidjson::SizeType)name_.length(), TEMP_VAR->getAllocator());
-    value.AddMember("name", TEMP_VAR->getAllocator(), name, TEMP_VAR->getAllocator());
-    value.AddMember("age", age_, TEMP_VAR->getAllocator());
+    ValueType name(name_.c_str(), (rapidjson::SizeType)name_.length(), getAllocator<TempVar<> >());
+    value.AddMember("name", getAllocator<TempVar<> >(), name, getAllocator<TempVar<> >());
+    value.AddMember("age", age_, getAllocator<TempVar<> >());
 }
 
 void Person::deserialize(const ValueType& value)
@@ -31,9 +31,9 @@ Education::~Education()
 //    std::cout << "Education destructor"<< std::endl;
 }
 void Education::serialize(ValueType& value) const {
-    ValueType school(school_.c_str(), (rapidjson::SizeType)school_.length(), TEMP_VAR->getAllocator());
-    value.AddMember("school", TEMP_VAR->getAllocator(), school, TEMP_VAR->getAllocator());
-    value.AddMember("GPA", GPA_, TEMP_VAR->getAllocator());
+    ValueType school(school_.c_str(), (rapidjson::SizeType)school_.length(), getAllocator<TempVar<> >());
+    value.AddMember("school", getAllocator<TempVar<> >(), school, getAllocator<TempVar<> >());
+    value.AddMember("GPA", GPA_, getAllocator<TempVar<> >());
 }
 
 void Education::deserialize(const ValueType& value)
@@ -53,7 +53,7 @@ void Dependent::serialize(ValueType& value) const {
         ValueType obj;
         obj.SetObject();
         education_->serialize(obj);
-        value.AddMember("education", obj, TEMP_VAR->getAllocator());
+        value.AddMember("education", obj, getAllocator<TempVar<> >());
     }
     Person::serialize(value);
 }

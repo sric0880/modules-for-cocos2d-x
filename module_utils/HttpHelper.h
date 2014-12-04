@@ -124,7 +124,7 @@ std::string Params<Encoding>::toJsonString()
     rapidjson::GenericValue<Encoding> value(rapidjson::kObjectType);
     for (int i = 0; i < _size; ++i) {
         rapidjson::GenericValue<Encoding> key(_params[i].key.c_str());
-        value.AddMember(key, _params[i].value, TEMP_VAR->getAllocator());
+        value.AddMember(key, _params[i].value, getAllocator<TempVar<Encoding> >());
     }
     return Params<Encoding>::toString(value);
 }

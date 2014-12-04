@@ -50,8 +50,12 @@
 		CF35498F1A28237D00A740B9 /* libcocos2dx iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3549851A28223D00A740B9 /* libcocos2dx iOS.a */; };
 		CF3549931A28249E00A740B9 /* DMTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF3549911A28249E00A740B9 /* DMTest.cpp */; };
 		CF3549941A28249E00A740B9 /* DMTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF3549911A28249E00A740B9 /* DMTest.cpp */; };
+		CF71F0151A3092AD00E2E47F /* lookup_dict.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF71F0141A3092AD00E2E47F /* lookup_dict.cpp */; };
+		CF71F0161A3092AD00E2E47F /* lookup_dict.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF71F0141A3092AD00E2E47F /* lookup_dict.cpp */; };
 		CF89FE861A275899008A8174 /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF89FE841A275899008A8174 /* VisibleRect.cpp */; };
 		CF89FE871A275899008A8174 /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF89FE841A275899008A8174 /* VisibleRect.cpp */; };
+		CF9208021A30417600179373 /* ntpdate.c in Sources */ = {isa = PBXBuildFile; fileRef = CF9208011A30417600179373 /* ntpdate.c */; };
+		CF9208031A30417600179373 /* ntpdate.c in Sources */ = {isa = PBXBuildFile; fileRef = CF9208011A30417600179373 /* ntpdate.c */; };
 		CFB15FFE196EE3E500E76456 /* TestSceneExample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB15FF5196EE3E500E76456 /* TestSceneExample.cpp */; };
 		CFB15FFF196EE3E500E76456 /* TestSceneExample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB15FF5196EE3E500E76456 /* TestSceneExample.cpp */; };
 		CFB16033196F98C600E76456 /* GlobalTestcases.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB1602C196F98C600E76456 /* GlobalTestcases.cpp */; };
@@ -60,6 +64,18 @@
 		CFB16038196F98C600E76456 /* TestScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB1602F196F98C600E76456 /* TestScene.cpp */; };
 		CFB16039196F98C600E76456 /* UnitTestLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB16031196F98C600E76456 /* UnitTestLayer.cpp */; };
 		CFB1603A196F98C600E76456 /* UnitTestLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB16031196F98C600E76456 /* UnitTestLayer.cpp */; };
+		CFB69CE61A2EC4A2001897ED /* ResourcesHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB69CE41A2EC4A2001897ED /* ResourcesHelper.cpp */; };
+		CFB69CE71A2EC4A2001897ED /* ResourcesHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB69CE41A2EC4A2001897ED /* ResourcesHelper.cpp */; };
+		CFB69CF81A2EE3E4001897ED /* FontHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB69CF71A2EE3E4001897ED /* FontHelper.cpp */; };
+		CFB69CF91A2EE3E4001897ED /* FontHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB69CF71A2EE3E4001897ED /* FontHelper.cpp */; };
+		CFB69D041A2F061E001897ED /* EverydayAward.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB69CFB1A2F061E001897ED /* EverydayAward.cpp */; };
+		CFB69D051A2F061E001897ED /* EverydayAward.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB69CFB1A2F061E001897ED /* EverydayAward.cpp */; };
+		CFB69D061A2F061E001897ED /* IntervalAward.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB69CFD1A2F061E001897ED /* IntervalAward.cpp */; };
+		CFB69D071A2F061E001897ED /* IntervalAward.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB69CFD1A2F061E001897ED /* IntervalAward.cpp */; };
+		CFB69D081A2F061E001897ED /* OnlineTimeAward.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB69CFF1A2F061E001897ED /* OnlineTimeAward.cpp */; };
+		CFB69D091A2F061E001897ED /* OnlineTimeAward.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB69CFF1A2F061E001897ED /* OnlineTimeAward.cpp */; };
+		CFB69D0A1A2F061E001897ED /* TimerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB69D021A2F061E001897ED /* TimerManager.cpp */; };
+		CFB69D0B1A2F061E001897ED /* TimerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFB69D021A2F061E001897ED /* TimerManager.cpp */; };
 		CFC123421A2D55CF003AE428 /* IosTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFC123401A2D55CF003AE428 /* IosTest.cpp */; };
 		CFC123691A2D5D9C003AE428 /* AlertHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = CFC123561A2D5D9C003AE428 /* AlertHelper.mm */; };
 		CFC1236A1A2D5D9C003AE428 /* IsolatedAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = CFC123581A2D5D9C003AE428 /* IsolatedAlert.mm */; };
@@ -215,11 +231,14 @@
 		CF35496B1A28223D00A740B9 /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = "/Users/qiong/Documents/hub/libs4cocos2d-x/../../source/cocos2d-x-3.2/build/cocos2d_libs.xcodeproj"; sourceTree = "<absolute>"; };
 		CF3549911A28249E00A740B9 /* DMTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DMTest.cpp; sourceTree = "<group>"; };
 		CF3549921A28249E00A740B9 /* DMTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMTest.h; sourceTree = "<group>"; };
+		CF71F0071A308D7000E2E47F /* ntpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ntpdate.h; sourceTree = "<group>"; };
+		CF71F0141A3092AD00E2E47F /* lookup_dict.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lookup_dict.cpp; path = ../../module_data_manager/lookup_dict.cpp; sourceTree = "<group>"; };
 		CF89FE841A275899008A8174 /* VisibleRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VisibleRect.cpp; sourceTree = "<group>"; };
 		CF89FE851A275899008A8174 /* VisibleRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisibleRect.h; sourceTree = "<group>"; };
 		CF89FEBE1A2764C4008A8174 /* libmdm_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmdm_ios.a; path = "../../DerivedData/all_libs/Build/Products/Debug-iphonesimulator/libmdm_ios.a"; sourceTree = "<group>"; };
 		CF89FECC1A2764C4008A8174 /* libmdm_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmdm_ios.a; path = "../../DerivedData/all_libs/Build/Products/Debug-iphonesimulator/libmdm_ios.a"; sourceTree = "<group>"; };
 		CF89FEDB1A276579008A8174 /* libcocos2dx iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libcocos2dx iOS.a"; path = "../../../../source/cocos2d-x-3.2/build/build/Debug-iphoneos/libcocos2dx iOS.a"; sourceTree = "<group>"; };
+		CF9208011A30417600179373 /* ntpdate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ntpdate.c; sourceTree = "<group>"; };
 		CFB15FF5196EE3E500E76456 /* TestSceneExample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestSceneExample.cpp; sourceTree = "<group>"; };
 		CFB15FF6196EE3E500E76456 /* TestSceneExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestSceneExample.h; sourceTree = "<group>"; };
 		CFB1602C196F98C600E76456 /* GlobalTestcases.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GlobalTestcases.cpp; sourceTree = "<group>"; };
@@ -228,6 +247,18 @@
 		CFB16030196F98C600E76456 /* TestScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestScene.h; sourceTree = "<group>"; };
 		CFB16031196F98C600E76456 /* UnitTestLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UnitTestLayer.cpp; sourceTree = "<group>"; };
 		CFB16032196F98C600E76456 /* UnitTestLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitTestLayer.h; sourceTree = "<group>"; };
+		CFB69CE41A2EC4A2001897ED /* ResourcesHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResourcesHelper.cpp; sourceTree = "<group>"; };
+		CFB69CE51A2EC4A2001897ED /* ResourcesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourcesHelper.h; sourceTree = "<group>"; };
+		CFB69CF61A2EE3D1001897ED /* FontHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FontHelper.h; sourceTree = "<group>"; };
+		CFB69CF71A2EE3E4001897ED /* FontHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontHelper.cpp; sourceTree = "<group>"; };
+		CFB69CFB1A2F061E001897ED /* EverydayAward.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EverydayAward.cpp; sourceTree = "<group>"; };
+		CFB69CFC1A2F061E001897ED /* EverydayAward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EverydayAward.h; sourceTree = "<group>"; };
+		CFB69CFD1A2F061E001897ED /* IntervalAward.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IntervalAward.cpp; sourceTree = "<group>"; };
+		CFB69CFE1A2F061E001897ED /* IntervalAward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntervalAward.h; sourceTree = "<group>"; };
+		CFB69CFF1A2F061E001897ED /* OnlineTimeAward.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OnlineTimeAward.cpp; sourceTree = "<group>"; };
+		CFB69D001A2F061E001897ED /* OnlineTimeAward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnlineTimeAward.h; sourceTree = "<group>"; };
+		CFB69D021A2F061E001897ED /* TimerManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimerManager.cpp; sourceTree = "<group>"; };
+		CFB69D031A2F061E001897ED /* TimerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerManager.h; sourceTree = "<group>"; };
 		CFC123401A2D55CF003AE428 /* IosTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IosTest.cpp; sourceTree = "<group>"; };
 		CFC123411A2D55CF003AE428 /* IosTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IosTest.h; sourceTree = "<group>"; };
 		CFC123551A2D5D9C003AE428 /* AlertHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertHelper.h; sourceTree = "<group>"; };
@@ -361,6 +392,9 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				CF71F0141A3092AD00E2E47F /* lookup_dict.cpp */,
+				CFB69CFA1A2F061E001897ED /* module_clock */,
+				CFB69CE31A2EC4A2001897ED /* module_resources_manager */,
 				CFC1238A1A2DBD5E003AE428 /* module_utils */,
 				CFC123841A2DB9BC003AE428 /* module_audio */,
 				CF35496B1A28223D00A740B9 /* cocos2d_libs.xcodeproj */,
@@ -511,6 +545,36 @@
 			);
 			name = UnitTest;
 			path = ../Classes/UnitTest;
+			sourceTree = "<group>";
+		};
+		CFB69CE31A2EC4A2001897ED /* module_resources_manager */ = {
+			isa = PBXGroup;
+			children = (
+				CFB69CE41A2EC4A2001897ED /* ResourcesHelper.cpp */,
+				CFB69CE51A2EC4A2001897ED /* ResourcesHelper.h */,
+				CFB69CF61A2EE3D1001897ED /* FontHelper.h */,
+				CFB69CF71A2EE3E4001897ED /* FontHelper.cpp */,
+			);
+			name = module_resources_manager;
+			path = ../../module_resources_manager;
+			sourceTree = "<group>";
+		};
+		CFB69CFA1A2F061E001897ED /* module_clock */ = {
+			isa = PBXGroup;
+			children = (
+				CF9208011A30417600179373 /* ntpdate.c */,
+				CF71F0071A308D7000E2E47F /* ntpdate.h */,
+				CFB69CFB1A2F061E001897ED /* EverydayAward.cpp */,
+				CFB69CFC1A2F061E001897ED /* EverydayAward.h */,
+				CFB69CFD1A2F061E001897ED /* IntervalAward.cpp */,
+				CFB69CFE1A2F061E001897ED /* IntervalAward.h */,
+				CFB69CFF1A2F061E001897ED /* OnlineTimeAward.cpp */,
+				CFB69D001A2F061E001897ED /* OnlineTimeAward.h */,
+				CFB69D021A2F061E001897ED /* TimerManager.cpp */,
+				CFB69D031A2F061E001897ED /* TimerManager.h */,
+			);
+			name = module_clock;
+			path = ../../module_clock;
 			sourceTree = "<group>";
 		};
 		CFC1233F1A2D55CF003AE428 /* ios_test */ = {
@@ -815,20 +879,28 @@
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				CFC123711A2D5D9C003AE428 /* RootViewProxy.m in Sources */,
 				CFC123831A2DA510003AE428 /* LoadingHelper.mm in Sources */,
+				CFB69D081A2F061E001897ED /* OnlineTimeAward.cpp in Sources */,
 				CFC123771A2D60C5003AE428 /* LocalNotify.mm in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
+				CF9208021A30417600179373 /* ntpdate.c in Sources */,
 				CFC1236A1A2D5D9C003AE428 /* IsolatedAlert.mm in Sources */,
 				CF89FE861A275899008A8174 /* VisibleRect.cpp in Sources */,
 				CFB16039196F98C600E76456 /* UnitTestLayer.cpp in Sources */,
 				CFC123911A2DBD5E003AE428 /* StringUtil.cpp in Sources */,
 				CF3549931A28249E00A740B9 /* DMTest.cpp in Sources */,
 				CFF07A5D1A29F51B00B4BD6A /* Serializable.cpp in Sources */,
+				CFB69D0A1A2F061E001897ED /* TimerManager.cpp in Sources */,
 				CFC123781A2D60C5003AE428 /* NotificationHelper.mm in Sources */,
 				CFC123701A2D5D9C003AE428 /* Reachability.m in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
+				CFB69D061A2F061E001897ED /* IntervalAward.cpp in Sources */,
+				CF71F0151A3092AD00E2E47F /* lookup_dict.cpp in Sources */,
+				CFB69CF81A2EE3E4001897ED /* FontHelper.cpp in Sources */,
 				CFC1236B1A2D5D9C003AE428 /* DeviceUtil.mm in Sources */,
 				CFB16037196F98C600E76456 /* TestScene.cpp in Sources */,
 				CFC1238F1A2DBD5E003AE428 /* HttpHelper.cpp in Sources */,
+				CFB69D041A2F061E001897ED /* EverydayAward.cpp in Sources */,
+				CFB69CE61A2EC4A2001897ED /* ResourcesHelper.cpp in Sources */,
 				CFC123961A2DBDB1003AE428 /* HttpHelperTest.cpp in Sources */,
 				CFB16033196F98C600E76456 /* GlobalTestcases.cpp in Sources */,
 				CFC123871A2DB9BC003AE428 /* AudioHelper.cpp in Sources */,
@@ -844,14 +916,22 @@
 				CFF07A5E1A29F51B00B4BD6A /* Serializable.cpp in Sources */,
 				CFB15FFF196EE3E500E76456 /* TestSceneExample.cpp in Sources */,
 				CFC123881A2DB9BC003AE428 /* AudioHelper.cpp in Sources */,
+				CFB69D071A2F061E001897ED /* IntervalAward.cpp in Sources */,
 				CFB16034196F98C600E76456 /* GlobalTestcases.cpp in Sources */,
 				5087E75717EB910900C73F5D /* AppDelegate.cpp in Sources */,
+				CF71F0161A3092AD00E2E47F /* lookup_dict.cpp in Sources */,
+				CFB69CF91A2EE3E4001897ED /* FontHelper.cpp in Sources */,
 				CFC123901A2DBD5E003AE428 /* HttpHelper.cpp in Sources */,
 				CF89FE871A275899008A8174 /* VisibleRect.cpp in Sources */,
 				CFC123971A2DBDB1003AE428 /* HttpHelperTest.cpp in Sources */,
+				CFB69D0B1A2F061E001897ED /* TimerManager.cpp in Sources */,
+				CFB69D051A2F061E001897ED /* EverydayAward.cpp in Sources */,
 				CF3549941A28249E00A740B9 /* DMTest.cpp in Sources */,
+				CFB69D091A2F061E001897ED /* OnlineTimeAward.cpp in Sources */,
 				CFB1603A196F98C600E76456 /* UnitTestLayer.cpp in Sources */,
+				CFB69CE71A2EC4A2001897ED /* ResourcesHelper.cpp in Sources */,
 				CFB16038196F98C600E76456 /* TestScene.cpp in Sources */,
+				CF9208031A30417600179373 /* ntpdate.c in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

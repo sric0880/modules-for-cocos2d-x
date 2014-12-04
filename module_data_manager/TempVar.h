@@ -19,6 +19,7 @@
 #include <stack>
 #include <new>
 #include <iostream>
+#include "allocator.h"
 
 template <
 typename Encoding = rapidjson::UTF8<>,
@@ -30,7 +31,7 @@ public:
     typedef rapidjson::GenericValue<Encoding, Allocator> ValueType;
     typedef std::vector<std::shared_ptr<ValueType> > ValuesArray;
     typedef std::unordered_map<std::string, size_t > ValueIndexMap;
-    
+    typedef Allocator AllocatorType;
 
 //    ~TempVar(){};
     static TempVar* getInstance()
@@ -63,7 +64,7 @@ public:
     ValueType& set(const char* key, const std::basic_string<typename ValueType::Ch>& s)
     {
         auto ptr_value = getRealValue(key);
-        ptr_value->SetString(s.c_str(), _allocator);
+        ptr_value->SetString(s.c_str(), getAllocator<TempVar<Encoding,Allocator> >());
         return *ptr_value;
     }
     
@@ -154,7 +155,7 @@ public:
         for(auto& pair : map)
         {
             ValueType v(pair.second);
-            value.AddMember(pair.first.c_str(), _allocator, v, _allocator);
+            value.AddMember(pair.first.c_str(), getAllocator<TempVar<Encoding,Allocator> >(), v, getAllocator<TempVar<Encoding,Allocator> >());
         }
     }
     
@@ -171,7 +172,7 @@ public:
     {
         auto& value = getObject(key);
         ValueType v(pair_b);
-        value.AddMember(pair_a, _allocator, v, _allocator);
+        value.AddMember(pair_a, getAllocator<TempVar<Encoding,Allocator> >(), v, getAllocator<TempVar<Encoding,Allocator> >());
     }
     //if the key not exist, then create an empty object value for it
     void removeFromMap(const char* key, const typename ValueType::Ch* pair_a)
@@ -193,7 +194,7 @@ public:
     {
         for (auto i : array)
         {
-            value.PushBack(i, _allocator);
+            value.PushBack(i, getAllocator<TempVar<Encoding,Allocator> >());
         }
     }
     
@@ -208,7 +209,7 @@ public:
     void addValueToArray(const char* key, V v)
     {
         auto& value = getArray(key);
-        value.PushBack(v, _allocator);
+        value.PushBack(v, getAllocator<TempVar<Encoding,Allocator> >());
     }
     
     void popFromArray(const char* key)
@@ -264,11 +265,6 @@ public:
     }
     ////
     
-    Allocator& getAllocator()
-    {
-        return _allocator;
-    }
-    
     //this method is for test
     // print all the data about TempVar
     void dumpMemory(std::ostream& o);
@@ -289,8 +285,6 @@ private:
     ValuesArray _array;
     //used to store the removed value index
     std::stack<size_t> _removedIndexes;
-    
-    Allocator _allocator;
     
     //construct a empty value at the place and insert into the index map.
     ValueType* ctrInEmptyPlace(const char* key);
