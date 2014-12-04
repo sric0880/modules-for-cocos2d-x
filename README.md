@@ -162,6 +162,13 @@ OnlineTimeAward& getOnlineTimeAwd();        //累计在线时间奖励
 time_t getCurrentTime();
 ```
 
+##4. 资源管理
+统一管理所有资源文件，按场景划分不同的资源列表，异步或同步加载所有资源文件，包括图片、声音等。实现不同场景切换的异步加载和旧场景的资源释放。
+
+详细信息请参见`module_resources_manager`。
+
+//TODO：异步在线更新资源
+
 ##其他
 1. `tools/trans_excel`可以将excel文件导出为json或plist或SQLite文件，依赖库：[openpyxl](http://pythonhosted.org/openpyxl/)，[biplist](https://bitbucket.org/wooster/biplist).
 2. `tools/read_dir_to_excel` 将目录下的所有文件名以及大小信息存入Excel，依赖库：[xlslib](xlslib.sourceforge.net)。

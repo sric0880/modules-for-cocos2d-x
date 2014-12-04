@@ -54,6 +54,9 @@
 		CF71F0161A3092AD00E2E47F /* lookup_dict.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF71F0141A3092AD00E2E47F /* lookup_dict.cpp */; };
 		CF71F01A1A3097F100E2E47F /* ClockTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF71F0181A3097F100E2E47F /* ClockTest.cpp */; };
 		CF71F01B1A3097F100E2E47F /* ClockTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF71F0181A3097F100E2E47F /* ClockTest.cpp */; };
+		CF71F0211A30BD3F00E2E47F /* libcocos2dx Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF35497B1A28223D00A740B9 /* libcocos2dx Mac.a */; };
+		CF71F0221A30BD4800E2E47F /* libCocosDenshion Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3549831A28223D00A740B9 /* libCocosDenshion Mac.a */; };
+		CF71F0251A30C00900E2E47F /* libaes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF71F0241A30C00900E2E47F /* libaes.a */; };
 		CF89FE861A275899008A8174 /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF89FE841A275899008A8174 /* VisibleRect.cpp */; };
 		CF89FE871A275899008A8174 /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF89FE841A275899008A8174 /* VisibleRect.cpp */; };
 		CF9208021A30417600179373 /* ntpdate.c in Sources */ = {isa = PBXBuildFile; fileRef = CF9208011A30417600179373 /* ntpdate.c */; };
@@ -237,6 +240,7 @@
 		CF71F0141A3092AD00E2E47F /* lookup_dict.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lookup_dict.cpp; path = ../../module_data_manager/lookup_dict.cpp; sourceTree = "<group>"; };
 		CF71F0181A3097F100E2E47F /* ClockTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ClockTest.cpp; sourceTree = "<group>"; };
 		CF71F0191A3097F100E2E47F /* ClockTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockTest.h; sourceTree = "<group>"; };
+		CF71F0241A30C00900E2E47F /* libaes.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libaes.a; path = ../../module_data_manager/aes/build/Default/libaes.a; sourceTree = "<group>"; };
 		CF89FE841A275899008A8174 /* VisibleRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VisibleRect.cpp; sourceTree = "<group>"; };
 		CF89FE851A275899008A8174 /* VisibleRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisibleRect.h; sourceTree = "<group>"; };
 		CF89FEBE1A2764C4008A8174 /* libmdm_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmdm_ios.a; path = "../../DerivedData/all_libs/Build/Products/Debug-iphonesimulator/libmdm_ios.a"; sourceTree = "<group>"; };
@@ -335,11 +339,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF71F0221A30BD4800E2E47F /* libCocosDenshion Mac.a in Frameworks */,
+				CF71F0211A30BD3F00E2E47F /* libcocos2dx Mac.a in Frameworks */,
 				503AE11217EB99EE00D1A890 /* libcurl.dylib in Frameworks */,
 				5087E76717EB910900C73F5D /* libz.dylib in Frameworks */,
 				503AE11B17EB9C5A00D1A890 /* IOKit.framework in Frameworks */,
 				5087E78B17EB975400C73F5D /* OpenGL.framework in Frameworks */,
 				5087E78917EB974C00C73F5D /* AppKit.framework in Frameworks */,
+				CF71F0251A30C00900E2E47F /* libaes.a in Frameworks */,
 				5087E76317EB910900C73F5D /* Foundation.framework in Frameworks */,
 				5087E76517EB910900C73F5D /* CoreGraphics.framework in Frameworks */,
 				5087E76817EB910900C73F5D /* QuartzCore.framework in Frameworks */,
@@ -455,6 +462,7 @@
 		503AE10617EB990700D1A890 /* mac */ = {
 			isa = PBXGroup;
 			children = (
+				CF71F0231A30BF8800E2E47F /* libs */,
 				503AE0F517EB97AB00D1A890 /* Icons */,
 				503AE10317EB98FF00D1A890 /* main.cpp */,
 				503AE10417EB98FF00D1A890 /* Prefix.pch */,
@@ -534,6 +542,14 @@
 			);
 			name = clock_test;
 			path = ../Classes/clock_test;
+			sourceTree = "<group>";
+		};
+		CF71F0231A30BF8800E2E47F /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				CF71F0241A30C00900E2E47F /* libaes.a */,
+			);
+			name = libs;
 			sourceTree = "<group>";
 		};
 		CFB15FF4196EE3E500E76456 /* examples_test */ = {
@@ -1036,11 +1052,12 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../cocos2d/cocos/platform/mac",
-					"$(SRCROOT)/../cocos2d/external/glfw3/include/mac",
+					"/Users/qiong/Documents/source/cocos2d-x-3.2/cocos/platform/mac",
+					"/Users/qiong/Documents/source/cocos2d-x-3.2/external/glfw3/include/mac",
 				);
 				INFOPLIST_FILE = mac/Info.plist;
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "/Users/qiong/Documents/hub/libs4cocos2d-x/module_data_manager/aes/build/Default";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "test Mac";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -1064,11 +1081,12 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../cocos2d/cocos/platform/mac",
-					"$(SRCROOT)/../cocos2d/external/glfw3/include/mac",
+					"/Users/qiong/Documents/source/cocos2d-x-3.2/cocos/platform/mac",
+					"/Users/qiong/Documents/source/cocos2d-x-3.2/external/glfw3/include/mac",
 				);
 				INFOPLIST_FILE = mac/Info.plist;
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "/Users/qiong/Documents/hub/libs4cocos2d-x/module_data_manager/aes/build/Default";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "test Mac";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
