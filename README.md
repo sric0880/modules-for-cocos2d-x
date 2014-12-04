@@ -105,9 +105,10 @@ ios,mac用户打开`test/proj.ios_mac/test.xcodeproj`, 修改部分引用路径�
 
 ##3. 奖励系统
 游戏时间管理工具
-1. 间隔时间奖励（例如小时奖励）--Interval
-2. 每日登录奖励--DayAfterDay
-3. 累计在线时间奖励--OnlineTime
+
+1. Interval, 间隔时间奖励 eg.小时奖励
+2. DayAfterDay, 每日登录奖励
+3. OnlineTime, 累计在线时间奖励
 
 配置文件(json)
 
@@ -149,52 +150,18 @@ ios,mac用户打开`test/proj.ios_mac/test.xcodeproj`, 修改部分引用路径�
 * awardsNums--连续N天奖励物品个数
 * duration--累计在线时间超过duration(小时)，奖励物品itemType个数 awardsNum
 
-###提供接口
-<h6>支持右值引用</h6>
+###部分接口
 
 ``` c
-void fetchTime(std::function<void(bool)>&& callback);//请求时间服务器，发送Http请求，异步
-void fetchTime(std::function<void(bool)>& callback);//请求时间服务器，发送Http请求，异步
-HttpRequest* getHttpReq();                        //获得Http Request.
-IntervalAward& getIntervalAwd(int id);    //获得间隔时间奖励
-EverydayAward& getEveryDayAwd();          //每日奖励
-OnlineTimeAward& getOnlineTimeAwd();      //累计在线时间奖励
-system_clock::time_point getCurrentTime();//获取当前时间，服务器时间，为了防止作弊，不能用本地时间
+//异步请求ntp服务器
+void fetchTime(const std::function<void(time_t)>& callback);
 
-//每种奖励都提供了共同的接口：
-virtual void onTick(system_clock::time_point& current_time) = 0;     //Timer更新当前时间回调
-virtual void restartCount() = 0;            //手动重置计时
-virtual void loadAward(ValueMap& map) = 0;  //从json中加载奖励数据
-/**
- *	@brief	领取奖励
- *
- *	@Modified by qiong at 2014-03-14 14:05:21
- *
- *	@param 	hasTimeUp 	是否到达领取时间
- *	@param 	awardsNum 	奖励个数
- *	@param 	itemType 	奖励物品类型
- *  @return ture--用户已经领取奖励，将调用restartCount
- *          false--用户没用领取奖励，不调用restartCount
-**/
-virtual void acceptAward(std::function<bool(bool /*hasTimeUp*/,int/* awardsNum*/, int/* itemType*/)>) = 0;
-
-/*
-*特殊接口
-*/
-//间隔时间奖励：
-seconds getLeftTime();          //距下一次领奖的剩余时间(seconds)
-seconds getPassedTime();        //距上一次领奖已经过去的时间(seconds)
-int getId();
-//每日登录奖励：
-int getNthOnline();     //获得连续登录的天数（包括当天）
-//累计在线时间奖励：
-seconds getLeftTime();
-seconds getTotalOnlineTime();   //没有包括当前登录时间
-seconds getLastOnlineTime();	//最近一次登录在线时间
-seconds getMaxOnlineTime();		//最长一次在线时间
-seconds getMinOnlineTime();		//最短一次在线时间
-seconds getCurrentOnlineTime(); //当前登录时间
+IntervalAward& getIntervalAwd(int id);      //获得间隔时间奖励
+EverydayAward& getEveryDayAwd();            //每日奖励
+OnlineTimeAward& getOnlineTimeAwd();        //累计在线时间奖励
+time_t getCurrentTime();
 ```
+
 ##其他
 1. `tools/trans_excel`可以将excel文件导出为json或plist或SQLite文件，依赖库：[openpyxl](http://pythonhosted.org/openpyxl/)，[biplist](https://bitbucket.org/wooster/biplist).
 2. `tools/read_dir_to_excel` 将目录下的所有文件名以及大小信息存入Excel，依赖库：[xlslib](xlslib.sourceforge.net)。
