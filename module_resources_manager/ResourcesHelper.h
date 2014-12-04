@@ -12,6 +12,7 @@
 #include <cocos2d.h>
 #include <string>
 #include <functional>
+#include <unistd.h>
 
 //! 关于屏幕大小适配，以及图片资源的选择
 
@@ -31,5 +32,39 @@ void loadAllResourcesAsyc(const std::vector<std::string>& resources, const std::
 void loadAllResources(std::vector<std::string>& resources);
 //释放资源接口
 void releaseAllResources(const std::vector<std::string>& resources);
+
+
+//从资源配置文件中读取某些场景所需的资源名称
+std::vector<std::string> getResouces(const char* sceneName, ...);
+
+//获得一个函数，该函数可以用来创建一个场景
+template <class T, typename ...Args>
+inline const static std::function<T*()> genScene(Args... args){
+    return [=](){return T::create(args...);};
+}
+
+/*经过sec秒后执行函数callback*/
+template <typename F>
+void minLoadingTime(F callback, unsigned int sec)
+{
+    std::thread t([=](){
+        //wait sec seconds
+        sleep(sec);
+        cocos2d::Director::getInstance()->getScheduler()->performFunctionInCocosThread(callback);
+    });
+    t.detach();
+}
+
+//! 场景切换时，需要加载新场景的资源，释放旧场景的资源
+//     使用loading的引用计数来决定是否完成所有操作
+//@loading 模态进度条
+//@toLoadRes 需要加载的资源列表
+//@toRelease 需要释放的资源列表
+//@sceneGenFunc 创建新场景的函数
+//@delayTime 保证至少加载delayTime
+//@beforeCallback
+//@afterCallback
+void switchResources(cocos2d::Ref* loading, std::vector<std::string>& toLoadRes, std::vector<std::string> toReleaseRes, std::function<cocos2d::Scene*()> sceneGenFunc, int delayTime /*= 0*/, std::function<void(std::function<void()>&&)> beforeCallback, std::function<void()> afterCallback);
+
 
 #endif /* defined(__ResourcesManager__) */

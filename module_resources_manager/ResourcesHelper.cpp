@@ -195,3 +195,47 @@ void _asyncLoadThreadFunc(struct __Args* args)
         }
     }
 }
+
+std::vector<std::string> getResouces(const char* sceneName, ...)
+{
+    std::vector<std::string> resVec;
+    va_list pArg;
+    va_start(pArg, sceneName);
+    auto list = cocos2d::FileUtils::getInstance()->getValueMapFromFile("all-resources.plist"); //FIXME:
+    while (sceneName != nullptr) {
+        auto res = list[sceneName].asValueVector();
+        std::transform(res.begin(), res.end(), std::back_inserter(resVec), [](cocos2d::Value& v)->std::string{return v.asString();});
+        sceneName = va_arg(pArg, const char*);
+    }
+    va_end(pArg);
+    return resVec;
+}
+
+void switchResources(cocos2d::Ref* loading, std::vector<std::string>& toLoadRes, std::vector<std::string> toReleaseRes, std::function<cocos2d::Scene*()> sceneGenFunc, int delayTime /*= 0*/, std::function<void(std::function<void()>&&)> beforeCallback, std::function<void()> afterCallback)
+{
+    auto toSceneFunc = [=](){
+        loading->release();
+        if (loading->getReferenceCount() <= 1) {
+            auto scene = sceneGenFunc();
+            cocos2d::Director::getInstance()->replaceScene(scene);
+            /*release previos resources*/
+            releaseAllResources(toReleaseRes);
+            if(afterCallback) afterCallback();
+        }
+    };
+    loading->retain();
+    loadAllResourcesAsyc(toLoadRes, [=](int progress){
+        cocos2d::log("load progress: %d", progress);
+        if (progress == 0) {
+            toSceneFunc();
+        }
+    });
+    if (delayTime > 0) {
+        loading->retain();
+        minLoadingTime(toSceneFunc, delayTime);
+    }
+    if (beforeCallback) {
+        /*自己retain loading!!!*/
+        beforeCallback(toSceneFunc);
+    }
+}
