@@ -52,6 +52,8 @@
 		CF3549941A28249E00A740B9 /* DMTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF3549911A28249E00A740B9 /* DMTest.cpp */; };
 		CF71F0151A3092AD00E2E47F /* lookup_dict.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF71F0141A3092AD00E2E47F /* lookup_dict.cpp */; };
 		CF71F0161A3092AD00E2E47F /* lookup_dict.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF71F0141A3092AD00E2E47F /* lookup_dict.cpp */; };
+		CF71F01A1A3097F100E2E47F /* ClockTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF71F0181A3097F100E2E47F /* ClockTest.cpp */; };
+		CF71F01B1A3097F100E2E47F /* ClockTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF71F0181A3097F100E2E47F /* ClockTest.cpp */; };
 		CF89FE861A275899008A8174 /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF89FE841A275899008A8174 /* VisibleRect.cpp */; };
 		CF89FE871A275899008A8174 /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF89FE841A275899008A8174 /* VisibleRect.cpp */; };
 		CF9208021A30417600179373 /* ntpdate.c in Sources */ = {isa = PBXBuildFile; fileRef = CF9208011A30417600179373 /* ntpdate.c */; };
@@ -233,6 +235,8 @@
 		CF3549921A28249E00A740B9 /* DMTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMTest.h; sourceTree = "<group>"; };
 		CF71F0071A308D7000E2E47F /* ntpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ntpdate.h; sourceTree = "<group>"; };
 		CF71F0141A3092AD00E2E47F /* lookup_dict.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lookup_dict.cpp; path = ../../module_data_manager/lookup_dict.cpp; sourceTree = "<group>"; };
+		CF71F0181A3097F100E2E47F /* ClockTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ClockTest.cpp; sourceTree = "<group>"; };
+		CF71F0191A3097F100E2E47F /* ClockTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockTest.h; sourceTree = "<group>"; };
 		CF89FE841A275899008A8174 /* VisibleRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VisibleRect.cpp; sourceTree = "<group>"; };
 		CF89FE851A275899008A8174 /* VisibleRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisibleRect.h; sourceTree = "<group>"; };
 		CF89FEBE1A2764C4008A8174 /* libmdm_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmdm_ios.a; path = "../../DerivedData/all_libs/Build/Products/Debug-iphonesimulator/libmdm_ios.a"; sourceTree = "<group>"; };
@@ -368,6 +372,7 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CF71F0171A3097F100E2E47F /* clock_test */,
 				CFC123931A2DBDB1003AE428 /* httphelper_test */,
 				CFC1233F1A2D55CF003AE428 /* ios_test */,
 				CF3549901A28249E00A740B9 /* dm_test */,
@@ -519,6 +524,16 @@
 			);
 			name = dm_test;
 			path = ../Classes/dm_test;
+			sourceTree = "<group>";
+		};
+		CF71F0171A3097F100E2E47F /* clock_test */ = {
+			isa = PBXGroup;
+			children = (
+				CF71F0181A3097F100E2E47F /* ClockTest.cpp */,
+				CF71F0191A3097F100E2E47F /* ClockTest.h */,
+			);
+			name = clock_test;
+			path = ../Classes/clock_test;
 			sourceTree = "<group>";
 		};
 		CFB15FF4196EE3E500E76456 /* examples_test */ = {
@@ -892,6 +907,7 @@
 				CFB69D0A1A2F061E001897ED /* TimerManager.cpp in Sources */,
 				CFC123781A2D60C5003AE428 /* NotificationHelper.mm in Sources */,
 				CFC123701A2D5D9C003AE428 /* Reachability.m in Sources */,
+				CF71F01A1A3097F100E2E47F /* ClockTest.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				CFB69D061A2F061E001897ED /* IntervalAward.cpp in Sources */,
 				CF71F0151A3092AD00E2E47F /* lookup_dict.cpp in Sources */,
@@ -920,6 +936,7 @@
 				CFB16034196F98C600E76456 /* GlobalTestcases.cpp in Sources */,
 				5087E75717EB910900C73F5D /* AppDelegate.cpp in Sources */,
 				CF71F0161A3092AD00E2E47F /* lookup_dict.cpp in Sources */,
+				CF71F01B1A3097F100E2E47F /* ClockTest.cpp in Sources */,
 				CFB69CF91A2EE3E4001897ED /* FontHelper.cpp in Sources */,
 				CFC123901A2DBD5E003AE428 /* HttpHelper.cpp in Sources */,
 				CF89FE871A275899008A8174 /* VisibleRect.cpp in Sources */,

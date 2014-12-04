@@ -38,7 +38,7 @@ void IntervalAward::onTick(time_t current_time)
     _flag = true;
 }
 
-void IntervalAward::acceptAward(std::function<bool(bool,int, int)>& callback)
+void IntervalAward::acceptAward(const std::function<bool(bool,int, int)>& callback)
 {
     if (_lefttime == 0 &&
         callback(true, _awardsNum, _itemType)) {

@@ -64,7 +64,7 @@ void EverydayAward::onLogin(time_t current_time)
     LOCAL_VAR->persistDocument(config_file);
 }
 
-void EverydayAward::acceptAward(std::function<bool(bool,int, int)>& callback)
+void EverydayAward::acceptAward(const std::function<bool(bool,int, int)>& callback)
 {
     if (!_hasAcceptAward && callback(true, _awardsArr[_nthOnline], _itemType)) {
         _hasAcceptAward = true;

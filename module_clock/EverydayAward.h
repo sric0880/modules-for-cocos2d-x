@@ -19,7 +19,7 @@ public:
     //每次登陆游戏时调用
     void onLogin(time_t current_time);
     //接受奖励
-    void acceptAward(std::function<bool(bool,int, int)>&);
+    void acceptAward(const std::function<bool(bool,int, int)>&);
     //打印对象信息
     void debug();
     //获得连续登录的天数（包括当天）

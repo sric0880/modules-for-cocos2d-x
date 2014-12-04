@@ -18,7 +18,7 @@ public:
     void restartCount();
     //从配置文件加载
     void loadAward(const rapidjson::Value& value);
-    void acceptAward(std::function<bool(bool,int, int)>&);
+    void acceptAward(const std::function<bool(bool,int, int)>&);
     void debug();
     
     time_t getLeftTime();          //距下一次领奖的剩余时间(seconds)

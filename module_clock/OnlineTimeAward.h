@@ -19,7 +19,7 @@ public:
     void restartCount();
     //从配置文件加载
     void loadAward(const rapidjson::Value& value);
-    void acceptAward(std::function<bool(bool /*hasTimeUp*/,int/* awardsNum*/, int/* itemType*/)>&);
+    void acceptAward(const std::function<bool(bool /*hasTimeUp*/,int/* awardsNum*/, int/* itemType*/)>&);
     void debug();
     
     time_t getLeftTime();

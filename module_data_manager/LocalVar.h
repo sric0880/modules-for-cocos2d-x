@@ -84,6 +84,7 @@ std::shared_ptr<DocumentType> JsonIO<DocumentType>::getDocument(const char* file
 #if __AES__
     cocos2d::Data data = cocos2d::FileUtils::getInstance()->getDataFromFile(filename);
     if (data.isNull()) {
+        document->SetObject();
         return document;
     }
     unsigned char* bytes = data.getBytes();
@@ -94,6 +95,7 @@ std::shared_ptr<DocumentType> JsonIO<DocumentType>::getDocument(const char* file
 #else
     std::string contentStr = cocos2d::FileUtils::getInstance()->getStringFromFile(filename);
     if (contentStr == "") {//if the file not found, also return a empty document
+        document->SetObject();
         return document;
     }
     content = contentStr.c_str();

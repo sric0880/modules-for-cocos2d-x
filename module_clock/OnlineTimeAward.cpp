@@ -83,7 +83,7 @@ void OnlineTimeAward::onTick(time_t current_time)
     }
 }
 
-void OnlineTimeAward::acceptAward(std::function<bool(bool,int, int)>& callback)
+void OnlineTimeAward::acceptAward(const std::function<bool(bool,int, int)>& callback)
 {
     if (_leftDuration == 0 && callback(true, _awardsNum, _itemType)) {
         restartCount();

@@ -1,0 +1,28 @@
+{
+  "Interval":
+  [
+    {
+      "id":0,
+      "interval":1000,
+      "awardsNum":200,
+      "itemType":0
+    },
+    {
+      "id":1,
+      "interval":1000,
+      "awardsNum":200,
+      "itemType":0
+    }
+  ],
+  "DayAfterDay":
+  {
+    "itemType":1,
+    "awardsNums":[100,200,300,400,500,600,700]
+  },
+  "OnlineTime":
+  {
+    "duration":100000,
+    "itemType":1,
+    "awardsNum":100
+  }
+}

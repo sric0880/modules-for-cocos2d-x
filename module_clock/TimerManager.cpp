@@ -29,7 +29,7 @@ void TimerManager::fetchTime(const std::function<void(time_t)>& callback)
             cocos2d::log("Fetch ntp time fail.");
         }else{
             cocos2d::log("Current time: %s", ctime(&ct));
-            
+            _current_time = ct;
             /*Load json config*/
             auto& doc = LOCAL_VAR->getDocument("times.json");
             auto& value1 = doc["Interval"];
@@ -50,13 +50,13 @@ void TimerManager::fetchTime(const std::function<void(time_t)>& callback)
             _everydayAwd.loadAward(value2);
             _onlineAwd.loadAward(value3);
             
-            _current_time = ct;
             
             _everydayAwd.onLogin(ct);
             _everydayAwd.debug();
             
             
             auto scheduler = cocos2d::Director::getInstance()->getScheduler();
+            // tick every second
             scheduler->schedule([this](float delta)
                                 {
                                     ++_current_time;
@@ -66,6 +66,7 @@ void TimerManager::fetchTime(const std::function<void(time_t)>& callback)
                                     }
                                 }, this, 1.0f, false, "intervals_schedule");
             
+            // tick every minute
             scheduler->schedule([this](float delta)
                                 {
                                     _onlineAwd.onTick(_current_time);
