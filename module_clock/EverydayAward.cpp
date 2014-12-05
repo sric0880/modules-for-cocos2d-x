@@ -8,6 +8,7 @@
 #include "EverydayAward.h"
 #include "TimerManager.h"
 #include <LocalVar.h>
+#include <iterator>
 
 extern const char* config_file;
 const char* const param1 = "dayAfterDay_nthOnline";

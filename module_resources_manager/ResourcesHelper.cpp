@@ -9,7 +9,7 @@
 #include "AudioHelper.h"
 
 #include <thread>
-#include <ZipUtils.h>
+#include <base/ZipUtils.h>
 #include <algorithm>
 #include <mutex>
 #include <condition_variable>

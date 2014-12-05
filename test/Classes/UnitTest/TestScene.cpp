@@ -1,7 +1,5 @@
 #include "TestScene.h"
 #include "VisibleRect.h"
-#include "extensions/cocos-ext.h"
-#include "cocostudio/CocoStudio.h"
 
 TestScene::TestScene(bool bPortrait, bool physics/* = false*/)
 {

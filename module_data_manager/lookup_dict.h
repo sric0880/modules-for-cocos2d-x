@@ -8,7 +8,7 @@
 #ifndef __Lookup_dict_H__
 #define __Lookup_dict_H__
 
-#include <cocos/platform/CCFileUtils.h>
+#include <platform/CCFileUtils.h>
 
 inline std::string getWritableFilename(const std::string& filename)
 {

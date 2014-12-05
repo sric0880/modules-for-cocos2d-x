@@ -5,8 +5,8 @@
 //
 //
 #include "TimerManager.h"
-#include "CCDirector.h"
-#include "CCScheduler.h"
+#include <base/CCScheduler.h>
+#include <base/CCDirector.h>
 #include "ntpdate.h"
 #include <LocalVar.h>
 

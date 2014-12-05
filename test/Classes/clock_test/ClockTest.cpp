@@ -31,7 +31,6 @@ bool ClockTestLayer::init()
     strftime(strtime, sizeof(strtime), "%H:%M:%S", lt);
     log("%s", strtime);
     
-    FileUtils::getInstance()->addSearchPath("config");
     TimerManager* timerManager = TimerManager::getInstance();
     timerManager->fetchTime([=](time_t ct){
         if (ct == 0) {

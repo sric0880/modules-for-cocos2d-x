@@ -3,8 +3,12 @@
 **cocos2d-x版本：3.2**
 
 ##1. 单元测试
-所有的模块的单元测试在`test`文件夹下。  
+所有的模块的单元测试在`test`文件夹下。
+
 ios,mac用户打开`test/proj.ios_mac/test.xcodeproj`, 修改部分引用路径，直接编译运行即可。
+
+android用户可以将`test/proj.andorid`项目导入到eclipse中，修改重新配置相关项目属性，并修改`Android.mk`文件，直接编译运行即可。
+
 ##2. 数据管理
 使用JSON数据格式，json文件的解析采用`rapidjson`，github地址为 https://github.com/miloyip/rapidjson （cocos2d-x 3.x已经集成了`rapidjson`）
 

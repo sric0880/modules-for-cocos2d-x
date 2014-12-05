@@ -33,6 +33,9 @@ int splitUtf8(const char * src, vector<string>& des);
  *	@return	字符串长度
 **/
 int splitUtf8(const char * src);
+
+#if defined(CC_TARGET_OS_MAC) || defined(CC_TARGET_OS_IPHONE)
 std::string md5(const char* str);
+#endif
 
 #endif

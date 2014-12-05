@@ -10,7 +10,7 @@
 
 #include <string>
 #include <vector>
-#include <CCUserDefault.h>
+#include <base/CCUserDefault.h>
 
 //预加载背景音乐
 void preloadBgMusic(const std::vector<std::string>& bgMuscNames);

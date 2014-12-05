@@ -227,7 +227,6 @@ void DMTest::testLocalVar()
 #else
     cocos2d::FileUtils::getInstance()->addSearchPath("origin");
 #endif
-    
     //To Remember load the lookup dictionary
     LookUpDict::loadFilenameLookupDictionary();
     

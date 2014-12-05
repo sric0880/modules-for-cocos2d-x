@@ -6,8 +6,9 @@
 //
 
 #include "StringUtil.h"
-
 #include <string.h>
+
+#include <CommonCrypto/CommonDigest.h>
 
 int splitUtf8(const char * src, vector<string>& des)
 {
@@ -57,7 +58,7 @@ int splitUtf8(const char * src)
     return i;
 }
 
-#import <CommonCrypto/CommonDigest.h>
+#if defined(CC_TARGET_OS_MAC) || defined(CC_TARGET_OS_IPHONE)
 std::string md5(const char* str){
     if (!str || strlen(str) == 0) {
         return "";
@@ -72,3 +73,4 @@ std::string md5(const char* str){
     }
     return res;
 }
+#endif
